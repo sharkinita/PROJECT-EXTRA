@@ -37,7 +37,6 @@
             min-height: 100vh;
         }
 
-        /* Neumorphic Clay Card Base Style */
         .clay-card {
             background: #FFFFFF;
             border-radius: 2rem;
@@ -49,7 +48,6 @@
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* Glassmorphism Frosted Gradient Header & Card Overlay */
         .glass-gradient-panel {
             background: linear-gradient(135deg, rgba(255, 214, 224, 0.85) 0%, rgba(224, 222, 255, 0.85) 50%, rgba(199, 235, 255, 0.85) 100%);
             backdrop-filter: blur(16px);
@@ -62,7 +60,6 @@
             border-radius: 2rem;
         }
 
-        /* Claymorphic Interactive Portal Button */
         .clay-button-card {
             background: linear-gradient(145deg, #FFFFFF, #F1F5F9);
             border-radius: 1.75rem;
@@ -85,14 +82,6 @@
                 inset 1px 1px 2px rgba(255, 255, 255, 1);
         }
 
-        .clay-button-card:active {
-            transform: translateY(2px) scale(0.98);
-            box-shadow: 
-                inset 4px 4px 8px rgba(160, 180, 205, 0.3),
-                inset -4px -4px 8px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Disabled Button Style for "Available Soon" */
         .clay-button-disabled {
             background: linear-gradient(145deg, #94A3B8, #64748B);
             border-radius: 1.75rem;
@@ -106,7 +95,6 @@
             opacity: 0.95;
         }
 
-        /* Pill Clay Button */
         .pill-btn {
             border-radius: 9999px;
             box-shadow: 
@@ -120,11 +108,7 @@
                 6px 9px 16px rgba(140, 165, 195, 0.4),
                 -5px -5px 12px rgba(255, 255, 255, 1);
         }
-        .pill-btn:active {
-            transform: translateY(1px);
-        }
 
-        /* Glowing Animated Title */
         .glowing-title {
             background: linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #DB2777 100%);
             -webkit-background-clip: text;
@@ -138,7 +122,6 @@
             100% { filter: drop-shadow(0px 6px 18px rgba(219, 39, 119, 0.5)); }
         }
 
-        /* Pastel Accent Knobs / Dots */
         .clay-knob {
             width: 32px;
             height: 32px;
@@ -152,16 +135,14 @@
 
         @media print {
             .no-print, header, footer, button, .notifications-bar { display: none !important; }
-            .print-container { width: 100% !important; border: none !important; box-shadow: none !important; }
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col text-slate-800 antialiased p-3 sm:p-6 md:p-8">
 
-    <!-- GLOBAL CLAYMorphic NAVIGATION HEADER -->
+    <!-- GLOBAL HEADER -->
     <header class="clay-card max-w-7xl mx-auto w-full px-6 py-4 mb-6 sticky top-4 z-40 no-print">
         <div class="flex justify-between items-center">
-            <!-- Left: School Logo & Identity -->
             <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-extrabold text-xl shadow-md border border-white/60">
                     VIS
@@ -172,7 +153,6 @@
                 </div>
             </div>
 
-            <!-- Right: User Account Controls & Offline Status -->
             <div class="flex items-center space-x-3">
                 <div id="connection-status-badge" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-[11px] font-bold border border-emerald-200">
                     <span id="conn-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -184,96 +164,79 @@
                         <p id="user-badge-name" class="text-xs font-extrabold text-slate-900">Sharlynne Francisco</p>
                         <p id="user-badge-role" class="text-[10px] text-slate-500 font-medium">Teacher II / ICT Coordinator</p>
                     </div>
-                    <button onclick="handleUserLogout()" title="Sign Out Account" class="pill-btn bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition-all flex items-center justify-center">
+                    <button onclick="handleUserLogout()" title="Sign Out" class="pill-btn bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition-all flex items-center justify-center">
                         <i data-lucide="log-out" class="w-4 h-4"></i>
                     </button>
                 </div>
 
-                <button id="main-signin-btn" onclick="openModal('modal-login')" class="pill-btn px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-lg flex items-center gap-2">
+                <button id="main-signin-btn" onclick="openModal('modal-login')" class="pill-btn px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-lg flex items-center gap-2">
                     <i data-lucide="shield-check" class="w-4 h-4"></i> Sign In Account
                 </button>
             </div>
         </div>
     </header>
 
-
-    <!-- MAIN CONTENT CONTAINER -->
+    <!-- MAIN CONTAINER -->
     <main class="max-w-7xl mx-auto w-full flex-grow">
 
-        <!-- HOME-ONLY SECTION -->
         <div id="home-only-wrapper" class="space-y-8">
-
-            <!-- HERO SECTION -->
+            <!-- HERO -->
             <section class="clay-card p-6 sm:p-8 relative overflow-hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                     <div class="lg:col-span-7 space-y-4">
                         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold border border-white shadow-inner">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Offline Draft Mode & Online Approval Portal
+                            Offline Draft Management & Online Approval
                         </div>
-
-                        <h2 onclick="openModal('modal-project-info')" class="text-3xl sm:text-5xl font-extrabold tracking-tight cursor-pointer leading-tight">
+                        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
                             Welcome to <br>
                             <span class="glowing-title">Project EXTRA</span>
                         </h2>
-
                         <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal max-w-xl">
-                            Maaari kang gumawa at mag-save ng mga report offline nang direkta sa iyong device. Kakailanganin lamang ang internet kapag isusumite na ito para sa pagpapatibay.
+                            Maaari kang gumawa, mag-edit, at mag-save ng mga draft offline nang direkta sa iyong device. May listahan ng saved drafts sa bawat pindutan.
                         </p>
-
-                        <div class="pt-2">
-                            <p class="text-xs font-extrabold text-slate-700 bg-slate-100/70 inline-block px-4 py-2 rounded-2xl border border-white">
-                                Proponents: <span class="text-indigo-600">Sharlynne Mae P. Veracruz-Francisco & Monica V. Castillo</span>
-                            </p>
-                        </div>
                     </div>
-
                     <div class="lg:col-span-5">
-                        <div class="glass-gradient-panel h-64 sm:h-80 w-full p-6 flex flex-col justify-between relative overflow-hidden group">
+                        <div class="glass-gradient-panel h-64 sm:h-80 w-full p-6 flex flex-col justify-between relative overflow-hidden">
                             <div class="flex justify-between items-start relative z-10">
                                 <span class="text-xs font-extrabold tracking-widest text-slate-800 uppercase bg-white/60 backdrop-blur-md px-3 py-1 rounded-full border border-white">
                                     Offline Storage Ready
-                                }}</span>
+                                </span>
                                 <div class="clay-knob flex items-center justify-center">
                                     <i data-lucide="hard-drive" class="w-4 h-4 text-indigo-600"></i>
                                 </div>
                             </div>
                             <div class="relative z-10 space-y-2">
-                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Auto Local Save</p>
-                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Walang Internet? Walang Problema</h3>
-                                <p class="text-[11px] text-slate-700 leading-normal">
-                                    Lahat ng iyong draft ay ligtas na nakaimbak sa iyong browser hanggang sa i-click mo ang submit.
-                                </p>
+                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Local Draft List</p>
+                                <h3 class="text-2xl font-black text-slate-900 leading-snug">I-edit at I-save Offline</h3>
+                                <p class="text-[11px] text-slate-700 leading-normal">Lahat ng ginawa mong draft ay nakalista para sa madaling pag-edit bago i-submit.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- SMART NOTIFICATION MONITOR -->
+            <!-- NOTIFICATION MONITOR -->
             <section id="notification-monitor-section" class="hidden clay-card p-6 border-l-8 border-amber-400 space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                     <h3 class="font-extrabold text-sm text-slate-900 flex items-center gap-2">
                         <i data-lucide="bell" class="w-5 h-5 text-amber-500"></i> Submitted Reports & Offline Queue Status
                     </h3>
-                    <span class="pill-btn px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-[10px]">
-                        Live Tracker
-                    </span>
+                    <span class="pill-btn px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-[10px]">Live Tracker</span>
                 </div>
                 <div id="submissions-status-list" class="space-y-3"></div>
             </section>
 
-            <!-- PORTAL SERVICES HEADER -->
+            <!-- SERVICES HEADER -->
             <div class="text-center py-2 space-y-1">
                 <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase">
                     DOCUMENT CREATION & PORTAL SERVICES
                 </h2>
-                <p class="text-xs text-slate-500 font-medium">Pumili ng active workspace card sa ibaba para magsimulang mag-draft offline</p>
+                <p class="text-xs text-slate-500 font-medium">Pumili ng active workspace card para makita ang mga saved drafts o gumawa ng bago</p>
             </div>
 
-            <!-- PORTAL BUTTONS GRID -->
+            <!-- BUTTONS GRID -->
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-
                 <!-- Active 1: School Forms -->
                 <div onclick="accessFeature('school-forms')" class="clay-button-card p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
@@ -308,90 +271,17 @@
                     </div>
                 </div>
 
-                <!-- Disabled 10 Buttons (Available Soon) -->
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
-                            <i data-lucide="calculator" class="w-5 h-5"></i>
-                        </div>
-                        <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
-                    </div>
-                    <div><h3 class="font-extrabold text-white text-base tracking-wide">GRADING SHEET</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Auto-Transmutation</p></div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
-                </div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="file-question" class="w-5 h-5"></i></div>
-                        <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
-                    </div>
-                    <div><h3 class="font-extrabold text-white text-base tracking-wide">TEST QUESTIONS</h3><p class="text-[11px] text-slate-200 font-medium mt-1">TOS Generator</p></div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
-                </div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div>
-                        <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
-                    </div>
-                    <div><h3 class="font-extrabold text-white text-base tracking-wide">ITEM ANALYSIS</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Difficulty Index</p></div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
-                </div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="alert-circle" class="w-5 h-5"></i></div>
-                        <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
-                    </div>
-                    <div><h3 class="font-extrabold text-white text-base tracking-wide">LEAST MASTERED</h3><p class="text-[11px] text-slate-200 font-medium mt-1">74% Below Priority</p></div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
-                </div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="target" class="w-5 h-5"></i></div>
-                        <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
-                    </div>
-                    <div><h3 class="font-extrabold text-white text-base tracking-wide">ACTION PLAN</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Strategy Builder</p></div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
-                </div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="award" class="w-5 h-5"></i></div>
-                        <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
-                    </div>
-                    <div><h3 class="font-extrabold text-white text-base tracking-wide">ACCOMPLISHMENT</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Narrative Report</p></div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
-                </div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="file-check" class="w-5 h-5"></i></div>
-                        <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
-                    </div>
-                    <div><h3 class="font-extrabold text-white text-base tracking-wide">E-IPCRF</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Performance Assessment</p></div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
-                </div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="microscope" class="w-5 h-5"></i></div>
-                        <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
-                    </div>
-                    <div><h3 class="font-extrabold text-white text-base tracking-wide">RESEARCH</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Action Research Vault</p></div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
-                </div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="clock" class="w-5 h-5"></i></div>
-                        <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
-                    </div>
-                    <div><h3 class="font-extrabold text-white text-base tracking-wide">EMERGENCY PROGRAM</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Substitute Scheduler</p></div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
-                </div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="lightbulb" class="w-5 h-5"></i></div>
-                        <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
-                    </div>
-                    <div><h3 class="font-extrabold text-white text-base tracking-wide">INNOVATION / PROJECT</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Project Proposals</p></div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
-                </div>
-
+                <!-- Disabled 10 Buttons -->
+                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="calculator" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">GRADING SHEET</h3><p class="text-[11px] text-slate-200">Auto-Transmutation</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="file-question" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">TEST QUESTIONS</h3><p class="text-[11px] text-slate-200">TOS Generator</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ITEM ANALYSIS</h3><p class="text-[11px] text-slate-200">Difficulty Index</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="alert-circle" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">LEAST MASTERED</h3><p class="text-[11px] text-slate-200">74% Below Priority</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="target" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ACTION PLAN</h3><p class="text-[11px] text-slate-200">Strategy Builder</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="award" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ACCOMPLISHMENT</h3><p class="text-[11px] text-slate-200">Narrative Report</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="file-check" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">E-IPCRF</h3><p class="text-[11px] text-slate-200">Performance Assessment</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="microscope" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">RESEARCH</h3><p class="text-[11px] text-slate-200">Action Research Vault</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="clock" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">EMERGENCY PROGRAM</h3><p class="text-[11px] text-slate-200">Substitute Scheduler</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="lightbulb" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">INNOVATION / PROJECT</h3><p class="text-[11px] text-slate-200">Project Proposals</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
             </section>
         </div>
 
@@ -402,8 +292,8 @@
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> ← Return to Home Hub
                 </button>
                 <div class="flex items-center gap-3">
-                    <button onclick="saveDraftLocally()" class="pill-btn px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center gap-1.5">
-                        <i data-lucide="save" class="w-3.5 h-3.5"></i> Save Offline Draft
+                    <button onclick="createNewOfflineDraft()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5">
+                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Gumawa ng Bagong Draft Offline
                     </button>
                     <span id="active-feature-label" class="text-xs font-black text-indigo-600 uppercase tracking-wider bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
                         Workspace View
@@ -411,12 +301,13 @@
                 </div>
             </div>
 
+            <!-- Listahan ng mga Saved Drafts at Editor Area -->
             <div id="workspace-body-content" class="clay-card p-8 space-y-6"></div>
         </section>
 
     </main>
 
-    <!-- MODALS -->
+    <!-- LOGIN MODAL -->
     <div id="modal-login" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clay-card max-w-md w-full overflow-hidden p-8 space-y-6 border border-white">
             <div class="text-center space-y-2">
@@ -426,7 +317,6 @@
                 <h3 class="font-black text-xl text-slate-900">Project EXTRA Verification</h3>
                 <p class="text-xs text-slate-500 font-medium">I-verify ang iyong official DepEd email</p>
             </div>
-
             <form onsubmit="handleAccountLogin(event)" class="space-y-4 text-xs">
                 <div id="email-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
                     Maling email. Mangyaring gumamit ng @deped.gov.ph account.
@@ -471,14 +361,14 @@
                 </div>
                 <div class="pt-2">
                     <button type="submit" class="pill-btn w-full py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-lg">
-                        Mag-sign In offline/online
+                        Mag-sign In Offline/Online
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- ONEDRIVE / SUBMISSION SYNC MODAL -->
+    <!-- ONEDRIVE SYNC MODAL -->
     <div id="modal-onedrive" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clay-card max-w-sm w-full p-8 text-center space-y-6 border border-white">
             <div class="w-16 h-16 bg-sky-100 text-oneDriveBlue rounded-3xl flex items-center justify-center mx-auto shadow-inner">
@@ -487,7 +377,7 @@
             <div class="space-y-2">
                 <h3 class="font-black text-xl text-slate-900">Kailangan ng Internet Connection</h3>
                 <p class="text-xs text-slate-500 font-medium leading-relaxed">
-                    Naka-save nang lokal ang iyong draft. Para ma-submit ito at ma-sync sa OneDrive at sa mga opisyal, mangyaring kumonekta sa internet.
+                    Naka-save ang draft offline. Para ma-submit ito online sa Master Teacher at Principal, mangyaring kumonekta sa internet.
                 </p>
             </div>
             <button onclick="confirmSubmissionSync()" class="pill-btn w-full py-3.5 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg">
@@ -496,10 +386,11 @@
         </div>
     </div>
 
-    <!-- SYSTEM JAVASCRIPT ENGINE -->
+    <!-- SCRIPT ENGINE -->
     <script>
         let currentUser = null;
-        let pendingFeatureKey = null;
+        let activeFeatureKey = null;
+        let activeDraftId = null;
         let submittedReports = [];
 
         const validDepEdEmails = [
@@ -536,7 +427,7 @@
             } else {
                 badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 rounded-full text-[11px] font-bold border border-amber-200";
                 dot.className = "w-2 h-2 rounded-full bg-amber-500";
-                text.innerText = "Offline Mode (Draft Local)";
+                text.innerText = "Offline Mode (Local)";
             }
         }
 
@@ -585,7 +476,7 @@
             document.getElementById('main-signin-btn').classList.add('hidden');
 
             closeModal('modal-login');
-            if (pendingFeatureKey) accessFeature(pendingFeatureKey);
+            if (activeFeatureKey) accessFeature(activeFeatureKey);
         }
 
         function handleUserLogout() {
@@ -599,7 +490,7 @@
         }
 
         function accessFeature(featureKey) {
-            pendingFeatureKey = featureKey;
+            activeFeatureKey = featureKey;
             if (!currentUser) {
                 openModal('modal-login');
                 return;
@@ -607,81 +498,129 @@
             openWorkspace(featureKey);
         }
 
+        function getStoredDrafts(key) {
+            const data = localStorage.getItem('drafts_' + key);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveStoredDrafts(key, drafts) {
+            localStorage.setItem('drafts_' + key, JSON.stringify(drafts));
+        }
+
         function openWorkspace(key) {
             document.getElementById('home-only-wrapper').classList.add('hidden');
             document.getElementById('workspace-view-container').classList.remove('hidden');
             document.getElementById('active-feature-label').innerText = key.replace('-', ' ') + ' Workspace';
 
-            const body = document.getElementById('workspace-body-content');
-            let savedDraft = localStorage.getItem('draft_' + key) || '';
+            renderDraftsList(key);
+        }
 
-            if (key === 'school-forms') {
-                body.innerHTML = `
-                    <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-                        <div>
-                            <h3 class="font-extrabold text-lg text-slate-900">School Forms Repository (Offline Ready)</h3>
-                            <p class="text-xs text-slate-500 font-medium">Maaari mong tignan at i-edit ang mga pormularyo nang offline.</p>
-                        </div>
-                        <span class="pill-btn px-4 py-1.5 bg-blue-50 text-blue-700 font-bold text-xs">Offline Mode Active</span>
+        function renderDraftsList(key) {
+            const body = document.getElementById('workspace-body-content');
+            const drafts = getStoredDrafts(key);
+
+            let draftsHtml = drafts.map((d, index) => `
+                <div class="p-4 bg-white rounded-2xl border border-slate-200 flex justify-between items-center shadow-sm">
+                    <div>
+                        <h4 class="font-extrabold text-slate-900 text-sm">${d.title || ('Draft #' + (index + 1))}</h4>
+                        <p class="text-[11px] text-slate-500">Huling na-update: ${d.updatedAt || 'Kamakailan'}</p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs pt-2">
-                        <div class="p-6 border rounded-3xl bg-slate-50/70 space-y-3">
-                            <h4 class="font-extrabold text-slate-900 text-sm">SF 1 - School Register</h4>
-                            <p class="text-[11px] text-slate-500">Master list ng mga mag-aaral.</p>
-                            <button onclick="alert('Binubuksan ang SF1 offline template...')" class="pill-btn w-full py-2 bg-slate-900 text-white font-bold">Buksan ang SF1</button>
-                        </div>
+                    <div class="flex gap-2">
+                        <button onclick="editDraft('${key}', '${d.id}')" class="pill-btn px-4 py-1.5 bg-slate-900 text-white font-bold text-xs">I-edit</button>
+                        <button onclick="deleteDraft('${key}', '${d.id}')" class="pill-btn px-3 py-1.5 bg-red-100 text-red-700 font-bold text-xs">Burahin</button>
                     </div>
-                `;
-            } else {
-                body.innerHTML = `
-                    <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-                        <h3 class="font-black text-lg text-slate-900 uppercase tracking-tight">${key.replace('-', ' ')} EDITOR</h3>
-                        <button onclick="triggerSubmitWorkflow('${key}')" class="pill-btn px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-md">
-                            I-submit Online para sa Pag-apruba
-                        </button>
-                    </div>
-                    <div class="p-6 rounded-3xl bg-slate-50/70 space-y-4 border border-slate-200/80">
-                        <div class="text-center font-bold text-xs leading-relaxed">
-                            <p class="text-slate-500">DEPARTMENT OF EDUCATION • REGION II • DIVISION OF BATANES</p>
-                            <p class="text-indigo-600 text-sm font-black">VALUGAN INTEGRATED SCHOOL</p>
-                        </div>
-                        <p class="text-xs text-slate-600 font-medium">Maaari kang mag-type dito kahit walang internet. Auto-saved sa iyong device.</p>
-                        <div class="overflow-x-auto rounded-2xl border border-slate-200">
-                            <table class="w-full text-xs border-collapse bg-white">
-                                <thead class="bg-slate-100 font-bold text-slate-700">
-                                    <tr>
-                                        <th class="border-b p-3 text-center">Item #</th>
-                                        <th class="border-b p-3 text-left">Description / Competency</th>
-                                        <th class="border-b p-3 text-left">Target Output</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="hover:bg-slate-50">
-                                        <td class="border-b p-3 text-center font-bold">1</td>
-                                        <td class="border-b p-3" contenteditable="true" id="draft-cell-1">${savedDraft || 'I-type ang mga detalye dito offline...'}</td>
-                                        <td class="border-b p-3" contenteditable="true" id="draft-cell-2">100% Target Met</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                `;
+                </div>
+            `).join('');
+
+            if (drafts.length === 0) {
+                draftsHtml = `<p class="text-xs text-slate-500 italic text-center py-4">Wala pang nakaimbak na saved draft offline para sa seksyong ito. I-click ang "Gumawa ng Bagong Draft Offline" sa itaas.</p>`;
             }
+
+            body.innerHTML = `
+                <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                    <div>
+                        <h3 class="font-extrabold text-lg text-slate-900 uppercase">${key.replace('-', ' ')} - Listahan ng Saved Drafts</h3>
+                        <p class="text-xs text-slate-500 font-medium">Lahat ng ginawa mong draft ay nakasave offline sa iyong browser.</p>
+                    </div>
+                </div>
+                <div class="space-y-3 pt-2">
+                    ${draftsHtml}
+                </div>
+            `;
             lucide.createIcons();
         }
 
-        function saveDraftLocally() {
-            const cellText = document.getElementById('draft-cell-1') ? document.getElementById('draft-cell-1').innerText : '';
-            if (pendingFeatureKey) {
-                localStorage.setItem('draft_' + pendingFeatureKey, cellText);
-                alert("Tagumpay na na-save ang draft nang offline sa iyong device!");
+        function createNewOfflineDraft() {
+            const drafts = getStoredDrafts(activeFeatureKey);
+            const newId = 'DRAFT-' + Date.now();
+            const newDraft = {
+                id: newId,
+                title: (activeFeatureKey.toUpperCase() + ' - Draft ' + (drafts.length + 1)),
+                content: 'I-type ang mga detalye ng report dito nang offline...',
+                updatedAt: new Date().toLocaleString()
+            };
+            drafts.push(newDraft);
+            saveStoredDrafts(activeFeatureKey, drafts);
+            editDraft(activeFeatureKey, newId);
+        }
+
+        function editDraft(key, draftId) {
+            activeDraftId = draftId;
+            const drafts = getStoredDrafts(key);
+            const draft = drafts.find(d => d.id === draftId);
+            if (!draft) return;
+
+            const body = document.getElementById('workspace-body-content');
+            body.innerHTML = `
+                <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <button onclick="renderDraftsList('${key}')" class="pill-btn px-3 py-1 bg-slate-200 text-slate-700 font-bold text-xs">← Bumalik sa Listahan</button>
+                        <h3 class="font-black text-base text-slate-900">Naka-edit: <input type="text" id="draft-title-input" value="${draft.title}" class="border rounded px-2 py-1 text-xs font-bold bg-slate-50"></h3>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">I-save ang Draft Offline</button>
+                        <button onclick="triggerSubmitWorkflow()" class="pill-btn px-5 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs">I-submit Online</button>
+                    </div>
+                </div>
+                <div class="p-6 rounded-3xl bg-slate-50/70 space-y-4 border border-slate-200/80">
+                    <div class="text-center font-bold text-xs leading-relaxed">
+                        <p class="text-slate-500">DEPARTMENT OF EDUCATION • REGION II • DIVISION OF BATANES</p>
+                        <p class="text-indigo-600 text-sm font-black">VALUGAN INTEGRATED SCHOOL</p>
+                    </div>
+                    <div class="p-4 bg-white rounded-2xl border border-slate-200 min-h-[180px] outline-none text-xs leading-relaxed" contenteditable="true" id="draft-content-editable">${draft.content}</div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function saveCurrentDraft(key) {
+            const drafts = getStoredDrafts(key);
+            const titleInput = document.getElementById('draft-title-input').value;
+            const contentInput = document.getElementById('draft-content-editable').innerHTML;
+
+            const index = drafts.findIndex(d => d.id === activeDraftId);
+            if (index !== -1) {
+                drafts[index].title = titleInput;
+                drafts[index].content = contentInput;
+                drafts[index].updatedAt = new Date().toLocaleString();
+                saveStoredDrafts(key, drafts);
+                alert("Tagumpay na na-save ang pagbabago sa offline draft!");
             }
         }
 
-        function triggerSubmitWorkflow(key) {
-            saveDraftLocally();
+        function deleteDraft(key, draftId) {
+            if (confirm("Sigurado ka bang gusto mong burahin ang draft na ito?")) {
+                let drafts = getStoredDrafts(key);
+                drafts = drafts.filter(d => d.id !== draftId);
+                saveStoredDrafts(key, drafts);
+                renderDraftsList(key);
+            }
+        }
+
+        function triggerSubmitWorkflow() {
+            saveCurrentDraft(activeFeatureKey);
             if (!navigator.onLine) {
-                openModal('modal-onedrive'); // Mag-a-alert na kailangan ng internet para sa pormal na submission
+                openModal('modal-onedrive');
                 return;
             }
             confirmSubmissionSync();
@@ -689,18 +628,18 @@
 
         function confirmSubmissionSync() {
             closeModal('modal-onedrive');
-            const reportName = (pendingFeatureKey || 'REPORT').replace('-', ' ').toUpperCase();
+            const reportName = (activeFeatureKey || 'REPORT').replace('-', ' ').toUpperCase();
             submittedReports.unshift({
                 id: 'REP-' + Math.floor(100 + Math.random() * 900),
-                title: reportName + ' Report',
+                title: reportName + ' (Offline Synced)',
                 author: currentUser ? currentUser.name : 'Teacher',
-                status: 'Pending MT Review (Online Synced)',
+                status: 'Pending MT Review (Online)',
                 timestamp: new Date().toLocaleTimeString()
             });
 
             localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
             renderNotificationMonitor();
-            alert("Na-sync at naisumite na ang report online sa Master Teacher at Principal!");
+            alert("Na-sync at naisumite na online ang iyong offline draft!");
             returnToHomeHub();
         }
 
