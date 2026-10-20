@@ -138,7 +138,7 @@
             100% { filter: drop-shadow(0px 6px 18px rgba(219, 39, 119, 0.5)); }
         }
 
-        /* Pastel Accent Knobs / Dots (from UI Ref) */
+        /* Pastel Accent Knobs / Dots */
         .clay-knob {
             width: 32px;
             height: 32px;
@@ -172,15 +172,13 @@
                 </div>
             </div>
 
-            <!-- Nav Top Menu Links -->
-            <div class="hidden md:flex items-center space-x-6 text-xs font-bold text-slate-500">
-                <span class="hover:text-slate-900 transition-colors cursor-pointer" onclick="returnToHomeHub()">Home</span>
-                <span class="hover:text-slate-900 transition-colors cursor-pointer" onclick="openModal('modal-project-info')">About EXTRA</span>
-                <span class="hover:text-slate-900 transition-colors cursor-pointer" onclick="openModal('modal-onedrive')">Cloud Sync</span>
-            </div>
-
-            <!-- Right: User Account Controls -->
+            <!-- Right: User Account Controls & Offline Status -->
             <div class="flex items-center space-x-3">
+                <div id="connection-status-badge" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-[11px] font-bold border border-emerald-200">
+                    <span id="conn-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span id="conn-text">Online Mode</span>
+                </div>
+
                 <div id="user-badge" class="hidden flex items-center space-x-3 bg-slate-100/80 px-4 py-2 rounded-full border border-white shadow-inner">
                     <div class="text-right">
                         <p id="user-badge-name" class="text-xs font-extrabold text-slate-900">Sharlynne Francisco</p>
@@ -202,20 +200,16 @@
     <!-- MAIN CONTENT CONTAINER -->
     <main class="max-w-7xl mx-auto w-full flex-grow">
 
-        <!-- ========================================================= -->
         <!-- HOME-ONLY SECTION -->
-        <!-- ========================================================= -->
         <div id="home-only-wrapper" class="space-y-8">
 
-            <!-- 1. HERO SECTION -->
+            <!-- HERO SECTION -->
             <section class="clay-card p-6 sm:p-8 relative overflow-hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    
-                    <!-- Left Hero Content -->
                     <div class="lg:col-span-7 space-y-4">
                         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold border border-white shadow-inner">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Official e-Xpedited Approval Web Portal
+                            Offline Draft Mode & Online Approval Portal
                         </div>
 
                         <h2 onclick="openModal('modal-project-info')" class="text-3xl sm:text-5xl font-extrabold tracking-tight cursor-pointer leading-tight">
@@ -224,96 +218,63 @@
                         </h2>
 
                         <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal max-w-xl">
-                            Electronic e-Xpedited Tracking, Review & Approval System: A paperless document submission and sequential approval web portal engineered for Valugan Integrated School.
+                            Maaari kang gumawa at mag-save ng mga report offline nang direkta sa iyong device. Kakailanganin lamang ang internet kapag isusumite na ito para sa pagpapatibay.
                         </p>
 
-                        <!-- Proponents Info -->
                         <div class="pt-2">
                             <p class="text-xs font-extrabold text-slate-700 bg-slate-100/70 inline-block px-4 py-2 rounded-2xl border border-white">
                                 Proponents: <span class="text-indigo-600">Sharlynne Mae P. Veracruz-Francisco & Monica V. Castillo</span>
                             </p>
                         </div>
-
-                        <!-- Action Controls Row -->
-                        <div class="pt-4 flex flex-wrap items-center gap-3">
-                            <button onclick="openModal('modal-project-info')" class="pill-btn px-6 py-2.5 bg-slate-900 text-white font-bold text-xs flex items-center gap-2">
-                                <i data-lucide="info" class="w-4 h-4"></i> System Information
-                            </button>
-                            
-                            <!-- OneDrive Status Badge -->
-                            <div id="onedrive-status-card" onclick="openModal('modal-onedrive')" class="pill-btn px-5 py-2.5 bg-sky-50 text-sky-700 border border-sky-200 font-bold text-xs flex items-center gap-2 cursor-pointer">
-                                <i data-lucide="cloud" class="w-4 h-4 text-oneDriveBlue"></i>
-                                <span id="onedrive-status-text">OneDrive: Disconnected</span>
-                            </div>
-                        </div>
                     </div>
 
-                    <!-- Right Hero Visual Panel -->
                     <div class="lg:col-span-5">
                         <div class="glass-gradient-panel h-64 sm:h-80 w-full p-6 flex flex-col justify-between relative overflow-hidden group">
-                            <div class="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-white/40 blur-xl"></div>
-                            <div class="absolute bottom-4 left-4 w-20 h-20 rounded-full bg-pink-300/30 blur-lg"></div>
-                            
                             <div class="flex justify-between items-start relative z-10">
                                 <span class="text-xs font-extrabold tracking-widest text-slate-800 uppercase bg-white/60 backdrop-blur-md px-3 py-1 rounded-full border border-white">
-                                    Project Vault
-                                </span>
+                                    Offline Storage Ready
+                                }}</span>
                                 <div class="clay-knob flex items-center justify-center">
-                                    <i data-lucide="sparkles" class="w-4 h-4 text-indigo-600"></i>
+                                    <i data-lucide="hard-drive" class="w-4 h-4 text-indigo-600"></i>
                                 </div>
                             </div>
-
                             <div class="relative z-10 space-y-2">
-                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Fast-Track Approvals</p>
-                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Paperless Digital Workflow</h3>
+                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Auto Local Save</p>
+                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Walang Internet? Walang Problema</h3>
                                 <p class="text-[11px] text-slate-700 leading-normal">
-                                    Auto-sync reports directly to DepEd Master Teachers and Principal OneDrive repositories in real-time.
+                                    Lahat ng iyong draft ay ligtas na nakaimbak sa iyong browser hanggang sa i-click mo ang submit.
                                 </p>
-                            </div>
-
-                            <div class="pt-3 relative z-10">
-                                <div class="w-full bg-white/80 backdrop-blur-md rounded-2xl p-3 flex items-center justify-between border border-white">
-                                    <span class="text-xs font-extrabold text-slate-800">12 Integrated Services</span>
-                                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-700"></i>
-                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
 
-
-            <!-- 2. SMART CONDITIONAL NOTIFICATIONS MONITOR -->
+            <!-- SMART NOTIFICATION MONITOR -->
             <section id="notification-monitor-section" class="hidden clay-card p-6 border-l-8 border-amber-400 space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                     <h3 class="font-extrabold text-sm text-slate-900 flex items-center gap-2">
-                        <i data-lucide="bell" class="w-5 h-5 text-amber-500"></i> Document Status Notifications & Submission Monitor
+                        <i data-lucide="bell" class="w-5 h-5 text-amber-500"></i> Submitted Reports & Offline Queue Status
                     </h3>
                     <span class="pill-btn px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-[10px]">
-                        Live Tracker Active
+                        Live Tracker
                     </span>
                 </div>
-
-                <div id="submissions-status-list" class="space-y-3">
-                    <!-- Dynamic submission status cards -->
-                </div>
+                <div id="submissions-status-list" class="space-y-3"></div>
             </section>
 
-
-            <!-- 3. PORTAL SERVICES SECTION HEADER -->
+            <!-- PORTAL SERVICES HEADER -->
             <div class="text-center py-2 space-y-1">
                 <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase">
                     DOCUMENT CREATION & PORTAL SERVICES
                 </h2>
-                <p class="text-xs text-slate-500 font-medium">Select any workspace card below to draft, edit, and auto-sync documents</p>
+                <p class="text-xs text-slate-500 font-medium">Pumili ng active workspace card sa ibaba para magsimulang mag-draft offline</p>
             </div>
 
-
-            <!-- 4. PORTAL BUTTONS GRID (12 Workspace Cards: Active & Available Soon) -->
+            <!-- PORTAL BUTTONS GRID -->
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
-                <!-- Card a: School Forms (ACTIVE) -->
+                <!-- Active 1: School Forms -->
                 <div onclick="accessFeature('school-forms')" class="clay-button-card p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
                         <div class="w-10 h-10 rounded-2xl bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold shadow-inner border border-white">
@@ -330,7 +291,7 @@
                     </div>
                 </div>
 
-                <!-- Card b: Daily Lesson Plan (ACTIVE) -->
+                <!-- Active 2: Daily Lesson Plan -->
                 <div onclick="accessFeature('dlp')" class="clay-button-card p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
                         <div class="w-10 h-10 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center font-bold shadow-inner border border-white">
@@ -347,7 +308,7 @@
                     </div>
                 </div>
 
-                <!-- Card c: Grading Sheet (AVAILABLE SOON) -->
+                <!-- Disabled 10 Buttons (Available Soon) -->
                 <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
                         <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
@@ -355,200 +316,107 @@
                         </div>
                         <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
                     </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide">GRADING SHEET</h3>
-                        <p class="text-[11px] text-slate-200 font-medium mt-1">Quarter 1 to 4 Auto-Transmutation</p>
-                    </div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-slate-400 h-full w-1/3 rounded-full"></div>
-                    </div>
+                    <div><h3 class="font-extrabold text-white text-base tracking-wide">GRADING SHEET</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Auto-Transmutation</p></div>
+                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
                 </div>
-
-                <!-- Card d: Test Questions (AVAILABLE SOON) -->
                 <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
-                            <i data-lucide="file-question" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="file-question" class="w-5 h-5"></i></div>
                         <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
                     </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide">TEST QUESTIONS</h3>
-                        <p class="text-[11px] text-slate-200 font-medium mt-1">TOS & Exam Item Generator</p>
-                    </div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-slate-400 h-full w-1/3 rounded-full"></div>
-                    </div>
+                    <div><h3 class="font-extrabold text-white text-base tracking-wide">TEST QUESTIONS</h3><p class="text-[11px] text-slate-200 font-medium mt-1">TOS Generator</p></div>
+                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
                 </div>
-
-                <!-- Card e: Item Analysis (AVAILABLE SOON) -->
                 <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
-                            <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div>
                         <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
                     </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide">ITEM ANALYSIS</h3>
-                        <p class="text-[11px] text-slate-200 font-medium mt-1">Difficulty & Discrimination Index</p>
-                    </div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-slate-400 h-full w-1/3 rounded-full"></div>
-                    </div>
+                    <div><h3 class="font-extrabold text-white text-base tracking-wide">ITEM ANALYSIS</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Difficulty Index</p></div>
+                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
                 </div>
-
-                <!-- Card f: Least Mastered (AVAILABLE SOON) -->
                 <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
-                            <i data-lucide="alert-circle" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="alert-circle" class="w-5 h-5"></i></div>
                         <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
                     </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide">LEAST MASTERED</h3>
-                        <p class="text-[11px] text-slate-200 font-medium mt-1">74% and Below Competencies</p>
-                    </div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-slate-400 h-full w-1/3 rounded-full"></div>
-                    </div>
+                    <div><h3 class="font-extrabold text-white text-base tracking-wide">LEAST MASTERED</h3><p class="text-[11px] text-slate-200 font-medium mt-1">74% Below Priority</p></div>
+                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
                 </div>
-
-                <!-- Card g: Action Plan (AVAILABLE SOON) -->
                 <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
-                            <i data-lucide="target" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="target" class="w-5 h-5"></i></div>
                         <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
                     </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide">ACTION PLAN</h3>
-                        <p class="text-[11px] text-slate-200 font-medium mt-1">Intervention & Strategy Builder</p>
-                    </div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-slate-400 h-full w-1/3 rounded-full"></div>
-                    </div>
+                    <div><h3 class="font-extrabold text-white text-base tracking-wide">ACTION PLAN</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Strategy Builder</p></div>
+                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
                 </div>
-
-                <!-- Card h: Accomplishment Report (AVAILABLE SOON) -->
                 <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
-                            <i data-lucide="award" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="award" class="w-5 h-5"></i></div>
                         <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
                     </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide">ACCOMPLISHMENT</h3>
-                        <p class="text-[11px] text-slate-200 font-medium mt-1">Narrative Report Builder</p>
-                    </div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-slate-400 h-full w-1/3 rounded-full"></div>
-                    </div>
+                    <div><h3 class="font-extrabold text-white text-base tracking-wide">ACCOMPLISHMENT</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Narrative Report</p></div>
+                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
                 </div>
-
-                <!-- Card i: E-IPCRF (AVAILABLE SOON) -->
                 <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
-                            <i data-lucide="file-check" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="file-check" class="w-5 h-5"></i></div>
                         <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
                     </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide">E-IPCRF</h3>
-                        <p class="text-[11px] text-slate-200 font-medium mt-1">Individual Performance Assessment</p>
-                    </div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-slate-400 h-full w-1/3 rounded-full"></div>
-                    </div>
+                    <div><h3 class="font-extrabold text-white text-base tracking-wide">E-IPCRF</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Performance Assessment</p></div>
+                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
                 </div>
-
-                <!-- Card j: Research (AVAILABLE SOON) -->
                 <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
-                            <i data-lucide="microscope" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="microscope" class="w-5 h-5"></i></div>
                         <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
                     </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide">RESEARCH</h3>
-                        <p class="text-[11px] text-slate-200 font-medium mt-1">Action Research Vault</p>
-                    </div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-slate-400 h-full w-1/3 rounded-full"></div>
-                    </div>
+                    <div><h3 class="font-extrabold text-white text-base tracking-wide">RESEARCH</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Action Research Vault</p></div>
+                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
                 </div>
-
-                <!-- Card k: Emergency Classroom Program (AVAILABLE SOON) -->
                 <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
-                            <i data-lucide="clock" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="clock" class="w-5 h-5"></i></div>
                         <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
                     </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide">EMERGENCY PROGRAM</h3>
-                        <p class="text-[11px] text-slate-200 font-medium mt-1">Classroom & Substitute Scheduler</p>
-                    </div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-slate-400 h-full w-1/3 rounded-full"></div>
-                    </div>
+                    <div><h3 class="font-extrabold text-white text-base tracking-wide">EMERGENCY PROGRAM</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Substitute Scheduler</p></div>
+                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
                 </div>
-
-                <!-- Card l: Innovation / Project (AVAILABLE SOON) -->
                 <div class="clay-button-disabled p-6 flex flex-col justify-between h-44">
                     <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20">
-                            <i data-lucide="lightbulb" class="w-5 h-5"></i>
-                        </div>
+                        <div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center font-bold shadow-inner border border-white/20"><i data-lucide="lightbulb" class="w-5 h-5"></i></div>
                         <span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px] tracking-wide shadow">AVAILABLE SOON</span>
                     </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide">INNOVATION / PROJECT</h3>
-                        <p class="text-[11px] text-slate-200 font-medium mt-1">School Project Proposals</p>
-                    </div>
-                    <div class="w-full bg-slate-800/60 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-slate-400 h-full w-1/3 rounded-full"></div>
-                    </div>
+                    <div><h3 class="font-extrabold text-white text-base tracking-wide">INNOVATION / PROJECT</h3><p class="text-[11px] text-slate-200 font-medium mt-1">Project Proposals</p></div>
+                    <div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div>
                 </div>
 
             </section>
         </div>
 
-
-        <!-- ========================================================= -->
-        <!-- SINGLE UNIFIED WORKSPACE VIEW CONTAINER -->
-        <!-- ========================================================= -->
+        <!-- WORKSPACE VIEW CONTAINER -->
         <section id="workspace-view-container" class="space-y-6 hidden">
-            <!-- Single Return Back Button Header -->
             <div class="clay-card p-5 flex justify-between items-center">
                 <button onclick="returnToHomeHub()" class="pill-btn px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-2">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> ← Return to Home Hub
                 </button>
-                <span id="active-feature-label" class="text-xs font-black text-indigo-600 uppercase tracking-wider bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
-                    Workspace View
-                </span>
+                <div class="flex items-center gap-3">
+                    <button onclick="saveDraftLocally()" class="pill-btn px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center gap-1.5">
+                        <i data-lucide="save" class="w-3.5 h-3.5"></i> Save Offline Draft
+                    </button>
+                    <span id="active-feature-label" class="text-xs font-black text-indigo-600 uppercase tracking-wider bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
+                        Workspace View
+                    </span>
+                </div>
             </div>
 
-            <!-- Dynamic Workspace Body Content -->
-            <div id="workspace-body-content" class="clay-card p-8 space-y-6">
-                <!-- Injected Form / Table / Editor Markup -->
-            </div>
+            <div id="workspace-body-content" class="clay-card p-8 space-y-6"></div>
         </section>
 
     </main>
 
-
-    <!-- ========================================================= -->
     <!-- MODALS -->
-    <!-- ========================================================= -->
-
-    <!-- 1. SIGN-IN MODAL WITH STRICT DEPED EMAIL VERIFICATION -->
     <div id="modal-login" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clay-card max-w-md w-full overflow-hidden p-8 space-y-6 border border-white">
             <div class="text-center space-y-2">
@@ -556,23 +424,21 @@
                     <i data-lucide="shield-check" class="w-8 h-8"></i>
                 </div>
                 <h3 class="font-black text-xl text-slate-900">Project EXTRA Verification</h3>
-                <p class="text-xs text-slate-500 font-medium">Please verify using your official DepEd email address</p>
+                <p class="text-xs text-slate-500 font-medium">I-verify ang iyong official DepEd email</p>
             </div>
 
             <form onsubmit="handleAccountLogin(event)" class="space-y-4 text-xs">
                 <div id="email-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
-                    Email verification failed. Please use your official @deped.gov.ph email address.
+                    Maling email. Mangyaring gumamit ng @deped.gov.ph account.
                 </div>
-
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Account Role</label>
-                    <select id="login-account-type" onchange="toggleLoginRoleFields()" class="w-full p-3 border rounded-2xl font-semibold bg-slate-50/80 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <select id="login-account-type" onchange="toggleLoginRoleFields()" class="w-full p-3 border rounded-2xl font-semibold bg-slate-50/80 outline-none">
                         <option value="TEACHER">TEACHER ACCOUNT</option>
                         <option value="MASTER_TEACHER">MASTER TEACHER ACCOUNT</option>
                         <option value="SCHOOL_HEAD">SCHOOL HEAD ACCOUNT</option>
                     </select>
                 </div>
-
                 <div id="field-level-option">
                     <label class="block font-bold text-slate-700 mb-1">School Level Division</label>
                     <div class="grid grid-cols-2 gap-3">
@@ -584,96 +450,57 @@
                         </label>
                     </div>
                 </div>
-
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Official DepEd Email</label>
-                    <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
-
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Full Name</label>
-                    <input type="text" id="login-full-name" required placeholder="e.g., Sharlynne Mae P. Veracruz-Francisco" class="w-full p-3 border rounded-2xl bg-slate-50/80 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="text" id="login-full-name" required placeholder="e.g., Sharlynne Mae P. Veracruz-Francisco" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
-
                 <div id="field-adviser-option">
                     <label class="block font-bold text-slate-700 mb-1">Teaching Designation</label>
-                    <select id="login-adviser-status" class="w-full p-3 border rounded-2xl bg-slate-50/80 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <select id="login-adviser-status" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                         <option value="Adviser">Class Adviser</option>
                         <option value="Subject Teacher">Subject Teacher</option>
                     </select>
                 </div>
-
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Position / Rank</label>
-                    <select id="login-position-dropdown" class="w-full p-3 border rounded-2xl bg-slate-50/80 focus:ring-2 focus:ring-indigo-500 outline-none">
-                        <!-- Dynamic Position Items -->
-                    </select>
+                    <select id="login-position-dropdown" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none"></select>
                 </div>
-
                 <div class="pt-2">
-                    <button type="submit" class="pill-btn w-full py-3 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-extrabold text-xs shadow-lg">
-                        Verify DepEd Account & Sign In
+                    <button type="submit" class="pill-btn w-full py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-lg">
+                        Mag-sign In offline/online
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-
-    <!-- 2. DIRECT ONEDRIVE REDIRECT MODAL -->
+    <!-- ONEDRIVE / SUBMISSION SYNC MODAL -->
     <div id="modal-onedrive" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clay-card max-w-sm w-full p-8 text-center space-y-6 border border-white">
             <div class="w-16 h-16 bg-sky-100 text-oneDriveBlue rounded-3xl flex items-center justify-center mx-auto shadow-inner">
-                <i data-lucide="cloud" class="w-8 h-8"></i>
+                <i data-lucide="cloud-upload" class="w-8 h-8"></i>
             </div>
             <div class="space-y-2">
-                <h3 class="font-black text-xl text-slate-900">Connect Microsoft OneDrive</h3>
+                <h3 class="font-black text-xl text-slate-900">Kailangan ng Internet Connection</h3>
                 <p class="text-xs text-slate-500 font-medium leading-relaxed">
-                    Connecting your OneDrive account allows Project EXTRA to direct-save all submitted and approved reports into your official cloud folders automatically.
+                    Naka-save nang lokal ang iyong draft. Para ma-submit ito at ma-sync sa OneDrive at sa mga opisyal, mangyaring kumonekta sa internet.
                 </p>
             </div>
-            <button onclick="confirmOneDriveLogin()" class="pill-btn w-full py-3.5 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg">
-                <i data-lucide="log-in" class="w-4 h-4"></i> Sign In to OneDrive
+            <button onclick="confirmSubmissionSync()" class="pill-btn w-full py-3.5 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg">
+                <i data-lucide="send" class="w-4 h-4"></i> I-sync at I-submit Ngayon
             </button>
         </div>
     </div>
-
-
-    <!-- 3. PROJECT EXTRA INFORMATION MODAL -->
-    <div id="modal-project-info" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="clay-card max-w-lg w-full p-8 space-y-6 border border-white">
-            <div class="flex justify-between items-start border-b pb-4">
-                <div>
-                    <h3 class="font-black text-xl text-slate-900">About Project EXTRA</h3>
-                    <p class="text-xs text-slate-500 font-medium">Valugan Integrated School System Architecture</p>
-                </div>
-                <button onclick="closeModal('modal-project-info')" class="text-slate-400 hover:text-slate-700 font-bold text-lg">✕</button>
-            </div>
-            <div class="space-y-4 text-xs text-slate-600 leading-relaxed">
-                <p>
-                    <strong class="text-slate-900">Project EXTRA</strong> (Electronic e-Xpedited Tracking, Review & Approval System) is designed to streamline school reporting, eliminate paper waste, and provide real-time sequential approval tracking for Valugan Integrated School.
-                </p>
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-2">
-                    <p class="font-bold text-slate-900">System Proponents:</p>
-                    <p class="text-indigo-600 font-extrabold">• Sharlynne Mae P. Veracruz-Francisco</p>
-                    <p class="text-indigo-600 font-extrabold">• Monica V. Castillo</p>
-                </div>
-                <p>
-                    Features automatic routing from Teachers to Master Teachers and School Principal with full Microsoft OneDrive cloud synchronization.
-                </p>
-            </div>
-            <button onclick="closeModal('modal-project-info')" class="pill-btn w-full py-3 bg-slate-900 text-white font-bold text-xs">
-                Close Information
-            </button>
-        </div>
-    </div>
-
 
     <!-- SYSTEM JAVASCRIPT ENGINE -->
     <script>
         let currentUser = null;
-        let isOneDriveConnected = false;
         let pendingFeatureKey = null;
+        let submittedReports = [];
 
         const validDepEdEmails = [
             'sharlynne.veracruz@deped.gov.ph',
@@ -682,8 +509,6 @@
             'jeanne.cielo@deped.gov.ph',
             'teacher@deped.gov.ph'
         ];
-
-        let submittedReports = [];
 
         const positionOptions = {
             TEACHER: ['Teacher I', 'Teacher II', 'Teacher III', 'Teacher IV', 'Teacher V', 'Teacher VI', 'Teacher VII'],
@@ -694,7 +519,42 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             toggleLoginRoleFields();
+            checkNetworkStatus();
+            loadLocalSession();
+            window.addEventListener('online', checkNetworkStatus);
+            window.addEventListener('offline', checkNetworkStatus);
         });
+
+        function checkNetworkStatus() {
+            const badge = document.getElementById('connection-status-badge');
+            const dot = document.getElementById('conn-dot');
+            const text = document.getElementById('conn-text');
+            if (navigator.onLine) {
+                badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-[11px] font-bold border border-emerald-200";
+                dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+                text.innerText = "Online Mode";
+            } else {
+                badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 rounded-full text-[11px] font-bold border border-amber-200";
+                dot.className = "w-2 h-2 rounded-full bg-amber-500";
+                text.innerText = "Offline Mode (Draft Local)";
+            }
+        }
+
+        function loadLocalSession() {
+            const localUser = localStorage.getItem('project_extra_user');
+            if (localUser) {
+                currentUser = JSON.parse(localUser);
+                document.getElementById('user-badge-name').innerText = currentUser.name;
+                document.getElementById('user-badge-role').innerText = currentUser.position;
+                document.getElementById('user-badge').classList.remove('hidden');
+                document.getElementById('main-signin-btn').classList.add('hidden');
+            }
+            const savedReports = localStorage.getItem('project_extra_reports');
+            if (savedReports) {
+                submittedReports = JSON.parse(savedReports);
+                renderNotificationMonitor();
+            }
+        }
 
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
@@ -703,7 +563,6 @@
             e.preventDefault();
             const emailInput = document.getElementById('login-email-input').value.trim().toLowerCase();
             const errorBanner = document.getElementById('email-error-banner');
-
             const isValidDepEd = emailInput.endsWith('@deped.gov.ph') || validDepEdEmails.includes(emailInput);
 
             if (!isValidDepEd) {
@@ -718,6 +577,7 @@
             const isAdviser = type !== 'SCHOOL_HEAD' && document.getElementById('login-adviser-status').value === 'Adviser';
 
             currentUser = { email: emailInput, name, type, position: pos, isAdviser };
+            localStorage.setItem('project_extra_user', JSON.stringify(currentUser));
 
             document.getElementById('user-badge-name').innerText = name;
             document.getElementById('user-badge-role').innerText = pos;
@@ -725,14 +585,12 @@
             document.getElementById('main-signin-btn').classList.add('hidden');
 
             closeModal('modal-login');
-
-            if (pendingFeatureKey) {
-                accessFeature(pendingFeatureKey);
-            }
+            if (pendingFeatureKey) accessFeature(pendingFeatureKey);
         }
 
         function handleUserLogout() {
-            if (confirm("Are you sure you want to sign out?")) {
+            if (confirm("Gusto mo bang mag-sign out?")) {
+                localStorage.removeItem('project_extra_user');
                 currentUser = null;
                 document.getElementById('user-badge').classList.add('hidden');
                 document.getElementById('main-signin-btn').classList.remove('hidden');
@@ -742,28 +600,11 @@
 
         function accessFeature(featureKey) {
             pendingFeatureKey = featureKey;
-
             if (!currentUser) {
                 openModal('modal-login');
                 return;
             }
-
-            if (!isOneDriveConnected) {
-                openModal('modal-onedrive');
-                return;
-            }
-
             openWorkspace(featureKey);
-        }
-
-        function confirmOneDriveLogin() {
-            isOneDriveConnected = true;
-            const badge = document.getElementById('onedrive-status-card');
-            badge.className = "pill-btn px-5 py-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold text-xs flex items-center gap-2 cursor-pointer";
-            document.getElementById('onedrive-status-text').innerText = "OneDrive: Connected";
-            closeModal('modal-onedrive');
-
-            if (pendingFeatureKey) openWorkspace(pendingFeatureKey);
         }
 
         function openWorkspace(key) {
@@ -772,34 +613,22 @@
             document.getElementById('active-feature-label').innerText = key.replace('-', ' ') + ' Workspace';
 
             const body = document.getElementById('workspace-body-content');
-            
+            let savedDraft = localStorage.getItem('draft_' + key) || '';
+
             if (key === 'school-forms') {
                 body.innerHTML = `
                     <div class="flex justify-between items-center border-b border-slate-100 pb-4">
                         <div>
-                            <h3 class="font-extrabold text-lg text-slate-900">School Forms Repository (SF 1 - SF 10)</h3>
-                            <p class="text-xs text-slate-500 font-medium">Select any form below to manage learner records</p>
+                            <h3 class="font-extrabold text-lg text-slate-900">School Forms Repository (Offline Ready)</h3>
+                            <p class="text-xs text-slate-500 font-medium">Maaari mong tignan at i-edit ang mga pormularyo nang offline.</p>
                         </div>
-                        <span class="pill-btn px-4 py-1.5 bg-blue-50 text-blue-700 font-bold text-xs">Official DepEd Templates</span>
+                        <span class="pill-btn px-4 py-1.5 bg-blue-50 text-blue-700 font-bold text-xs">Offline Mode Active</span>
                     </div>
-
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs pt-2">
                         <div class="p-6 border rounded-3xl bg-slate-50/70 space-y-3">
                             <h4 class="font-extrabold text-slate-900 text-sm">SF 1 - School Register</h4>
-                            <p class="text-[11px] text-slate-500">Master list of enrolled learners and general information.</p>
-                            <button onclick="alert('Opening SF1 Master List from OneDrive...')" class="pill-btn w-full py-2 bg-slate-900 text-white font-bold">View / Export SF1</button>
-                        </div>
-                        ${currentUser.isAdviser ? `
-                        <div class="p-6 border rounded-3xl bg-slate-50/70 space-y-3">
-                            <h4 class="font-extrabold text-slate-900 text-sm">SF 2 - Daily Attendance</h4>
-                            <p class="text-[11px] text-slate-500">Daily learner presence, absences, and monthly summary.</p>
-                            <button onclick="alert('Opening current month SF2 attendance grid...')" class="pill-btn w-full py-2 bg-indigo-600 text-white font-bold">Edit Monthly Attendance</button>
-                        </div>
-                        ` : ''}
-                        <div class="p-6 border rounded-3xl bg-slate-50/70 space-y-3">
-                            <h4 class="font-extrabold text-slate-900 text-sm">SF 5 - Report on Promotion</h4>
-                            <p class="text-[11px] text-slate-500">End-of-school-year learner academic performance.</p>
-                            <button onclick="alert('Opening SF5 Promotion Summary...')" class="pill-btn w-full py-2 bg-slate-800 text-white font-bold">Generate SF5</button>
+                            <p class="text-[11px] text-slate-500">Master list ng mga mag-aaral.</p>
+                            <button onclick="alert('Binubuksan ang SF1 offline template...')" class="pill-btn w-full py-2 bg-slate-900 text-white font-bold">Buksan ang SF1</button>
                         </div>
                     </div>
                 `;
@@ -807,18 +636,16 @@
                 body.innerHTML = `
                     <div class="flex justify-between items-center border-b border-slate-100 pb-4">
                         <h3 class="font-black text-lg text-slate-900 uppercase tracking-tight">${key.replace('-', ' ')} EDITOR</h3>
-                        <button onclick="submitReportWorkflow('${key}')" class="pill-btn px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-extrabold text-xs shadow-md">
-                            Submit Report for Approval
+                        <button onclick="triggerSubmitWorkflow('${key}')" class="pill-btn px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-md">
+                            I-submit Online para sa Pag-apruba
                         </button>
                     </div>
-
                     <div class="p-6 rounded-3xl bg-slate-50/70 space-y-4 border border-slate-200/80">
                         <div class="text-center font-bold text-xs leading-relaxed">
                             <p class="text-slate-500">DEPARTMENT OF EDUCATION • REGION II • DIVISION OF BATANES</p>
                             <p class="text-indigo-600 text-sm font-black">VALUGAN INTEGRATED SCHOOL</p>
                         </div>
-                        <p class="text-xs text-slate-600 font-medium">Draft your ${key.replace('-', ' ')} data table below:</p>
-                        
+                        <p class="text-xs text-slate-600 font-medium">Maaari kang mag-type dito kahit walang internet. Auto-saved sa iyong device.</p>
                         <div class="overflow-x-auto rounded-2xl border border-slate-200">
                             <table class="w-full text-xs border-collapse bg-white">
                                 <thead class="bg-slate-100 font-bold text-slate-700">
@@ -826,15 +653,13 @@
                                         <th class="border-b p-3 text-center">Item #</th>
                                         <th class="border-b p-3 text-left">Description / Competency</th>
                                         <th class="border-b p-3 text-left">Target Output</th>
-                                        <th class="border-b p-3 text-center">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="hover:bg-slate-50">
                                         <td class="border-b p-3 text-center font-bold">1</td>
-                                        <td class="border-b p-3" contenteditable="true">Click here to write competency details...</td>
-                                        <td class="border-b p-3" contenteditable="true">100% Target Met</td>
-                                        <td class="border-b p-3 text-center"><span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-[10px]">Ready</span></td>
+                                        <td class="border-b p-3" contenteditable="true" id="draft-cell-1">${savedDraft || 'I-type ang mga detalye dito offline...'}</td>
+                                        <td class="border-b p-3" contenteditable="true" id="draft-cell-2">100% Target Met</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -842,28 +667,46 @@
                     </div>
                 `;
             }
-
             lucide.createIcons();
+        }
+
+        function saveDraftLocally() {
+            const cellText = document.getElementById('draft-cell-1') ? document.getElementById('draft-cell-1').innerText : '';
+            if (pendingFeatureKey) {
+                localStorage.setItem('draft_' + pendingFeatureKey, cellText);
+                alert("Tagumpay na na-save ang draft nang offline sa iyong device!");
+            }
+        }
+
+        function triggerSubmitWorkflow(key) {
+            saveDraftLocally();
+            if (!navigator.onLine) {
+                openModal('modal-onedrive'); // Mag-a-alert na kailangan ng internet para sa pormal na submission
+                return;
+            }
+            confirmSubmissionSync();
+        }
+
+        function confirmSubmissionSync() {
+            closeModal('modal-onedrive');
+            const reportName = (pendingFeatureKey || 'REPORT').replace('-', ' ').toUpperCase();
+            submittedReports.unshift({
+                id: 'REP-' + Math.floor(100 + Math.random() * 900),
+                title: reportName + ' Report',
+                author: currentUser ? currentUser.name : 'Teacher',
+                status: 'Pending MT Review (Online Synced)',
+                timestamp: new Date().toLocaleTimeString()
+            });
+
+            localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
+            renderNotificationMonitor();
+            alert("Na-sync at naisumite na ang report online sa Master Teacher at Principal!");
+            returnToHomeHub();
         }
 
         function returnToHomeHub() {
             document.getElementById('workspace-view-container').classList.add('hidden');
             document.getElementById('home-only-wrapper').classList.remove('hidden');
-        }
-
-        function submitReportWorkflow(key) {
-            const reportName = key.replace('-', ' ').toUpperCase();
-            submittedReports.unshift({
-                id: 'REP-' + Math.floor(100 + Math.random() * 900),
-                title: reportName + ' Report',
-                author: currentUser.name,
-                status: 'Pending MT Review',
-                timestamp: new Date().toLocaleTimeString()
-            });
-
-            renderNotificationMonitor();
-            alert("Report successfully submitted! Auto-saved to OneDrive and routed to Master Teacher and Principal for review.");
-            returnToHomeHub();
         }
 
         function renderNotificationMonitor() {
@@ -884,7 +727,7 @@
                 item.innerHTML = `
                     <div class="space-y-0.5">
                         <p class="font-extrabold text-slate-900">${rep.title}</p>
-                        <p class="text-[10px] text-slate-500 font-medium">Submitted by ${rep.author} at ${rep.timestamp}</p>
+                        <p class="text-[10px] text-slate-500 font-medium">Isinumite ni ${rep.author} noong ${rep.timestamp}</p>
                     </div>
                     <span class="pill-btn px-4 py-1.5 bg-amber-100 text-amber-900 font-extrabold text-[10px]">
                         ${rep.status}
