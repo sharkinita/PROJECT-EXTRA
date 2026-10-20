@@ -13,6 +13,7 @@
                     colors: {
                         clayBg: '#EBF0F5',
                         depedNavy: '#0F172A',
+                        depedNavyLight: '#1E293B',
                         depedGold: '#D97706',
                         depedGoldHover: '#B45309',
                         oneDriveBlue: '#0078D4',
@@ -92,7 +93,86 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased text-slate-800">
+<body class="min-h-screen flex flex-col antialiased text-slate-800 relative">
+
+    <!-- ========================================================= -->
+    <!-- GUEST LOCK OVERLAY & LOGIN MODAL                         -->
+    <!-- ========================================================= -->
+    <div id="login-overlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[100] flex items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-100">
+            <div class="bg-depedNavy p-6 text-white text-center">
+                <div class="w-12 h-12 bg-depedGold text-slate-900 rounded-2xl flex items-center justify-center font-bold mx-auto mb-2 shadow-md">
+                    <i data-lucide="shield-check" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-black text-lg tracking-tight">Project EXTRA Authentication</h3>
+                <p class="text-xs text-depedGold font-medium">Official DepEd Email Verification Portal</p>
+            </div>
+
+            <form onsubmit="handleAccountLogin(event)" class="p-6 space-y-4 text-xs">
+                <div id="email-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-semibold text-center">
+                    Email verification failed. Please use your official DepEd email address.
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Select Account Type</label>
+                    <select id="login-account-type" onchange="toggleLoginRoleFields()" class="w-full p-3 border rounded-xl font-bold bg-slate-50 text-slate-800">
+                        <option value="TEACHER">TEACHER ACCOUNT</option>
+                        <option value="MASTER_TEACHER">MASTER TEACHER ACCOUNT</option>
+                        <option value="SCHOOL_HEAD">SCHOOL HEAD ACCOUNT</option>
+                    </select>
+                </div>
+
+                <div id="field-level-option">
+                    <label class="block font-bold text-slate-700 mb-1">School Level Division</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="p-2.5 border rounded-xl flex items-center gap-2 cursor-pointer bg-slate-50 font-semibold">
+                            <input type="radio" name="school-level" value="Elementary" checked> Elementary
+                        </label>
+                        <label class="p-2.5 border rounded-xl flex items-center gap-2 cursor-pointer bg-slate-50 font-semibold">
+                            <input type="radio" name="school-level" value="Junior Highschool"> Junior Highschool
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Official DepEd Email</label>
+                    <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-xl bg-slate-50 font-medium">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Full Name</label>
+                    <input type="text" id="login-full-name" required placeholder="e.g., Sharlynne Mae P. Veracruz-Francisco" class="w-full p-3 border rounded-xl bg-slate-50 font-medium">
+                </div>
+
+                <div id="field-adviser-option">
+                    <label class="block font-bold text-slate-700 mb-1">Teaching Designation</label>
+                    <select id="login-adviser-status" class="w-full p-3 border rounded-xl bg-slate-50 font-medium">
+                        <option value="Adviser">Class Adviser</option>
+                        <option value="Subject Teacher">Subject Teacher</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Position / Rank</label>
+                    <select id="login-position-dropdown" class="w-full p-3 border rounded-xl bg-slate-50 font-medium">
+                        <!-- Dynamic Positions -->
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-depedGold hover:bg-depedGoldHover text-slate-900 font-black rounded-xl text-xs shadow-md transition-all mt-2">
+                    Verify DepEd Email & Sign In
+                </button>
+
+                <p class="text-[11px] text-slate-400 text-center mt-2">
+                    <i data-lucide="lock" class="w-3.5 h-3.5 inline text-emerald-600 mr-1"></i>
+                    Session stays active for <strong>2 days</strong> before re-authentication.
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Transparent Click Interceptor when logged out -->
+    <div id="click-blocker" onclick="promptLoginModal()" class="fixed inset-0 z-[90] cursor-not-allowed"></div>
 
     <!-- GLOBAL TOP BRANDING HEADER -->
     <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-sm no-print">
@@ -110,19 +190,15 @@
 
             <!-- Right: User Account Controls -->
             <div class="flex items-center space-x-3">
-                <div id="user-badge" class="hidden flex items-center space-x-3 bg-slate-100/80 px-4 py-1.5 rounded-full border border-slate-200/80 shadow-inner">
+                <div id="user-badge" class="flex items-center space-x-3 bg-slate-100/80 px-4 py-1.5 rounded-full border border-slate-200/80 shadow-inner">
                     <div class="text-right">
-                        <p id="user-badge-name" class="text-xs font-bold text-slate-900">Sharlynne Francisco</p>
-                        <p id="user-badge-role" class="text-[10px] text-slate-500 font-medium">Teacher II / ICT Coordinator</p>
+                        <p id="user-badge-name" class="text-xs font-bold text-slate-900">Guest User</p>
+                        <p id="user-badge-role" class="text-[10px] text-slate-500 font-medium">Not Logged In</p>
                     </div>
                     <button onclick="handleUserLogout()" title="Sign Out Account" class="bg-red-50 hover:bg-red-100 text-red-600 p-2 rounded-full transition-all shadow-sm">
                         <i data-lucide="log-out" class="w-4 h-4"></i>
                     </button>
                 </div>
-
-                <button id="main-signin-btn" onclick="openModal('modal-login')" class="px-5 py-2 bg-depedGold hover:bg-depedGoldHover text-slate-900 font-extrabold text-xs rounded-full shadow-md transition-all">
-                    Sign In Account
-                </button>
             </div>
         </div>
     </header>
@@ -312,80 +388,8 @@
 
 
     <!-- ========================================================= -->
-    <!-- MODALS (SIGN-IN & ONEDRIVE LOGINS)                        -->
+    <!-- DIRECT ONEDRIVE REDIRECT MODAL                            -->
     <!-- ========================================================= -->
-
-    <!-- 1. SIGN-IN MODAL WITH DEPED EMAIL VERIFICATION -->
-    <div id="modal-login" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-100">
-            <div class="bg-depedNavy p-6 text-white text-center">
-                <div class="w-12 h-12 bg-depedGold text-slate-900 rounded-2xl flex items-center justify-center font-bold mx-auto mb-2 shadow-md">
-                    <i data-lucide="shield-check" class="w-6 h-6"></i>
-                </div>
-                <h3 class="font-black text-lg tracking-tight">Project EXTRA Authentication</h3>
-                <p class="text-xs text-depedGold font-medium">Official DepEd Email Verification Portal</p>
-            </div>
-
-            <form onsubmit="handleAccountLogin(event)" class="p-6 space-y-4 text-xs">
-                <div id="email-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-semibold text-center">
-                    Email verification failed. Please use your official DepEd email address.
-                </div>
-
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Select Account Type</label>
-                    <select id="login-account-type" onchange="toggleLoginRoleFields()" class="w-full p-3 border rounded-xl font-bold bg-slate-50 text-slate-800">
-                        <option value="TEACHER">TEACHER ACCOUNT</option>
-                        <option value="MASTER_TEACHER">MASTER TEACHER ACCOUNT</option>
-                        <option value="SCHOOL_HEAD">SCHOOL HEAD ACCOUNT</option>
-                    </select>
-                </div>
-
-                <div id="field-level-option">
-                    <label class="block font-bold text-slate-700 mb-1">School Level Division</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <label class="p-2.5 border rounded-xl flex items-center gap-2 cursor-pointer bg-slate-50 font-semibold">
-                            <input type="radio" name="school-level" value="Elementary" checked> Elementary
-                        </label>
-                        <label class="p-2.5 border rounded-xl flex items-center gap-2 cursor-pointer bg-slate-50 font-semibold">
-                            <input type="radio" name="school-level" value="Junior Highschool"> Junior Highschool
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Official DepEd Email</label>
-                    <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-xl bg-slate-50 font-medium">
-                </div>
-
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Full Name</label>
-                    <input type="text" id="login-full-name" required placeholder="e.g., Sharlynne Mae P. Veracruz-Francisco" class="w-full p-3 border rounded-xl bg-slate-50 font-medium">
-                </div>
-
-                <div id="field-adviser-option">
-                    <label class="block font-bold text-slate-700 mb-1">Teaching Designation</label>
-                    <select id="login-adviser-status" class="w-full p-3 border rounded-xl bg-slate-50 font-medium">
-                        <option value="Adviser">Class Adviser</option>
-                        <option value="Subject Teacher">Subject Teacher</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Position / Rank</label>
-                    <select id="login-position-dropdown" class="w-full p-3 border rounded-xl bg-slate-50 font-medium">
-                        <!-- Dynamic Positions -->
-                    </select>
-                </div>
-
-                <button type="submit" class="w-full py-3 bg-depedGold hover:bg-depedGoldHover text-slate-900 font-black rounded-xl text-xs shadow-md transition-all mt-2">
-                    Verify DepEd Email & Sign In
-                </button>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- 2. DIRECT ONEDRIVE REDIRECT MODAL -->
     <div id="modal-onedrive" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 text-center space-y-4 border border-slate-100">
             <div class="w-14 h-14 bg-blue-50 text-oneDriveBlue rounded-2xl flex items-center justify-center mx-auto shadow-sm">
@@ -407,6 +411,7 @@
         let currentUser = null;
         let isOneDriveConnected = false;
         let pendingFeatureKey = null;
+        const SESSION_TIMEOUT_MS = 2 * 24 * 60 * 60 * 1000; // 2 Days (48 Hours)
 
         const validDepEdEmails = [
             'sharlynne.veracruz@deped.gov.ph',
@@ -427,7 +432,53 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             toggleLoginRoleFields();
+            checkActiveSession();
         });
+
+        // 2-Day Inactivity Session Engine Logic
+        function checkActiveSession() {
+            const savedSession = localStorage.getItem('project_extra_session');
+            if (savedSession) {
+                try {
+                    const sessionData = JSON.parse(savedSession);
+                    const now = new Date().getTime();
+                    
+                    if (now - sessionData.timestamp < SESSION_TIMEOUT_MS) {
+                        currentUser = sessionData.user;
+                        unlockInterface();
+                        return;
+                    } else {
+                        localStorage.removeItem('project_extra_session');
+                        alert("Your 2-day active session has expired. Please sign in again.");
+                    }
+                } catch (e) {
+                    localStorage.removeItem('project_extra_session');
+                }
+            }
+            lockInterface();
+        }
+
+        function lockInterface() {
+            currentUser = null;
+            document.getElementById('login-overlay').classList.remove('hidden');
+            document.getElementById('click-blocker').classList.remove('hidden');
+            document.getElementById('user-badge-name').innerText = "Guest User";
+            document.getElementById('user-badge-role').innerText = "Not Logged In";
+        }
+
+        function unlockInterface() {
+            document.getElementById('login-overlay').classList.add('hidden');
+            document.getElementById('click-blocker').classList.add('hidden');
+            
+            document.getElementById('user-badge-name').innerText = currentUser.name;
+            document.getElementById('user-badge-role').innerText = currentUser.position;
+        }
+
+        function promptLoginModal() {
+            if (!currentUser) {
+                document.getElementById('login-overlay').classList.remove('hidden');
+            }
+        }
 
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
@@ -452,12 +503,13 @@
 
             currentUser = { email: emailInput, name, type, position: pos, isAdviser };
 
-            document.getElementById('user-badge-name').innerText = name;
-            document.getElementById('user-badge-role').innerText = pos;
-            document.getElementById('user-badge').classList.remove('hidden');
-            document.getElementById('main-signin-btn').classList.add('hidden');
+            // Save Session for 2 Days
+            localStorage.setItem('project_extra_session', JSON.stringify({
+                user: currentUser,
+                timestamp: new Date().getTime()
+            }));
 
-            closeModal('modal-login');
+            unlockInterface();
 
             if (pendingFeatureKey) {
                 accessFeature(pendingFeatureKey);
@@ -466,9 +518,8 @@
 
         function handleUserLogout() {
             if (confirm("Are you sure you want to sign out?")) {
-                currentUser = null;
-                document.getElementById('user-badge').classList.add('hidden');
-                document.getElementById('main-signin-btn').classList.remove('hidden');
+                localStorage.removeItem('project_extra_session');
+                lockInterface();
                 returnToHomeHub();
             }
         }
@@ -477,7 +528,7 @@
             pendingFeatureKey = featureKey;
 
             if (!currentUser) {
-                openModal('modal-login');
+                promptLoginModal();
                 return;
             }
 
@@ -515,7 +566,7 @@
                             <p class="text-[11px] text-slate-500">Official learner enrollment master list.</p>
                             <button onclick="alert('Opening SF1 Master List...')" class="w-full py-2 bg-depedNavy text-white rounded-xl font-bold mt-2">View / Print SF1</button>
                         </div>
-                        ${currentUser.isAdviser ? `
+                        ${currentUser && currentUser.isAdviser ? `
                         <div class="p-5 border rounded-2xl bg-slate-50 space-y-2">
                             <h4 class="font-bold text-slate-900">SF 2 - Daily Attendance</h4>
                             <p class="text-[11px] text-slate-500">Daily learner attendance logger.</p>
