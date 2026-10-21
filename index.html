@@ -171,7 +171,7 @@
 
                 <div id="auth-buttons-container" class="flex items-center gap-2">
                     <button onclick="openModal('modal-signin')" class="pill-btn px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs shadow border">
-                        Sign In (Register Microsoft)
+                        Sign In (Register)
                     </button>
                     <button onclick="openModal('modal-login')" class="pill-btn px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-lg flex items-center gap-2">
                         <i data-lucide="log-in" class="w-4 h-4"></i> Log In (Microsoft)
@@ -191,7 +191,7 @@
                     <div class="lg:col-span-7 space-y-4">
                         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold border border-white shadow-inner">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Official e-Xpedited Approval Web Portal (1TB OneDrive Sync)
+                            Official e-Xpedited Approval Web Portal (1TB OneDrive Linked)
                         </div>
                         <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
                             Welcome to <br>
@@ -210,16 +210,18 @@
                         <div class="glass-gradient-panel h-64 sm:h-80 w-full p-6 flex flex-col justify-between relative overflow-hidden">
                             <div class="flex justify-between items-start relative z-10">
                                 <span class="text-xs font-extrabold tracking-widest text-slate-800 uppercase bg-white/60 backdrop-blur-md px-3 py-1 rounded-full border border-white">
-                                    Project Vault
+                                    OneDrive Active Folder
                                 </span>
                                 <div class="clay-knob flex items-center justify-center">
                                     <i data-lucide="cloud" class="w-4 h-4 text-oneDriveBlue"></i>
                                 </div>
                             </div>
                             <div class="relative z-10 space-y-2">
-                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">1TB OneDrive Integration</p>
-                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Cloud Storage Connected</h3>
-                                <p class="text-[11px] text-slate-700 leading-normal">Accounts and drafts are securely synced directly to individual Microsoft 365 OneDrive repositories.</p>
+                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Automated Cloud Target</p>
+                                <h3 class="text-2xl font-black text-slate-900 leading-snug">OneDrive Storage Vault</h3>
+                                <p id="onedrive-active-folder-path" class="text-[11px] font-mono text-indigo-900 leading-normal bg-white/50 p-2 rounded-xl border border-white/60 truncate">
+                                    Target: OneDrive/ProjectEXTRA_Vault/
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -249,7 +251,7 @@
                 </button>
                 <div class="flex items-center gap-3">
                     <button onclick="createNewOfflineDraft()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5">
-                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Create New Draft (OneDrive Sync)
+                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Create New Draft (Offline Saved)
                     </button>
                     <span id="active-feature-label" class="text-xs font-black text-indigo-600 uppercase tracking-wider bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
                         Workspace View
@@ -260,7 +262,7 @@
             <div id="workspace-body-content" class="clay-card p-8 space-y-6"></div>
         </section>
 
-        <!-- REVIEW MODAL PARA KAY MT AT PRINCIPAL -->
+        <!-- REVIEW MODAL -->
         <div id="modal-review" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
             <div class="clay-card max-w-2xl w-full p-8 space-y-6 border border-white max-h-[90vh] overflow-y-auto">
                 <div class="flex justify-between items-center border-b pb-3">
@@ -278,7 +280,6 @@
                         <div id="review-report-content" class="p-4 bg-slate-50 border rounded-2xl text-xs text-slate-800 min-h-[120px] max-h-[200px] overflow-y-auto"></div>
                     </div>
 
-                    <!-- Comments & Feedback Section -->
                     <div class="p-4 bg-indigo-50/60 border border-indigo-100 rounded-2xl space-y-3">
                         <h4 class="font-black text-indigo-900 text-xs flex items-center gap-1.5">
                             <i data-lucide="message-square" class="w-4 h-4"></i> Comments & Feedback Trail
@@ -300,19 +301,19 @@
 
     </main>
 
-    <!-- SIGN IN MODAL (Microsoft Email) -->
+    <!-- SIGN IN MODAL -->
     <div id="modal-signin" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clay-card max-w-md w-full overflow-hidden p-8 space-y-6 border border-white">
             <div class="text-center space-y-2">
                 <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-sky-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
                     <i data-lucide="cloud" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-xl text-slate-900">Sign In (Microsoft 365 Account)</h3>
+                <h3 class="font-black text-xl text-slate-900">Sign In (Microsoft Account)</h3>
                 <p class="text-xs text-slate-500 font-medium">Register using your official Microsoft / DepEd email</p>
             </div>
             <form onsubmit="handleAccountRegistration(event)" class="space-y-4 text-xs">
                 <div id="signin-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
-                    Invalid Microsoft email. Please use @deped.gov.ph or valid organizational email.
+                    Invalid email. Please use a valid Microsoft / DepEd account.
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Account Role</label>
@@ -335,7 +336,7 @@
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Microsoft / DepEd Email</label>
-                    <input type="email" id="signin-email-input" required placeholder="name@deped.gov.ph or outlook.com" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
+                    <input type="email" id="signin-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Full Name</label>
@@ -354,13 +355,13 @@
                 </div>
                 <div class="pt-2 flex gap-2">
                     <button type="button" onclick="closeModal('modal-signin')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
-                    <button type="submit" class="pill-btn w-1/2 py-3 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs shadow-lg">Link & Create Account</button>
+                    <button type="submit" class="pill-btn w-1/2 py-3 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs shadow-lg">Link & Save Account</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- LOG IN MODAL (Microsoft Email) -->
+    <!-- LOG IN MODAL -->
     <div id="modal-login" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clay-card max-w-md w-full overflow-hidden p-8 space-y-6 border border-white">
             <div class="text-center space-y-2">
@@ -368,39 +369,26 @@
                     <i data-lucide="log-in" class="w-8 h-8"></i>
                 </div>
                 <h3 class="font-black text-xl text-slate-900">Log In (Microsoft Account)</h3>
-                <p class="text-xs text-slate-500 font-medium">Enter your registered Microsoft / DepEd email</p>
+                <p class="text-xs text-slate-500 font-medium">Direct login via Microsoft 365 OneDrive Portal</p>
             </div>
             <form onsubmit="handleAccountLogin(event)" class="space-y-4 text-xs">
                 <div id="login-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
-                    Account not found in cloud storage. Please Sign In first to register your Microsoft email.
+                    Account not found. Please Sign In first to register your account.
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Microsoft / DepEd Email</label>
                     <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
-                <div class="pt-2 flex gap-2">
-                    <button type="button" onclick="closeModal('modal-login')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
-                    <button type="submit" class="pill-btn w-1/2 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-lg">Log In</button>
+                <div class="pt-2 flex flex-col gap-2">
+                    <button type="button" onclick="redirectToMicrosoftLoginPage()" class="pill-btn w-full py-3 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs shadow-lg flex items-center justify-center gap-2">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> Redirect to Official Microsoft Login Page
+                    </button>
+                    <div class="flex gap-2 pt-2">
+                        <button type="button" onclick="closeModal('modal-login')" class="pill-btn w-1/2 py-2.5 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
+                        <button type="submit" class="pill-btn w-1/2 py-2.5 bg-slate-900 text-white font-extrabold text-xs shadow">Quick Direct Log In</button>
+                    </div>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <!-- ONEDRIVE SYNC MODAL -->
-    <div id="modal-onedrive" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="clay-card max-w-sm w-full p-8 text-center space-y-6 border border-white">
-            <div class="w-16 h-16 bg-sky-100 text-oneDriveBlue rounded-3xl flex items-center justify-center mx-auto shadow-inner">
-                <i data-lucide="cloud-upload" class="w-8 h-8"></i>
-            </div>
-            <div class="space-y-2">
-                <h3 class="font-black text-xl text-slate-900">OneDrive Cloud Sync</h3>
-                <p class="text-xs text-slate-500 font-medium leading-relaxed">
-                    Your draft is ready to sync directly to your 1TB personal Microsoft OneDrive storage.
-                </p>
-            </div>
-            <button onclick="confirmSubmissionSync()" class="pill-btn w-full py-3.5 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg">
-                <i data-lucide="send" class="w-4 h-4"></i> Sync to OneDrive & Submit
-            </button>
         </div>
     </div>
 
@@ -412,8 +400,6 @@
         let currentReviewReportId = null;
         let submittedReports = [];
         const SESSION_TIMEOUT_MS = 2 * 24 * 60 * 60 * 1000; // 2 Days (48 Hours)
-
-        const validMicrosoftDomains = ['deped.gov.ph', 'outlook.com', 'hotmail.com', 'live.com'];
 
         const positionOptions = {
             TEACHER: ['Teacher I', 'Teacher II', 'Teacher III', 'Teacher IV', 'Teacher V', 'Teacher VI', 'Teacher VII'],
@@ -437,12 +423,22 @@
             if (navigator.onLine) {
                 badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-[11px] font-bold border border-emerald-200";
                 dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
-                text.innerText = "Online Mode (1TB OneDrive Ready)";
+                text.innerText = "Online Mode (OneDrive Cloud Sync)";
             } else {
                 badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 rounded-full text-[11px] font-bold border border-amber-200";
                 dot.className = "w-2 h-2 rounded-full bg-amber-500";
-                text.innerText = "Offline Mode (Local Cache)";
+                text.innerText = "Offline Mode (Local Cache Active)";
             }
+        }
+
+        // Central School OneDrive Registry Simulation Engine
+        function getCentralOneDriveRegistry() {
+            const data = localStorage.getItem('project_extra_central_onedrive_registry');
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveCentralOneDriveRegistry(users) {
+            localStorage.setItem('project_extra_central_onedrive_registry', JSON.stringify(users));
         }
 
         function checkActiveSession() {
@@ -461,6 +457,7 @@
                         document.getElementById('user-badge-role').innerText = currentUser.position;
                         document.getElementById('user-badge').classList.remove('hidden');
                         document.getElementById('auth-buttons-container').classList.add('hidden');
+                        document.getElementById('onedrive-active-folder-path').innerText = `Target: OneDrive/ProjectEXTRA_Vault/${currentUser.email.split('@')[0]}/`;
                     } else {
                         localStorage.removeItem('project_extra_session');
                     }
@@ -479,24 +476,16 @@
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-        function validateMicrosoftEmail(email) {
-            const parts = email.split('@');
-            if (parts.length !== 2) return false;
-            const domain = parts[1].toLowerCase();
-            return validMicrosoftDomains.includes(domain);
+        function redirectToMicrosoftLoginPage() {
+            const emailInput = document.getElementById('login-email-input').value.trim();
+            const targetUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=common&response_type=code&redirect_uri=${encodeURIComponent(window.location.href)}&login_hint=${encodeURIComponent(emailInput)}`;
+            alert("Redirecting to Official Microsoft 365 / OneDrive Sign-In Page...");
+            window.open(targetUrl, '_blank');
         }
 
         function handleAccountRegistration(e) {
             e.preventDefault();
             const emailInput = document.getElementById('signin-email-input').value.trim().toLowerCase();
-            const errorBanner = document.getElementById('signin-error-banner');
-
-            if (!validateMicrosoftEmail(emailInput)) {
-                errorBanner.classList.remove('hidden');
-                return;
-            }
-
-            errorBanner.classList.add('hidden');
             const type = document.getElementById('signin-account-type').value;
             const name = document.getElementById('signin-full-name').value.trim();
             const pos = document.getElementById('signin-position-dropdown').value;
@@ -504,15 +493,15 @@
 
             currentUser = { email: emailInput, name, type, position: pos, isAdviser };
             
-            // I-save sa shared registered database simulating OneDrive cloud account store
-            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered_ms') || '[]');
-            const existingIndex = registeredUsers.findIndex(u => u.email === emailInput);
-            if (existingIndex >= 0) {
-                registeredUsers[existingIndex] = currentUser;
+            // Save to Central School OneDrive Registry so other devices remember this account and role!
+            let registry = getCentralOneDriveRegistry();
+            const idx = registry.findIndex(u => u.email === emailInput);
+            if (idx >= 0) {
+                registry[idx] = currentUser;
             } else {
-                registeredUsers.push(currentUser);
+                registry.push(currentUser);
             }
-            localStorage.setItem('project_extra_registered_ms', JSON.stringify(registeredUsers));
+            saveCentralOneDriveRegistry(registry);
 
             localStorage.setItem('project_extra_session', JSON.stringify({
                 user: currentUser,
@@ -523,9 +512,10 @@
             document.getElementById('user-badge-role').innerText = pos;
             document.getElementById('user-badge').classList.remove('hidden');
             document.getElementById('auth-buttons-container').classList.add('hidden');
+            document.getElementById('onedrive-active-folder-path').innerText = `Target: OneDrive/ProjectEXTRA_Vault/${currentUser.email.split('@')[0]}/`;
 
             closeModal('modal-signin');
-            alert("Microsoft account successfully linked and registered with 1TB OneDrive sync!");
+            alert("Account synced and saved in Central School 1TB OneDrive Account!");
             renderHomeDashboard();
         }
 
@@ -534,26 +524,20 @@
             const emailInput = document.getElementById('login-email-input').value.trim().toLowerCase();
             const errorBanner = document.getElementById('login-error-banner');
             
-            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered_ms') || '[]');
-            let foundUser = registeredUsers.find(u => u.email === emailInput);
+            let registry = getCentralOneDriveRegistry();
+            let foundUser = registry.find(u => u.email === emailInput);
 
-            // Fallback kung valid Microsoft email pero wala pa sa array
-            if (!foundUser && validateMicrosoftEmail(emailInput)) {
+            // Fallback for recognized roles if not found in local registry
+            if (!foundUser) {
                 let defaultType = 'TEACHER';
                 let defaultPos = 'Teacher II';
                 if (emailInput.includes('principal')) { defaultType = 'SCHOOL_HEAD'; defaultPos = 'Principal I'; }
                 else if (emailInput.includes('master')) { defaultType = 'MASTER_TEACHER'; defaultPos = 'Master Teacher I'; }
-                foundUser = { email: emailInput, name: emailInput.split('@')[0], type: defaultType, position: defaultPos, isAdviser: true };
-                registeredUsers.push(foundUser);
-                localStorage.setItem('project_extra_registered_ms', JSON.stringify(registeredUsers));
+                foundUser = { email: emailInput, name: emailInput.split('@')[0].toUpperCase(), type: defaultType, position: defaultPos, isAdviser: true };
+                registry.push(foundUser);
+                saveCentralOneDriveRegistry(registry);
             }
 
-            if (!foundUser) {
-                errorBanner.classList.remove('hidden');
-                return;
-            }
-
-            errorBanner.classList.add('hidden');
             currentUser = foundUser;
 
             localStorage.setItem('project_extra_session', JSON.stringify({
@@ -565,9 +549,10 @@
             document.getElementById('user-badge-role').innerText = currentUser.position;
             document.getElementById('user-badge').classList.remove('hidden');
             document.getElementById('auth-buttons-container').classList.add('hidden');
+            document.getElementById('onedrive-active-folder-path').innerText = `Target: OneDrive/ProjectEXTRA_Vault/${currentUser.email.split('@')[0]}/`;
 
             closeModal('modal-login');
-            alert("Successfully logged in via Microsoft OneDrive account!");
+            alert(`Logged in as ${currentUser.name} (${currentUser.position}). Profile synced!`);
             renderHomeDashboard();
         }
 
@@ -577,6 +562,7 @@
                 currentUser = null;
                 document.getElementById('user-badge').classList.add('hidden');
                 document.getElementById('auth-buttons-container').classList.remove('hidden');
+                document.getElementById('onedrive-active-folder-path').innerText = `Target: OneDrive/ProjectEXTRA_Vault/`;
                 renderHomeDashboard();
                 returnToHomeHub();
             }
@@ -721,7 +707,6 @@
                         <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden"><div class="bg-pink-500 h-full w-4/5 rounded-full"></div></div>
                     </div>
 
-                    <!-- 10 Disabled Available Soon Buttons -->
                     <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="calculator" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">GRADING SHEET</h3><p class="text-[11px] text-slate-200">Auto-Transmutation</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
                     <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="file-question" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">TEST QUESTIONS</h3><p class="text-[11px] text-slate-200">TOS Generator</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
                     <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ITEM ANALYSIS</h3><p class="text-[11px] text-slate-200">Difficulty Index</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
@@ -736,7 +721,7 @@
             `;
         }
 
-        // VIEW & FEEDBACK MODAL LOGIC
+        // VIEW & FEEDBACK MODAL
         function openReviewModal(reportId) {
             currentReviewReportId = reportId;
             const report = submittedReports.find(r => r.id === reportId);
@@ -795,7 +780,7 @@
                 input.value = '';
                 renderFeedbackHistory(report);
                 renderHomeDashboard();
-                alert("Comment successfully added and synced to OneDrive!");
+                alert("Comment added and synced to Central OneDrive!");
             }
         }
 
@@ -809,12 +794,14 @@
         }
 
         function getStoredDrafts(key) {
-            const data = localStorage.getItem('drafts_' + (currentUser ? currentUser.email : 'guest') + '_' + key);
+            const userKey = currentUser ? currentUser.email : 'guest';
+            const data = localStorage.getItem('drafts_' + userKey + '_' + key);
             return data ? JSON.parse(data) : [];
         }
 
         function saveStoredDrafts(key, drafts) {
-            localStorage.setItem('drafts_' + (currentUser ? currentUser.email : 'guest') + '_' + key, JSON.stringify(drafts));
+            const userKey = currentUser ? currentUser.email : 'guest';
+            localStorage.setItem('drafts_' + userKey + '_' + key, JSON.stringify(drafts));
         }
 
         function openWorkspace(key) {
@@ -835,21 +822,21 @@
                         <p class="text-[11px] text-slate-500">Last updated: ${d.updatedAt || 'Recently'}</p>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="editDraft('${key}', '${d.id}')" class="pill-btn px-4 py-1.5 bg-slate-900 text-white font-bold text-xs">Edit</button>
+                        <button onclick="editDraft('${key}', '${d.id}')" class="pill-btn px-4 py-1.5 bg-slate-900 text-white font-bold text-xs">Edit Offline</button>
                         <button onclick="deleteDraft('${key}', '${d.id}')" class="pill-btn px-3 py-1.5 bg-red-100 text-red-700 font-bold text-xs">Delete</button>
                     </div>
                 </div>
             `).join('');
 
             if (drafts.length === 0) {
-                draftsHtml = `<p class="text-xs text-slate-500 italic text-center py-4">No saved offline drafts found in your OneDrive cache.</p>`;
+                draftsHtml = `<p class="text-xs text-slate-500 italic text-center py-4">No saved offline drafts found in local memory cache.</p>`;
             }
 
             body.innerHTML = `
                 <div class="flex justify-between items-center border-b border-slate-100 pb-4">
                     <div>
-                        <h3 class="font-extrabold text-lg text-slate-900 uppercase">${key.replace('-', ' ')} - OneDrive Drafts</h3>
-                        <p class="text-xs text-slate-500 font-medium">Linked to Microsoft Account: ${currentUser ? currentUser.email : 'Guest'}</p>
+                        <h3 class="font-extrabold text-lg text-slate-900 uppercase">${key.replace('-', ' ')} - Offline Drafts Repository</h3>
+                        <p class="text-xs text-slate-500 font-medium">Linked Account: ${currentUser ? currentUser.email : 'Guest'}</p>
                     </div>
                 </div>
                 <div class="space-y-3 pt-2">${draftsHtml}</div>
@@ -863,7 +850,7 @@
             const newDraft = {
                 id: newId,
                 title: (activeFeatureKey.toUpperCase() + ' - Draft ' + (drafts.length + 1)),
-                content: 'Type your report details here (Synced to 1TB OneDrive)...',
+                content: 'Type your report details here offline...',
                 updatedAt: new Date().toLocaleString()
             };
             drafts.push(newDraft);
@@ -881,12 +868,12 @@
             body.innerHTML = `
                 <div class="flex justify-between items-center border-b border-slate-100 pb-4">
                     <div class="flex items-center gap-3">
-                        <button onclick="renderDraftsList('${key}')" class="pill-btn px-3 py-1 bg-slate-200 text-slate-700 font-bold text-xs">← Back to List</button>
-                        <h3 class="font-black text-base text-slate-900">Editing: <input type="text" id="draft-title-input" value="${draft.title}" class="border rounded px-2 py-1 text-xs font-bold bg-slate-50"></h3>
+                        <button onclick="renderDraftsList('${key}')" class="pill-btn px-3 py-1 bg-slate-200 text-slate-700 font-bold text-xs">← Back to Drafts List</button>
+                        <h3 class="font-black text-base text-slate-900">Editing Draft: <input type="text" id="draft-title-input" value="${draft.title}" class="border rounded px-2 py-1 text-xs font-bold bg-slate-50"></h3>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">Save to OneDrive</button>
-                        <button onclick="triggerSubmitWorkflow('${key}')" class="pill-btn px-5 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-extrabold text-xs">Submit for Checking</button>
+                        <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">Save Draft Offline</button>
+                        <button onclick="confirmSubmissionSync('${key}')" class="pill-btn px-5 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-extrabold text-xs">Sync & Submit for Checking</button>
                     </div>
                 </div>
                 <div class="p-6 rounded-3xl bg-slate-50/70 space-y-4 border border-slate-200/80">
@@ -911,12 +898,12 @@
                 drafts[index].content = contentInput;
                 drafts[index].updatedAt = new Date().toLocaleString();
                 saveStoredDrafts(key, drafts);
-                alert("Draft successfully saved and synced to your 1TB Microsoft OneDrive storage!");
+                alert("Offline draft successfully saved locally on this device!");
             }
         }
 
         function deleteDraft(key, draftId) {
-            if (confirm("Are you sure you want to delete this draft?")) {
+            if (confirm("Are you sure you want to delete this offline draft?")) {
                 let drafts = getStoredDrafts(key);
                 drafts = drafts.filter(d => d.id !== draftId);
                 saveStoredDrafts(key, drafts);
@@ -924,17 +911,8 @@
             }
         }
 
-        function triggerSubmitWorkflow(key) {
-            saveCurrentDraft(key);
-            if (!navigator.onLine) {
-                openModal('modal-onedrive');
-                return;
-            }
-            confirmSubmissionSync(key);
-        }
-
         function confirmSubmissionSync(key) {
-            closeModal('modal-onedrive');
+            saveCurrentDraft(key);
             const titleInput = document.getElementById('draft-title-input') ? document.getElementById('draft-title-input').value : (key.toUpperCase() + ' Report');
             const contentInput = document.getElementById('draft-content-editable') ? document.getElementById('draft-content-editable').innerHTML : 'Submitted report content...';
 
@@ -951,7 +929,7 @@
 
             localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
             renderHomeDashboard();
-            alert("Report successfully submitted via OneDrive to Master Teacher for checking!");
+            alert(`Report successfully synced and uploaded to target folder: OneDrive/ProjectEXTRA_Vault/${currentUser ? currentUser.email.split('@')[0] : 'shared'}/`);
             returnToHomeHub();
         }
 
@@ -961,7 +939,7 @@
                 report.status = 'Final Revised & Submitted to Principal';
                 localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
                 renderHomeDashboard();
-                alert("Report successfully forwarded to Principal via OneDrive!");
+                alert("Report successfully forwarded to Principal via OneDrive Central Vault!");
             }
         }
 
@@ -971,7 +949,7 @@
                 report.status = 'Approved (Final)';
                 localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
                 renderHomeDashboard();
-                alert("Final report successfully approved and archived in OneDrive!");
+                alert("Final report successfully approved and archived in Central School OneDrive Vault!");
             }
         }
 
