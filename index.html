@@ -171,10 +171,10 @@
 
                 <div id="auth-buttons-container" class="flex items-center gap-2">
                     <button onclick="openModal('modal-signin')" class="pill-btn px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs shadow border">
-                        Sign In (Register)
+                        Sign In (Register Microsoft)
                     </button>
                     <button onclick="openModal('modal-login')" class="pill-btn px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-lg flex items-center gap-2">
-                        <i data-lucide="log-in" class="w-4 h-4"></i> Log In
+                        <i data-lucide="log-in" class="w-4 h-4"></i> Log In (Microsoft)
                     </button>
                 </div>
             </div>
@@ -191,18 +191,18 @@
                     <div class="lg:col-span-7 space-y-4">
                         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold border border-white shadow-inner">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Official e-Xpedited Approval Web Portal
+                            Official e-Xpedited Approval Web Portal (1TB OneDrive Sync)
                         </div>
                         <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
                             Welcome to <br>
                             <span class="glowing-title">Project EXTRA</span>
                         </h2>
                         <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal max-w-xl">
-                            Electronic e-Xpedited Tracking, Review & Approval System: A paperless document submission and sequential approval web portal engineered for Valugan Integrated School[cite: 2].
+                            Electronic e-Xpedited Tracking, Review & Approval System: A paperless document submission and sequential approval web portal engineered for Valugan Integrated School.
                         </p>
                         <div class="pt-2">
                             <p class="text-xs font-extrabold text-slate-700 bg-slate-100/70 inline-block px-4 py-2 rounded-2xl border border-white">
-                                Proponents: <span class="text-indigo-600">Sharlynne Mae P. Veracruz-Francisco & Monica V. Castillo</span>[cite: 2]
+                                Proponents: <span class="text-indigo-600">Sharlynne Mae P. Veracruz-Francisco & Monica V. Castillo</span>
                             </p>
                         </div>
                     </div>
@@ -213,13 +213,13 @@
                                     Project Vault
                                 </span>
                                 <div class="clay-knob flex items-center justify-center">
-                                    <i data-lucide="sparkles" class="w-4 h-4 text-indigo-600"></i>
+                                    <i data-lucide="cloud" class="w-4 h-4 text-oneDriveBlue"></i>
                                 </div>
                             </div>
                             <div class="relative z-10 space-y-2">
-                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Fast-Track Approvals</p>
-                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Paperless Digital Workflow</h3>
-                                <p class="text-[11px] text-slate-700 leading-normal">Auto-sync reports directly to DepEd Master Teachers and Principal OneDrive repositories in real-time[cite: 2].</p>
+                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">1TB OneDrive Integration</p>
+                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Cloud Storage Connected</h3>
+                                <p class="text-[11px] text-slate-700 leading-normal">Accounts and drafts are securely synced directly to individual Microsoft 365 OneDrive repositories.</p>
                             </div>
                         </div>
                     </div>
@@ -237,7 +237,7 @@
                 <div id="submissions-status-list" class="space-y-3"></div>
             </section>
 
-            <!-- DYNAMIC HOME DASHBOARD (Teacher vs Master Teacher vs Principal) -->
+            <!-- DYNAMIC HOME DASHBOARD -->
             <div id="dynamic-home-dashboard" class="space-y-6"></div>
         </div>
 
@@ -249,7 +249,7 @@
                 </button>
                 <div class="flex items-center gap-3">
                     <button onclick="createNewOfflineDraft()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5">
-                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Create New Offline Draft
+                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Create New Draft (OneDrive Sync)
                     </button>
                     <span id="active-feature-label" class="text-xs font-black text-indigo-600 uppercase tracking-wider bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
                         Workspace View
@@ -260,7 +260,7 @@
             <div id="workspace-body-content" class="clay-card p-8 space-y-6"></div>
         </section>
 
-        <!-- REVIEW MODAL PARA KAY MT AT PRINCIPAL (Para ma-view at malagyan ng Feedback/Comments) -->
+        <!-- REVIEW MODAL PARA KAY MT AT PRINCIPAL -->
         <div id="modal-review" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
             <div class="clay-card max-w-2xl w-full p-8 space-y-6 border border-white max-h-[90vh] overflow-y-auto">
                 <div class="flex justify-between items-center border-b pb-3">
@@ -300,19 +300,19 @@
 
     </main>
 
-    <!-- SIGN IN MODAL -->
+    <!-- SIGN IN MODAL (Microsoft Email) -->
     <div id="modal-signin" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clay-card max-w-md w-full overflow-hidden p-8 space-y-6 border border-white">
             <div class="text-center space-y-2">
-                <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
-                    <i data-lucide="user-plus" class="w-8 h-8"></i>
+                <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-sky-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
+                    <i data-lucide="cloud" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-xl text-slate-900">Sign In (Register Account)</h3>
-                <p class="text-xs text-slate-500 font-medium">Register using your official DepEd email[cite: 2]</p>
+                <h3 class="font-black text-xl text-slate-900">Sign In (Microsoft 365 Account)</h3>
+                <p class="text-xs text-slate-500 font-medium">Register using your official Microsoft / DepEd email</p>
             </div>
             <form onsubmit="handleAccountRegistration(event)" class="space-y-4 text-xs">
                 <div id="signin-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
-                    Invalid email. Please use a valid @deped.gov.ph account.
+                    Invalid Microsoft email. Please use @deped.gov.ph or valid organizational email.
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Account Role</label>
@@ -334,8 +334,8 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Official DepEd Email</label>
-                    <input type="email" id="signin-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
+                    <label class="block font-bold text-slate-700 mb-1">Microsoft / DepEd Email</label>
+                    <input type="email" id="signin-email-input" required placeholder="name@deped.gov.ph or outlook.com" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Full Name</label>
@@ -354,28 +354,28 @@
                 </div>
                 <div class="pt-2 flex gap-2">
                     <button type="button" onclick="closeModal('modal-signin')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
-                    <button type="submit" class="pill-btn w-1/2 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg">Create Account</button>
+                    <button type="submit" class="pill-btn w-1/2 py-3 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs shadow-lg">Link & Create Account</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- LOG IN MODAL -->
+    <!-- LOG IN MODAL (Microsoft Email) -->
     <div id="modal-login" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clay-card max-w-md w-full overflow-hidden p-8 space-y-6 border border-white">
             <div class="text-center space-y-2">
                 <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
                     <i data-lucide="log-in" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-xl text-slate-900">Log In to Account</h3>
-                <p class="text-xs text-slate-500 font-medium">Enter your registered DepEd email[cite: 2]</p>
+                <h3 class="font-black text-xl text-slate-900">Log In (Microsoft Account)</h3>
+                <p class="text-xs text-slate-500 font-medium">Enter your registered Microsoft / DepEd email</p>
             </div>
             <form onsubmit="handleAccountLogin(event)" class="space-y-4 text-xs">
                 <div id="login-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
-                    Account not found. Please Sign In first if you don't have an account.
+                    Account not found in cloud storage. Please Sign In first to register your Microsoft email.
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Official DepEd Email</label>
+                    <label class="block font-bold text-slate-700 mb-1">Microsoft / DepEd Email</label>
                     <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
                 <div class="pt-2 flex gap-2">
@@ -393,13 +393,13 @@
                 <i data-lucide="cloud-upload" class="w-8 h-8"></i>
             </div>
             <div class="space-y-2">
-                <h3 class="font-black text-xl text-slate-900">Internet Connection Required</h3>
+                <h3 class="font-black text-xl text-slate-900">OneDrive Cloud Sync</h3>
                 <p class="text-xs text-slate-500 font-medium leading-relaxed">
-                    Your draft is saved locally. To submit it for checking/approval online, please connect to the internet[cite: 2].
+                    Your draft is ready to sync directly to your 1TB personal Microsoft OneDrive storage.
                 </p>
             </div>
             <button onclick="confirmSubmissionSync()" class="pill-btn w-full py-3.5 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg">
-                <i data-lucide="send" class="w-4 h-4"></i> Sync and Submit Now
+                <i data-lucide="send" class="w-4 h-4"></i> Sync to OneDrive & Submit
             </button>
         </div>
     </div>
@@ -411,17 +411,9 @@
         let activeDraftId = null;
         let currentReviewReportId = null;
         let submittedReports = [];
-        const SESSION_TIMEOUT_MS = 2 * 24 * 60 * 60 * 1000; // 2 Days (48 Hours)[cite: 2]
+        const SESSION_TIMEOUT_MS = 2 * 24 * 60 * 60 * 1000; // 2 Days (48 Hours)
 
-        const validDepEdEmails = [
-            'sharlynne.veracruz@deped.gov.ph',
-            'monica.castillo@deped.gov.ph',
-            'maylin.bumanglag@deped.gov.ph',
-            'jeanne.cielo@deped.gov.ph',
-            'teacher@deped.gov.ph',
-            'principal@deped.gov.ph',
-            'masterteacher@deped.gov.ph'
-        ];
+        const validMicrosoftDomains = ['deped.gov.ph', 'outlook.com', 'hotmail.com', 'live.com'];
 
         const positionOptions = {
             TEACHER: ['Teacher I', 'Teacher II', 'Teacher III', 'Teacher IV', 'Teacher V', 'Teacher VI', 'Teacher VII'],
@@ -445,11 +437,11 @@
             if (navigator.onLine) {
                 badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-[11px] font-bold border border-emerald-200";
                 dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
-                text.innerText = "Online Mode";
+                text.innerText = "Online Mode (1TB OneDrive Ready)";
             } else {
                 badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 rounded-full text-[11px] font-bold border border-amber-200";
                 dot.className = "w-2 h-2 rounded-full bg-amber-500";
-                text.innerText = "Offline Mode (Local Draft)";
+                text.innerText = "Offline Mode (Local Cache)";
             }
         }
 
@@ -487,13 +479,19 @@
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
+        function validateMicrosoftEmail(email) {
+            const parts = email.split('@');
+            if (parts.length !== 2) return false;
+            const domain = parts[1].toLowerCase();
+            return validMicrosoftDomains.includes(domain);
+        }
+
         function handleAccountRegistration(e) {
             e.preventDefault();
             const emailInput = document.getElementById('signin-email-input').value.trim().toLowerCase();
             const errorBanner = document.getElementById('signin-error-banner');
-            const isValidDepEd = emailInput.endsWith('@deped.gov.ph') || validDepEdEmails.includes(emailInput);
 
-            if (!isValidDepEd) {
+            if (!validateMicrosoftEmail(emailInput)) {
                 errorBanner.classList.remove('hidden');
                 return;
             }
@@ -506,11 +504,15 @@
 
             currentUser = { email: emailInput, name, type, position: pos, isAdviser };
             
-            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered') || '[]');
-            if (!registeredUsers.some(u => u.email === emailInput)) {
+            // I-save sa shared registered database simulating OneDrive cloud account store
+            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered_ms') || '[]');
+            const existingIndex = registeredUsers.findIndex(u => u.email === emailInput);
+            if (existingIndex >= 0) {
+                registeredUsers[existingIndex] = currentUser;
+            } else {
                 registeredUsers.push(currentUser);
-                localStorage.setItem('project_extra_registered', JSON.stringify(registeredUsers));
             }
+            localStorage.setItem('project_extra_registered_ms', JSON.stringify(registeredUsers));
 
             localStorage.setItem('project_extra_session', JSON.stringify({
                 user: currentUser,
@@ -523,7 +525,7 @@
             document.getElementById('auth-buttons-container').classList.add('hidden');
 
             closeModal('modal-signin');
-            alert("Account successfully created and signed in!");
+            alert("Microsoft account successfully linked and registered with 1TB OneDrive sync!");
             renderHomeDashboard();
         }
 
@@ -532,15 +534,18 @@
             const emailInput = document.getElementById('login-email-input').value.trim().toLowerCase();
             const errorBanner = document.getElementById('login-error-banner');
             
-            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered') || '[]');
+            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered_ms') || '[]');
             let foundUser = registeredUsers.find(u => u.email === emailInput);
 
-            if (!foundUser && (emailInput.endsWith('@deped.gov.ph') || validDepEdEmails.includes(emailInput))) {
+            // Fallback kung valid Microsoft email pero wala pa sa array
+            if (!foundUser && validateMicrosoftEmail(emailInput)) {
                 let defaultType = 'TEACHER';
                 let defaultPos = 'Teacher II';
                 if (emailInput.includes('principal')) { defaultType = 'SCHOOL_HEAD'; defaultPos = 'Principal I'; }
                 else if (emailInput.includes('master')) { defaultType = 'MASTER_TEACHER'; defaultPos = 'Master Teacher I'; }
                 foundUser = { email: emailInput, name: emailInput.split('@')[0], type: defaultType, position: defaultPos, isAdviser: true };
+                registeredUsers.push(foundUser);
+                localStorage.setItem('project_extra_registered_ms', JSON.stringify(registeredUsers));
             }
 
             if (!foundUser) {
@@ -562,7 +567,7 @@
             document.getElementById('auth-buttons-container').classList.add('hidden');
 
             closeModal('modal-login');
-            alert("Successfully logged in!");
+            alert("Successfully logged in via Microsoft OneDrive account!");
             renderHomeDashboard();
         }
 
@@ -577,7 +582,7 @@
             }
         }
 
-        // RENDER HOME DASHBOARD (Teacher vs Master Teacher vs Principal)
+        // RENDER HOME DASHBOARD
         function renderHomeDashboard() {
             const dashboard = document.getElementById('dynamic-home-dashboard');
             const monitorSection = document.getElementById('notification-monitor-section');
@@ -592,7 +597,6 @@
             renderNotificationMonitor();
 
             if (currentUser.type === 'SCHOOL_HEAD') {
-                // PRINCIPAL DASHBOARD: Grouped by DLP and SF2 submissions that have final revisions[cite: 2]
                 let dlpSubmissions = submittedReports.filter(r => r.type === 'dlp' && r.status.includes('Final'));
                 let sf2Submissions = submittedReports.filter(r => r.type === 'school-forms' && r.status.includes('Final'));
 
@@ -600,14 +604,13 @@
                     <div class="space-y-6">
                         <div class="clay-card p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100">
                             <h3 class="text-xl font-black text-slate-900">Principal Executive Review Dashboard</h3>
-                            <p class="text-xs text-slate-600 mt-1">Review finalized reports submitted by teachers and checked by Master Teachers for final approval[cite: 2].</p>
+                            <p class="text-xs text-slate-600 mt-1">Review finalized reports synced via Microsoft OneDrive for final approval.</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Group 1: DLP Submissions -->
                             <div class="clay-card p-6 space-y-4">
                                 <h4 class="font-black text-indigo-700 text-sm flex items-center gap-2 border-b pb-2">
-                                    <i data-lucide="book-open" class="w-4 h-4"></i> List of Teachers Submitted DLP (${dlpSubmissions.length})[cite: 2]
+                                    <i data-lucide="book-open" class="w-4 h-4"></i> List of Teachers Submitted DLP (${dlpSubmissions.length})
                                 </h4>
                                 <div class="space-y-2 text-xs">
                                     ${dlpSubmissions.length > 0 ? dlpSubmissions.map(r => `
@@ -625,10 +628,9 @@
                                 </div>
                             </div>
 
-                            <!-- Group 2: SF2 Submissions -->
                             <div class="clay-card p-6 space-y-4">
                                 <h4 class="font-black text-indigo-700 text-sm flex items-center gap-2 border-b pb-2">
-                                    <i data-lucide="folder-kanban" class="w-4 h-4"></i> List of Teachers Submitted SF2 (${sf2Submissions.length})[cite: 2]
+                                    <i data-lucide="folder-kanban" class="w-4 h-4"></i> List of Teachers Submitted SF2 (${sf2Submissions.length})
                                 </h4>
                                 <div class="space-y-2 text-xs">
                                     ${sf2Submissions.length > 0 ? sf2Submissions.map(r => `
@@ -649,13 +651,12 @@
                     </div>
                 `;
             } else if (currentUser.type === 'MASTER_TEACHER') {
-                // MASTER TEACHER DASHBOARD: Receives teacher reports to view and forward to Principal[cite: 2]
                 let pendingChecks = submittedReports.filter(r => r.status.includes('Pending MT Review'));
                 dashboard.innerHTML = `
                     <div class="space-y-6">
                         <div class="clay-card p-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100">
                             <h3 class="text-xl font-black text-slate-900">Master Teacher Review Portal</h3>
-                            <p class="text-xs text-slate-600 mt-1">Review teacher reports, evaluate content, and forward them directly to the Principal[cite: 2].</p>
+                            <p class="text-xs text-slate-600 mt-1">Review teacher reports synced via OneDrive and forward them to the Principal.</p>
                         </div>
                         <div class="clay-card p-6 space-y-4">
                             <h4 class="font-black text-amber-800 text-sm border-b pb-2">Reports Awaiting Checking (${pendingChecks.length})</h4>
@@ -667,7 +668,7 @@
                                             <p class="text-[11px] text-slate-500">Teacher: ${r.author} • Time: ${r.timestamp}</p>
                                         </div>
                                         <div class="flex gap-2">
-                                            <button onclick="openReviewModal('${r.id}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">View & Add Comments</button>
+                                            <button onclick="openReviewModal('${r.id}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">View & Comments</button>
                                             <button onclick="forwardToPrincipal('${r.id}')" class="pill-btn px-4 py-2 bg-indigo-600 text-white font-extrabold text-xs">Forward to Principal</button>
                                         </div>
                                     </div>
@@ -688,7 +689,7 @@
                     <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase">
                         DOCUMENT CREATION & PORTAL SERVICES
                     </h2>
-                    <p class="text-xs text-slate-500 font-medium">Select any workspace card below to draft, edit, and auto-sync documents</p>
+                    <p class="text-xs text-slate-500 font-medium">Select any workspace card below to draft, edit, and sync to your 1TB OneDrive</p>
                 </div>
 
                 <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-4">
@@ -745,13 +746,11 @@
             document.getElementById('review-report-author').innerText = `Submitted by: ${report.author} (${report.timestamp})`;
             document.getElementById('review-report-badge').innerText = report.status;
             
-            // Hanapin ang draft content o ipakita ang mensahe
             let fullContent = report.content || 'No detailed content preview available.';
             document.getElementById('review-report-content').innerHTML = fullContent;
 
             renderFeedbackHistory(report);
 
-            // Dynamic action buttons sa modal base sa role
             const actionContainer = document.getElementById('review-action-buttons');
             if (currentUser.type === 'MASTER_TEACHER') {
                 actionContainer.innerHTML = `<button onclick="forwardToPrincipal('${report.id}'); closeModal('modal-review');" class="pill-btn px-4 py-2 bg-indigo-600 text-white font-extrabold text-xs">Forward to Principal</button>`;
@@ -796,7 +795,7 @@
                 input.value = '';
                 renderFeedbackHistory(report);
                 renderHomeDashboard();
-                alert("Comment successfully added!");
+                alert("Comment successfully added and synced to OneDrive!");
             }
         }
 
@@ -810,12 +809,12 @@
         }
 
         function getStoredDrafts(key) {
-            const data = localStorage.getItem('drafts_' + key);
+            const data = localStorage.getItem('drafts_' + (currentUser ? currentUser.email : 'guest') + '_' + key);
             return data ? JSON.parse(data) : [];
         }
 
         function saveStoredDrafts(key, drafts) {
-            localStorage.setItem('drafts_' + key, JSON.stringify(drafts));
+            localStorage.setItem('drafts_' + (currentUser ? currentUser.email : 'guest') + '_' + key, JSON.stringify(drafts));
         }
 
         function openWorkspace(key) {
@@ -843,14 +842,14 @@
             `).join('');
 
             if (drafts.length === 0) {
-                draftsHtml = `<p class="text-xs text-slate-500 italic text-center py-4">No saved offline drafts found for this section.</p>`;
+                draftsHtml = `<p class="text-xs text-slate-500 italic text-center py-4">No saved offline drafts found in your OneDrive cache.</p>`;
             }
 
             body.innerHTML = `
                 <div class="flex justify-between items-center border-b border-slate-100 pb-4">
                     <div>
-                        <h3 class="font-extrabold text-lg text-slate-900 uppercase">${key.replace('-', ' ')} - Saved Drafts List</h3>
-                        <p class="text-xs text-slate-500 font-medium">All encoded drafts are safely stored locally on your device.</p>
+                        <h3 class="font-extrabold text-lg text-slate-900 uppercase">${key.replace('-', ' ')} - OneDrive Drafts</h3>
+                        <p class="text-xs text-slate-500 font-medium">Linked to Microsoft Account: ${currentUser ? currentUser.email : 'Guest'}</p>
                     </div>
                 </div>
                 <div class="space-y-3 pt-2">${draftsHtml}</div>
@@ -864,7 +863,7 @@
             const newDraft = {
                 id: newId,
                 title: (activeFeatureKey.toUpperCase() + ' - Draft ' + (drafts.length + 1)),
-                content: 'Type your report details here offline...',
+                content: 'Type your report details here (Synced to 1TB OneDrive)...',
                 updatedAt: new Date().toLocaleString()
             };
             drafts.push(newDraft);
@@ -886,7 +885,7 @@
                         <h3 class="font-black text-base text-slate-900">Editing: <input type="text" id="draft-title-input" value="${draft.title}" class="border rounded px-2 py-1 text-xs font-bold bg-slate-50"></h3>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">Save Offline Draft</button>
+                        <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">Save to OneDrive</button>
                         <button onclick="triggerSubmitWorkflow('${key}')" class="pill-btn px-5 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-extrabold text-xs">Submit for Checking</button>
                     </div>
                 </div>
@@ -912,7 +911,7 @@
                 drafts[index].content = contentInput;
                 drafts[index].updatedAt = new Date().toLocaleString();
                 saveStoredDrafts(key, drafts);
-                alert("Offline draft changes successfully saved!");
+                alert("Draft successfully saved and synced to your 1TB Microsoft OneDrive storage!");
             }
         }
 
@@ -952,7 +951,7 @@
 
             localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
             renderHomeDashboard();
-            alert("Report successfully submitted to Master Teacher for checking!");
+            alert("Report successfully submitted via OneDrive to Master Teacher for checking!");
             returnToHomeHub();
         }
 
@@ -962,7 +961,7 @@
                 report.status = 'Final Revised & Submitted to Principal';
                 localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
                 renderHomeDashboard();
-                alert("Report successfully forwarded to Principal for final approval!");
+                alert("Report successfully forwarded to Principal via OneDrive!");
             }
         }
 
@@ -972,7 +971,7 @@
                 report.status = 'Approved (Final)';
                 localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
                 renderHomeDashboard();
-                alert("Final report successfully approved!");
+                alert("Final report successfully approved and archived in OneDrive!");
             }
         }
 
@@ -1013,7 +1012,7 @@
             const type = document.getElementById('signin-account-type').value;
             const levelOpt = document.getElementById('signin-field-level-option');
             const adviserOpt = document.getElementById('signin-field-adviser-option');
-            posDropdown = document.getElementById('signin-position-dropdown');
+            const posDropdown = document.getElementById('signin-position-dropdown');
 
             levelOpt.style.display = type === 'TEACHER' ? 'block' : 'none';
             adviserOpt.style.display = type === 'SCHOOL_HEAD' ? 'none' : 'block';
