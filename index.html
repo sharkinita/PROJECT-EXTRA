@@ -164,14 +164,19 @@
                         <p id="user-badge-name" class="text-xs font-extrabold text-slate-900">Sharlynne Francisco</p>
                         <p id="user-badge-role" class="text-[10px] text-slate-500 font-medium">Teacher II / ICT Coordinator</p>
                     </div>
-                    <button onclick="handleUserLogout()" title="Sign Out" class="pill-btn bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition-all flex items-center justify-center">
+                    <button onclick="handleUserLogout()" title="Log Out" class="pill-btn bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition-all flex items-center justify-center">
                         <i data-lucide="log-out" class="w-4 h-4"></i>
                     </button>
                 </div>
 
-                <button id="main-signin-btn" onclick="openModal('modal-login')" class="pill-btn px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-lg flex items-center gap-2">
-                    <i data-lucide="shield-check" class="w-4 h-4"></i> Sign In Account
-                </button>
+                <div id="auth-buttons-container" class="flex items-center gap-2">
+                    <button onclick="openModal('modal-signin')" class="pill-btn px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs shadow border">
+                        Sign In (Register)
+                    </button>
+                    <button onclick="openModal('modal-login')" class="pill-btn px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-lg flex items-center gap-2">
+                        <i data-lucide="log-in" class="w-4 h-4"></i> Log In
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -186,30 +191,30 @@
                     <div class="lg:col-span-7 space-y-4">
                         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold border border-white shadow-inner">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Offline Draft Management & Online Approval
+                            Sequential Approval Routing System
                         </div>
                         <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
                             Welcome to <br>
                             <span class="glowing-title">Project EXTRA</span>
                         </h2>
                         <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal max-w-xl">
-                            Maaari kang gumawa, mag-edit, at mag-save ng mga draft offline nang direkta sa iyong device. May listahan ng saved drafts sa bawat pindutan.
+                            Sistema ng pagpapasa, pagsusuri ng Master Teacher, at pinal na pagpapatibay ng Principal para sa Valugan Integrated School.
                         </p>
                     </div>
                     <div class="lg:col-span-5">
                         <div class="glass-gradient-panel h-64 sm:h-80 w-full p-6 flex flex-col justify-between relative overflow-hidden">
                             <div class="flex justify-between items-start relative z-10">
                                 <span class="text-xs font-extrabold tracking-widest text-slate-800 uppercase bg-white/60 backdrop-blur-md px-3 py-1 rounded-full border border-white">
-                                    Offline Storage Ready
+                                    Role-Based Portal
                                 </span>
                                 <div class="clay-knob flex items-center justify-center">
-                                    <i data-lucide="hard-drive" class="w-4 h-4 text-indigo-600"></i>
+                                    <i data-lucide="git-merge" class="w-4 h-4 text-indigo-600"></i>
                                 </div>
                             </div>
                             <div class="relative z-10 space-y-2">
-                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Local Draft List</p>
-                                <h3 class="text-2xl font-black text-slate-900 leading-snug">I-edit at I-save Offline</h3>
-                                <p class="text-[11px] text-slate-700 leading-normal">Lahat ng ginawa mong draft ay nakalista para sa madaling pag-edit bago i-submit.</p>
+                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Signatory Workflow</p>
+                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Teacher → MT → Principal</h3>
+                                <p class="text-[11px] text-slate-700 leading-normal">Direktang dumadaloy ang mga ulat mula sa guro patungo sa Master Teacher at sa Punong-guro.</p>
                             </div>
                         </div>
                     </div>
@@ -220,69 +225,17 @@
             <section id="notification-monitor-section" class="hidden clay-card p-6 border-l-8 border-amber-400 space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                     <h3 class="font-extrabold text-sm text-slate-900 flex items-center gap-2">
-                        <i data-lucide="bell" class="w-5 h-5 text-amber-500"></i> Submitted Reports & Offline Queue Status
+                        <i data-lucide="bell" class="w-5 h-5 text-amber-500"></i> Submitted Reports & Approval Status
                     </h3>
                     <span class="pill-btn px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-[10px]">Live Tracker</span>
                 </div>
                 <div id="submissions-status-list" class="space-y-3"></div>
             </section>
 
-            <!-- SERVICES HEADER -->
-            <div class="text-center py-2 space-y-1">
-                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase">
-                    DOCUMENT CREATION & PORTAL SERVICES
-                </h2>
-                <p class="text-xs text-slate-500 font-medium">Pumili ng active workspace card para makita ang mga saved drafts o gumawa ng bago</p>
+            <!-- DINAMIKONG HOME VIEW DEPENDING ON USER ROLE -->
+            <div id="dynamic-home-dashboard" class="space-y-6">
+                <!-- Ipapalabas dito kung Teacher, Master Teacher, o Principal ang naka-log in -->
             </div>
-
-            <!-- BUTTONS GRID -->
-            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Active 1: School Forms -->
-                <div onclick="accessFeature('school-forms')" class="clay-button-card p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold shadow-inner border border-white">
-                            <i data-lucide="folder-kanban" class="w-5 h-5"></i>
-                        </div>
-                        <div class="clay-knob"></div>
-                    </div>
-                    <div>
-                        <h3 class="font-extrabold text-slate-900 text-base tracking-wide">SCHOOL FORMS</h3>
-                        <p class="text-[11px] text-slate-500 font-medium mt-1">SF 1 - SF 10 Master Repository</p>
-                    </div>
-                    <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-cyan-500 h-full w-2/3 rounded-full"></div>
-                    </div>
-                </div>
-
-                <!-- Active 2: Daily Lesson Plan -->
-                <div onclick="accessFeature('dlp')" class="clay-button-card p-6 flex flex-col justify-between h-44">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center font-bold shadow-inner border border-white">
-                            <i data-lucide="book-open" class="w-5 h-5"></i>
-                        </div>
-                        <div class="clay-knob"></div>
-                    </div>
-                    <div>
-                        <h3 class="font-extrabold text-slate-900 text-base tracking-wide">DAILY LESSON PLAN</h3>
-                        <p class="text-[11px] text-slate-500 font-medium mt-1">English & Filipino Formats</p>
-                    </div>
-                    <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-pink-500 h-full w-4/5 rounded-full"></div>
-                    </div>
-                </div>
-
-                <!-- Disabled 10 Buttons -->
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="calculator" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">GRADING SHEET</h3><p class="text-[11px] text-slate-200">Auto-Transmutation</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="file-question" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">TEST QUESTIONS</h3><p class="text-[11px] text-slate-200">TOS Generator</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ITEM ANALYSIS</h3><p class="text-[11px] text-slate-200">Difficulty Index</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="alert-circle" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">LEAST MASTERED</h3><p class="text-[11px] text-slate-200">74% Below Priority</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="target" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ACTION PLAN</h3><p class="text-[11px] text-slate-200">Strategy Builder</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="award" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ACCOMPLISHMENT</h3><p class="text-[11px] text-slate-200">Narrative Report</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="file-check" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">E-IPCRF</h3><p class="text-[11px] text-slate-200">Performance Assessment</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="microscope" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">RESEARCH</h3><p class="text-[11px] text-slate-200">Action Research Vault</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="clock" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">EMERGENCY PROGRAM</h3><p class="text-[11px] text-slate-200">Substitute Scheduler</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="lightbulb" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">INNOVATION / PROJECT</h3><p class="text-[11px] text-slate-200">Project Proposals</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-            </section>
         </div>
 
         <!-- WORKSPACE VIEW CONTAINER -->
@@ -301,68 +254,92 @@
                 </div>
             </div>
 
-            <!-- Listahan ng mga Saved Drafts at Editor Area -->
             <div id="workspace-body-content" class="clay-card p-8 space-y-6"></div>
         </section>
 
     </main>
 
-    <!-- LOGIN MODAL -->
-    <div id="modal-login" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <!-- SIGN IN MODAL -->
+    <div id="modal-signin" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clay-card max-w-md w-full overflow-hidden p-8 space-y-6 border border-white">
             <div class="text-center space-y-2">
-                <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
-                    <i data-lucide="shield-check" class="w-8 h-8"></i>
+                <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
+                    <i data-lucide="user-plus" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-xl text-slate-900">Project EXTRA Verification</h3>
-                <p class="text-xs text-slate-500 font-medium">I-verify ang iyong official DepEd email</p>
+                <h3 class="font-black text-xl text-slate-900">Mag-Sign In (Register)</h3>
+                <p class="text-xs text-slate-500 font-medium">Ilagay ang iyong DepEd credentials at papel sa paaralan</p>
             </div>
-            <form onsubmit="handleAccountLogin(event)" class="space-y-4 text-xs">
-                <div id="email-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
-                    Maling email. Mangyaring gumamit ng @deped.gov.ph account.
+            <form onsubmit="handleAccountRegistration(event)" class="space-y-4 text-xs">
+                <div id="signin-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
+                    Invalid email. Gamitin ang @deped.gov.ph account.
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Account Role</label>
-                    <select id="login-account-type" onchange="toggleLoginRoleFields()" class="w-full p-3 border rounded-2xl font-semibold bg-slate-50/80 outline-none">
+                    <select id="signin-account-type" onchange="toggleSigninRoleFields()" class="w-full p-3 border rounded-2xl font-semibold bg-slate-50/80 outline-none">
                         <option value="TEACHER">TEACHER ACCOUNT</option>
                         <option value="MASTER_TEACHER">MASTER TEACHER ACCOUNT</option>
-                        <option value="SCHOOL_HEAD">SCHOOL HEAD ACCOUNT</option>
+                        <option value="SCHOOL_HEAD">SCHOOL HEAD ACCOUNT (PRINCIPAL)</option>
                     </select>
                 </div>
-                <div id="field-level-option">
+                <div id="signin-field-level-option">
                     <label class="block font-bold text-slate-700 mb-1">School Level Division</label>
                     <div class="grid grid-cols-2 gap-3">
                         <label class="p-3 border rounded-2xl flex items-center gap-2 cursor-pointer bg-slate-50/80 font-medium">
-                            <input type="radio" name="school-level" value="Elementary" checked class="accent-indigo-600"> Elementary
+                            <input type="radio" name="signin-school-level" value="Elementary" checked class="accent-emerald-600"> Elementary
                         </label>
                         <label class="p-3 border rounded-2xl flex items-center gap-2 cursor-pointer bg-slate-50/80 font-medium">
-                            <input type="radio" name="school-level" value="Junior Highschool" class="accent-indigo-600"> Junior High
+                            <input type="radio" name="signin-school-level" value="Junior Highschool" class="accent-emerald-600"> Junior High
                         </label>
                     </div>
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Official DepEd Email</label>
-                    <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
+                    <input type="email" id="signin-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Full Name</label>
-                    <input type="text" id="login-full-name" required placeholder="e.g., Sharlynne Mae P. Veracruz-Francisco" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
+                    <input type="text" id="signin-full-name" required placeholder="e.g., Sharlynne Mae P. Veracruz-Francisco" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
-                <div id="field-adviser-option">
+                <div id="signin-field-adviser-option">
                     <label class="block font-bold text-slate-700 mb-1">Teaching Designation</label>
-                    <select id="login-adviser-status" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
+                    <select id="signin-adviser-status" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                         <option value="Adviser">Class Adviser</option>
                         <option value="Subject Teacher">Subject Teacher</option>
                     </select>
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Position / Rank</label>
-                    <select id="login-position-dropdown" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none"></select>
+                    <select id="signin-position-dropdown" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none"></select>
                 </div>
-                <div class="pt-2">
-                    <button type="submit" class="pill-btn w-full py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-lg">
-                        Mag-sign In Offline/Online
-                    </button>
+                <div class="pt-2 flex gap-2">
+                    <button type="button" onclick="closeModal('modal-signin')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Kanselahin</button>
+                    <button type="submit" class="pill-btn w-1/2 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg">Gumawa ng Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- LOG IN MODAL -->
+    <div id="modal-login" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="clay-card max-w-md w-full overflow-hidden p-8 space-y-6 border border-white">
+            <div class="text-center space-y-2">
+                <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
+                    <i data-lucide="log-in" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-black text-xl text-slate-900">Mag-Log In</h3>
+                <p class="text-xs text-slate-500 font-medium">Ilagay ang iyong rehistradong DepEd email</p>
+            </div>
+            <form onsubmit="handleAccountLogin(event)" class="space-y-4 text-xs">
+                <div id="login-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
+                    Hindi natagpuan ang account. Mag-sign in muna kung wala pang account.
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Official DepEd Email</label>
+                    <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
+                </div>
+                <div class="pt-2 flex gap-2">
+                    <button type="button" onclick="closeModal('modal-login')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Kanselahin</button>
+                    <button type="submit" class="pill-btn w-1/2 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-lg">Mag-Log In</button>
                 </div>
             </form>
         </div>
@@ -377,7 +354,7 @@
             <div class="space-y-2">
                 <h3 class="font-black text-xl text-slate-900">Kailangan ng Internet Connection</h3>
                 <p class="text-xs text-slate-500 font-medium leading-relaxed">
-                    Naka-save ang draft offline. Para ma-submit ito online sa Master Teacher at Principal, mangyaring kumonekta sa internet.
+                    Naka-save ang draft offline. Para ma-submit ito para sa checking/approval, kumonekta sa internet.
                 </p>
             </div>
             <button onclick="confirmSubmissionSync()" class="pill-btn w-full py-3.5 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg">
@@ -392,13 +369,16 @@
         let activeFeatureKey = null;
         let activeDraftId = null;
         let submittedReports = [];
+        const SESSION_TIMEOUT_MS = 2 * 24 * 60 * 60 * 1000; // 2 Days (48 Hours)
 
         const validDepEdEmails = [
             'sharlynne.veracruz@deped.gov.ph',
             'monica.castillo@deped.gov.ph',
             'maylin.bumanglag@deped.gov.ph',
             'jeanne.cielo@deped.gov.ph',
-            'teacher@deped.gov.ph'
+            'teacher@deped.gov.ph',
+            'principal@deped.gov.ph',
+            'masterteacher@deped.gov.ph'
         ];
 
         const positionOptions = {
@@ -409,9 +389,9 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
-            toggleLoginRoleFields();
+            toggleSigninRoleFields();
             checkNetworkStatus();
-            loadLocalSession();
+            checkActiveSession();
             window.addEventListener('online', checkNetworkStatus);
             window.addEventListener('offline', checkNetworkStatus);
         });
@@ -431,29 +411,44 @@
             }
         }
 
-        function loadLocalSession() {
-            const localUser = localStorage.getItem('project_extra_user');
-            if (localUser) {
-                currentUser = JSON.parse(localUser);
-                document.getElementById('user-badge-name').innerText = currentUser.name;
-                document.getElementById('user-badge-role').innerText = currentUser.position;
-                document.getElementById('user-badge').classList.remove('hidden');
-                document.getElementById('main-signin-btn').classList.add('hidden');
+        function checkActiveSession() {
+            const savedSession = localStorage.getItem('project_extra_session');
+            if (savedSession) {
+                try {
+                    const sessionData = JSON.parse(savedSession);
+                    const now = new Date().getTime();
+                    
+                    if (now - sessionData.timestamp < SESSION_TIMEOUT_MS) {
+                        currentUser = sessionData.user;
+                        sessionData.timestamp = now;
+                        localStorage.setItem('project_extra_session', JSON.stringify(sessionData));
+
+                        document.getElementById('user-badge-name').innerText = currentUser.name;
+                        document.getElementById('user-badge-role').innerText = currentUser.position;
+                        document.getElementById('user-badge').classList.remove('hidden');
+                        document.getElementById('auth-buttons-container').classList.add('hidden');
+                    } else {
+                        localStorage.removeItem('project_extra_session');
+                    }
+                } catch (e) {
+                    localStorage.removeItem('project_extra_session');
+                }
             }
+
             const savedReports = localStorage.getItem('project_extra_reports');
             if (savedReports) {
                 submittedReports = JSON.parse(savedReports);
-                renderNotificationMonitor();
             }
+            renderHomeDashboard();
         }
 
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-        function handleAccountLogin(e) {
+        function handleAccountRegistration(e) {
             e.preventDefault();
-            const emailInput = document.getElementById('login-email-input').value.trim().toLowerCase();
-            const errorBanner = document.getElementById('email-error-banner');
+            const emailInput = document.getElementById('signin-email-input').value.trim().toLowerCase();
+            const errorBanner = document.getElementById('signin-error-banner');
             const isValidDepEd = emailInput.endsWith('@deped.gov.ph') || validDepEdEmails.includes(emailInput);
 
             if (!isValidDepEd) {
@@ -462,31 +457,232 @@
             }
 
             errorBanner.classList.add('hidden');
-            const type = document.getElementById('login-account-type').value;
-            const name = document.getElementById('login-full-name').value.trim();
-            const pos = document.getElementById('login-position-dropdown').value;
-            const isAdviser = type !== 'SCHOOL_HEAD' && document.getElementById('login-adviser-status').value === 'Adviser';
+            const type = document.getElementById('signin-account-type').value;
+            const name = document.getElementById('signin-full-name').value.trim();
+            const pos = document.getElementById('signin-position-dropdown').value;
+            const isAdviser = type !== 'SCHOOL_HEAD' && document.getElementById('signin-adviser-status').value === 'Adviser';
 
             currentUser = { email: emailInput, name, type, position: pos, isAdviser };
-            localStorage.setItem('project_extra_user', JSON.stringify(currentUser));
+            
+            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered') || '[]');
+            if (!registeredUsers.some(u => u.email === emailInput)) {
+                registeredUsers.push(currentUser);
+                localStorage.setItem('project_extra_registered', JSON.stringify(registeredUsers));
+            }
+
+            localStorage.setItem('project_extra_session', JSON.stringify({
+                user: currentUser,
+                timestamp: new Date().getTime()
+            }));
 
             document.getElementById('user-badge-name').innerText = name;
             document.getElementById('user-badge-role').innerText = pos;
             document.getElementById('user-badge').classList.remove('hidden');
-            document.getElementById('main-signin-btn').classList.add('hidden');
+            document.getElementById('auth-buttons-container').classList.add('hidden');
+
+            closeModal('modal-signin');
+            alert("Tagumpay na nakagawa ng account!");
+            renderHomeDashboard();
+        }
+
+        function handleAccountLogin(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('login-email-input').value.trim().toLowerCase();
+            const errorBanner = document.getElementById('login-error-banner');
+            
+            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered') || '[]');
+            let foundUser = registeredUsers.find(u => u.email === emailInput);
+
+            if (!foundUser && (emailInput.endsWith('@deped.gov.ph') || validDepEdEmails.includes(emailInput))) {
+                let defaultType = 'TEACHER';
+                let defaultPos = 'Teacher II';
+                if (emailInput.includes('principal')) { defaultType = 'SCHOOL_HEAD'; defaultPos = 'Principal I'; }
+                else if (emailInput.includes('master')) { defaultType = 'MASTER_TEACHER'; defaultPos = 'Master Teacher I'; }
+                foundUser = { email: emailInput, name: emailInput.split('@')[0], type: defaultType, position: defaultPos, isAdviser: true };
+            }
+
+            if (!foundUser) {
+                errorBanner.classList.remove('hidden');
+                return;
+            }
+
+            errorBanner.classList.add('hidden');
+            currentUser = foundUser;
+
+            localStorage.setItem('project_extra_session', JSON.stringify({
+                user: currentUser,
+                timestamp: new Date().getTime()
+            }));
+
+            document.getElementById('user-badge-name').innerText = currentUser.name;
+            document.getElementById('user-badge-role').innerText = currentUser.position;
+            document.getElementById('user-badge').classList.remove('hidden');
+            document.getElementById('auth-buttons-container').classList.add('hidden');
 
             closeModal('modal-login');
-            if (activeFeatureKey) accessFeature(activeFeatureKey);
+            alert("Matagumpay kang nag-log in!");
+            renderHomeDashboard();
         }
 
         function handleUserLogout() {
-            if (confirm("Gusto mo bang mag-sign out?")) {
-                localStorage.removeItem('project_extra_user');
+            if (confirm("Gusto mo bang mag-log out?")) {
+                localStorage.removeItem('project_extra_session');
                 currentUser = null;
                 document.getElementById('user-badge').classList.add('hidden');
-                document.getElementById('main-signin-btn').classList.remove('hidden');
+                document.getElementById('auth-buttons-container').classList.remove('hidden');
+                renderHomeDashboard();
                 returnToHomeHub();
             }
+        }
+
+        // RENDER HOME DASHBOARD DEPENDING ON ROLE (Teacher vs Master Teacher vs Principal)
+        function renderHomeDashboard() {
+            const dashboard = document.getElementById('dynamic-home-dashboard');
+            const monitorSection = document.getElementById('notification-monitor-section');
+
+            if (!currentUser) {
+                dashboard.innerHTML = `
+                    <div class="text-center py-10 clay-card p-8">
+                        <h3 class="text-xl font-bold text-slate-800">Mangyaring mag-Sign In o Mag-Log In</h3>
+                        <p class="text-xs text-slate-500 mt-2">Para ma-access ang mga portal service, kailangan mong magrehistro o pumasok sa iyong account.</p>
+                    </div>
+                `;
+                monitorSection.classList.add('hidden');
+                return;
+            }
+
+            renderNotificationMonitor();
+
+            if (currentUser.type === 'SCHOOL_HEAD') {
+                // PRINCIPAL ACCOUNT VIEW: Listahan ng nakapagpatingin at nagsumite (Grouped by DLP & SF2)
+                let dlpSubmissions = submittedReports.filter(r => r.type === 'dlp' && r.status.includes('Final'));
+                let sf2Submissions = submittedReports.filter(r => r.type === 'school-forms' && r.status.includes('Final'));
+
+                dashboard.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="clay-card p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100">
+                            <h3 class="text-xl font-black text-slate-900">Principal Executive Review Dashboard</h3>
+                            <p class="text-xs text-slate-600 mt-1">Narito ang mga pinal na ulat na nasuri na ng Master Teacher at handa na para sa iyong pinal na pagpapatibay.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Group 1: DLP Submissions -->
+                            <div class="clay-card p-6 space-y-4">
+                                <h4 class="font-black text-indigo-700 text-sm flex items-center gap-2 border-b pb-2">
+                                    <i data-lucide="book-open" class="w-4 h-4"></i> List of Teachers Submitted DLP (${dlpSubmissions.length})
+                                </h4>
+                                <div class="space-y-2 text-xs">
+                                    ${dlpSubmissions.length > 0 ? dlpSubmissions.map(r => `
+                                        <div class="p-3 bg-slate-50 rounded-xl border flex justify-between items-center">
+                                            <div>
+                                                <p class="font-extrabold text-slate-900">${r.author}</p>
+                                                <p class="text-[10px] text-slate-500">${r.title} •${r.timestamp}</p>
+                                            </div>
+                                            <button onclick="approveFinalReport('${r.id}')" class="pill-btn px-3 py-1 bg-emerald-600 text-white font-bold text-[10px]">Aprubahan (Final)</button>
+                                        </div>
+                                    `).join('') : '<p class="text-xs text-slate-400 italic">Wala pang nakasumite na DLP.</p>'}
+                                </div>
+                            </div>
+
+                            <!-- Group 2: SF2 Submissions -->
+                            <div class="clay-card p-6 space-y-4">
+                                <h4 class="font-black text-indigo-700 text-sm flex items-center gap-2 border-b pb-2">
+                                    <i data-lucide="folder-kanban" class="w-4 h-4"></i> List of Teachers Submitted SF2 (${sf2Submissions.length})
+                                </h4>
+                                <div class="space-y-2 text-xs">
+                                    ${sf2Submissions.length > 0 ? sf2Submissions.map(r => `
+                                        <div class="p-3 bg-slate-50 rounded-xl border flex justify-between items-center">
+                                            <div>
+                                                <p class="font-extrabold text-slate-900">${r.author}</p>
+                                                <p class="text-[10px] text-slate-500">${r.title} •${r.timestamp}</p>
+                                            </div>
+                                            <button onclick="approveFinalReport('${r.id}')" class="pill-btn px-3 py-1 bg-emerald-600 text-white font-bold text-[10px]">Aprubahan (Final)</button>
+                                        </div>
+                                    `).join('') : '<p class="text-xs text-slate-400 italic">Wala pang nakasumite na SF2.</p>'}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (currentUser.type === 'MASTER_TEACHER') {
+                // MASTER TEACHER VIEW: Makikita ang mga isinumite ng teachers para i-check at ipasa kay Principal
+                let pendingChecks = submittedReports.filter(r => r.status.includes('Pending MT Review'));
+                dashboard.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="clay-card p-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100">
+                            <h3 class="text-xl font-black text-slate-900">Master Teacher Review Portal</h3>
+                            <p class="text-xs text-slate-600 mt-1">Suriin ang mga ulat ng mga guro bago i-forward sa Principal.</p>
+                        </div>
+                        <div class="clay-card p-6 space-y-4">
+                            <h4 class="font-black text-amber-800 text-sm border-b pb-2">Mga Ulat na Naghihintay ng Pagsusuri (${pendingChecks.length})</h4>
+                            <div class="space-y-3 text-xs">
+                                ${pendingChecks.length > 0 ? pendingChecks.map(r => `
+                                    <div class="p-4 bg-slate-50 rounded-2xl border flex justify-between items-center">
+                                        <div>
+                                            <p class="font-extrabold text-slate-900">${r.title}</p>
+                                            <p class="text-[11px] text-slate-500">Guro: ${r.author} • Oras: ${r.timestamp}</p>
+                                        </div>
+                                        <button onclick="forwardToPrincipal('${r.id}')" class="pill-btn px-4 py-2 bg-indigo-600 text-white font-extrabold text-xs">Ipasa kay Principal (Final Rev)</button>
+                                    </div>
+                                `).join('') : '<p class="text-xs text-slate-400 italic">Wala pang pending na ulat para sa checking.</p>'}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // TEACHER VIEW: Standard Portal Services & Document Creation
+                dashboard.innerHTML = `
+                    <div class="text-center py-2 space-y-1">
+                        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase">
+                            DOCUMENT CREATION & PORTAL SERVICES
+                        </h2>
+                        <p class="text-xs text-slate-500 font-medium">Pumili ng active workspace card para gumawa o mag-edit ng draft offline</p>
+                    </div>
+
+                    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-4">
+                        <div onclick="accessFeature('school-forms')" class="clay-button-card p-6 flex flex-col justify-between h-44">
+                            <div class="flex justify-between items-start">
+                                <div class="w-10 h-10 rounded-2xl bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold shadow-inner border border-white">
+                                    <i data-lucide="folder-kanban" class="w-5 h-5"></i>
+                                </div>
+                                <div class="clay-knob"></div>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-slate-900 text-base tracking-wide">SCHOOL FORMS</h3>
+                                <p class="text-[11px] text-slate-500 font-medium mt-1">SF 1 - SF 10 Master Repository</p>
+                            </div>
+                            <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden"><div class="bg-cyan-500 h-full w-2/3 rounded-full"></div></div>
+                        </div>
+
+                        <div onclick="accessFeature('dlp')" class="clay-button-card p-6 flex flex-col justify-between h-44">
+                            <div class="flex justify-between items-start">
+                                <div class="w-10 h-10 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center font-bold shadow-inner border border-white">
+                                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                                </div>
+                                <div class="clay-knob"></div>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-slate-900 text-base tracking-wide">DAILY LESSON PLAN</h3>
+                                <p class="text-[11px] text-slate-500 font-medium mt-1">English & Filipino Formats</p>
+                            </div>
+                            <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden"><div class="bg-pink-500 h-full w-4/5 rounded-full"></div></div>
+                        </div>
+
+                        <!-- 10 Disabled Buttons -->
+                        <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="calculator" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">GRADING SHEET</h3><p class="text-[11px] text-slate-200">Auto-Transmutation</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                        <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="file-question" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">TEST QUESTIONS</h3><p class="text-[11px] text-slate-200">TOS Generator</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                        <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ITEM ANALYSIS</h3><p class="text-[11px] text-slate-200">Difficulty Index</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                        <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="alert-circle" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">LEAST MASTERED</h3><p class="text-[11px] text-slate-200">74% Below Priority</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                        <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="target" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ACTION PLAN</h3><p class="text-[11px] text-slate-200">Strategy Builder</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                        <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="award" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ACCOMPLISHMENT</h3><p class="text-[11px] text-slate-200">Narrative Report</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                        <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="file-check" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">E-IPCRF</h3><p class="text-[11px] text-slate-200">Performance Assessment</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                        <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="microscope" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">RESEARCH</h3><p class="text-[11px] text-slate-200">Action Research Vault</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                        <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="clock" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">EMERGENCY PROGRAM</h3><p class="text-[11px] text-slate-200">Substitute Scheduler</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                        <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="lightbulb" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">INNOVATION / PROJECT</h3><p class="text-[11px] text-slate-200">Project Proposals</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
+                    </section>
+                `;
+            }
+            lucide.createIcons();
         }
 
         function accessFeature(featureKey) {
@@ -511,7 +707,6 @@
             document.getElementById('home-only-wrapper').classList.add('hidden');
             document.getElementById('workspace-view-container').classList.remove('hidden');
             document.getElementById('active-feature-label').innerText = key.replace('-', ' ') + ' Workspace';
-
             renderDraftsList(key);
         }
 
@@ -533,19 +728,17 @@
             `).join('');
 
             if (drafts.length === 0) {
-                draftsHtml = `<p class="text-xs text-slate-500 italic text-center py-4">Wala pang nakaimbak na saved draft offline para sa seksyong ito. I-click ang "Gumawa ng Bagong Draft Offline" sa itaas.</p>`;
+                draftsHtml = `<p class="text-xs text-slate-500 italic text-center py-4">Wala pang nakaimbak na saved draft offline.</p>`;
             }
 
             body.innerHTML = `
                 <div class="flex justify-between items-center border-b border-slate-100 pb-4">
                     <div>
                         <h3 class="font-extrabold text-lg text-slate-900 uppercase">${key.replace('-', ' ')} - Listahan ng Saved Drafts</h3>
-                        <p class="text-xs text-slate-500 font-medium">Lahat ng ginawa mong draft ay nakasave offline sa iyong browser.</p>
+                        <p class="text-xs text-slate-500 font-medium">Lahat ng ginawa mong draft ay nakasave offline.</p>
                     </div>
                 </div>
-                <div class="space-y-3 pt-2">
-                    ${draftsHtml}
-                </div>
+                <div class="space-y-3 pt-2">${draftsHtml}</div>
             `;
             lucide.createIcons();
         }
@@ -579,7 +772,7 @@
                     </div>
                     <div class="flex gap-2">
                         <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">I-save ang Draft Offline</button>
-                        <button onclick="triggerSubmitWorkflow()" class="pill-btn px-5 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs">I-submit Online</button>
+                        <button onclick="triggerSubmitWorkflow('${key}')" class="pill-btn px-5 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-extrabold text-xs">Submit for Checking</button>
                     </div>
                 </div>
                 <div class="p-6 rounded-3xl bg-slate-50/70 space-y-4 border border-slate-200/80">
@@ -617,30 +810,53 @@
             }
         }
 
-        function triggerSubmitWorkflow() {
-            saveCurrentDraft(activeFeatureKey);
+        function triggerSubmitWorkflow(key) {
+            saveCurrentDraft(key);
             if (!navigator.onLine) {
                 openModal('modal-onedrive');
                 return;
             }
-            confirmSubmissionSync();
+            confirmSubmissionSync(key);
         }
 
-        function confirmSubmissionSync() {
+        function confirmSubmissionSync(key) {
             closeModal('modal-onedrive');
-            const reportName = (activeFeatureKey || 'REPORT').replace('-', ' ').toUpperCase();
+            const reportName = (key || 'REPORT').replace('-', ' ').toUpperCase();
             submittedReports.unshift({
                 id: 'REP-' + Math.floor(100 + Math.random() * 900),
-                title: reportName + ' (Offline Synced)',
+                type: key,
+                title: reportName + ' Report',
                 author: currentUser ? currentUser.name : 'Teacher',
-                status: 'Pending MT Review (Online)',
+                status: 'Pending MT Review',
                 timestamp: new Date().toLocaleTimeString()
             });
 
             localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
-            renderNotificationMonitor();
-            alert("Na-sync at naisumite na online ang iyong offline draft!");
+            renderHomeDashboard();
+            alert("Naisumite na ang report sa Master Teacher para sa checking!");
             returnToHomeHub();
+        }
+
+        // Master Teacher action: Forward to Principal
+        function forwardToPrincipal(reportId) {
+            let report = submittedReports.find(r => r.id === reportId);
+            if (report) {
+                report.status = 'Final Revised & Submitted to Principal';
+                localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
+                renderHomeDashboard();
+                alert("Na-forward na ang ulat sa Principal para sa pinal na pagpapatibay!");
+            }
+        }
+
+        // Principal action: Final Approval
+        function approveFinalReport(reportId) {
+            let report = submittedReports.find(r => r.id === reportId);
+            if (report) {
+                report.status = 'Approved (Final)';
+                localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
+                renderHomeDashboard();
+                alert("Aprubado na ang pinal na ulat!");
+            }
         }
 
         function returnToHomeHub() {
@@ -666,7 +882,7 @@
                 item.innerHTML = `
                     <div class="space-y-0.5">
                         <p class="font-extrabold text-slate-900">${rep.title}</p>
-                        <p class="text-[10px] text-slate-500 font-medium">Isinumite ni ${rep.author} noong ${rep.timestamp}</p>
+                        <p class="text-[10px] text-slate-500 font-medium">Guro: ${rep.author} • Oras: ${rep.timestamp}</p>
                     </div>
                     <span class="pill-btn px-4 py-1.5 bg-amber-100 text-amber-900 font-extrabold text-[10px]">
                         ${rep.status}
@@ -676,11 +892,11 @@
             });
         }
 
-        function toggleLoginRoleFields() {
-            const type = document.getElementById('login-account-type').value;
-            const levelOpt = document.getElementById('field-level-option');
-            const adviserOpt = document.getElementById('field-adviser-option');
-            const posDropdown = document.getElementById('login-position-dropdown');
+        function toggleSigninRoleFields() {
+            const type = document.getElementById('signin-account-type').value;
+            const levelOpt = document.getElementById('signin-field-level-option');
+            const adviserOpt = document.getElementById('signin-field-adviser-option');
+            const posDropdown = document.getElementById('signin-position-dropdown');
 
             levelOpt.style.display = type === 'TEACHER' ? 'block' : 'none';
             adviserOpt.style.display = type === 'SCHOOL_HEAD' ? 'none' : 'block';
