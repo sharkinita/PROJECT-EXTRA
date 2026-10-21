@@ -191,30 +191,35 @@
                     <div class="lg:col-span-7 space-y-4">
                         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold border border-white shadow-inner">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Sequential Approval Routing System
+                            Official e-Xpedited Approval Web Portal
                         </div>
                         <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
                             Welcome to <br>
                             <span class="glowing-title">Project EXTRA</span>
                         </h2>
                         <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal max-w-xl">
-                            Sistema ng pagpapasa, pagsusuri ng Master Teacher, at pinal na pagpapatibay ng Principal para sa Valugan Integrated School.
+                            Electronic e-Xpedited Tracking, Review & Approval System: A paperless document submission and sequential approval web portal engineered for Valugan Integrated School[cite: 2].
                         </p>
+                        <div class="pt-2">
+                            <p class="text-xs font-extrabold text-slate-700 bg-slate-100/70 inline-block px-4 py-2 rounded-2xl border border-white">
+                                Proponents: <span class="text-indigo-600">Sharlynne Mae P. Veracruz-Francisco & Monica V. Castillo</span>[cite: 2]
+                            </p>
+                        </div>
                     </div>
                     <div class="lg:col-span-5">
                         <div class="glass-gradient-panel h-64 sm:h-80 w-full p-6 flex flex-col justify-between relative overflow-hidden">
                             <div class="flex justify-between items-start relative z-10">
                                 <span class="text-xs font-extrabold tracking-widest text-slate-800 uppercase bg-white/60 backdrop-blur-md px-3 py-1 rounded-full border border-white">
-                                    Role-Based Portal
+                                    Project Vault
                                 </span>
                                 <div class="clay-knob flex items-center justify-center">
-                                    <i data-lucide="git-merge" class="w-4 h-4 text-indigo-600"></i>
+                                    <i data-lucide="sparkles" class="w-4 h-4 text-indigo-600"></i>
                                 </div>
                             </div>
                             <div class="relative z-10 space-y-2">
-                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Signatory Workflow</p>
-                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Teacher → MT → Principal</h3>
-                                <p class="text-[11px] text-slate-700 leading-normal">Direktang dumadaloy ang mga ulat mula sa guro patungo sa Master Teacher at sa Punong-guro.</p>
+                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Fast-Track Approvals</p>
+                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Paperless Digital Workflow</h3>
+                                <p class="text-[11px] text-slate-700 leading-normal">Auto-sync reports directly to DepEd Master Teachers and Principal OneDrive repositories in real-time[cite: 2].</p>
                             </div>
                         </div>
                     </div>
@@ -225,17 +230,15 @@
             <section id="notification-monitor-section" class="hidden clay-card p-6 border-l-8 border-amber-400 space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                     <h3 class="font-extrabold text-sm text-slate-900 flex items-center gap-2">
-                        <i data-lucide="bell" class="w-5 h-5 text-amber-500"></i> Submitted Reports & Approval Status
+                        <i data-lucide="bell" class="w-5 h-5 text-amber-500"></i> Document Status Notifications & Submission Monitor
                     </h3>
-                    <span class="pill-btn px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-[10px]">Live Tracker</span>
+                    <span class="pill-btn px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-[10px]">Live Tracker Active</span>
                 </div>
                 <div id="submissions-status-list" class="space-y-3"></div>
             </section>
 
-            <!-- DINAMIKONG HOME VIEW DEPENDING ON USER ROLE -->
-            <div id="dynamic-home-dashboard" class="space-y-6">
-                <!-- Ipapalabas dito kung Teacher, Master Teacher, o Principal ang naka-log in -->
-            </div>
+            <!-- DINAMIKONG HOME DASHBOARD DEPENDING ON USER ROLE -->
+            <div id="dynamic-home-dashboard" class="space-y-6"></div>
         </div>
 
         <!-- WORKSPACE VIEW CONTAINER -->
@@ -246,7 +249,7 @@
                 </button>
                 <div class="flex items-center gap-3">
                     <button onclick="createNewOfflineDraft()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5">
-                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Gumawa ng Bagong Draft Offline
+                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Create New Offline Draft
                     </button>
                     <span id="active-feature-label" class="text-xs font-black text-indigo-600 uppercase tracking-wider bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
                         Workspace View
@@ -266,12 +269,12 @@
                 <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
                     <i data-lucide="user-plus" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-xl text-slate-900">Mag-Sign In (Register)</h3>
-                <p class="text-xs text-slate-500 font-medium">Ilagay ang iyong DepEd credentials at papel sa paaralan</p>
+                <h3 class="font-black text-xl text-slate-900">Sign In (Register Account)</h3>
+                <p class="text-xs text-slate-500 font-medium">Register using your official DepEd email</p>
             </div>
             <form onsubmit="handleAccountRegistration(event)" class="space-y-4 text-xs">
                 <div id="signin-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
-                    Invalid email. Gamitin ang @deped.gov.ph account.
+                    Invalid email. Please use a valid @deped.gov.ph account.
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Account Role</label>
@@ -312,8 +315,8 @@
                     <select id="signin-position-dropdown" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none"></select>
                 </div>
                 <div class="pt-2 flex gap-2">
-                    <button type="button" onclick="closeModal('modal-signin')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Kanselahin</button>
-                    <button type="submit" class="pill-btn w-1/2 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg">Gumawa ng Account</button>
+                    <button type="button" onclick="closeModal('modal-signin')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
+                    <button type="submit" class="pill-btn w-1/2 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg">Create Account</button>
                 </div>
             </form>
         </div>
@@ -326,20 +329,20 @@
                 <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
                     <i data-lucide="log-in" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-xl text-slate-900">Mag-Log In</h3>
-                <p class="text-xs text-slate-500 font-medium">Ilagay ang iyong rehistradong DepEd email</p>
+                <h3 class="font-black text-xl text-slate-900">Log In to Account</h3>
+                <p class="text-xs text-slate-500 font-medium">Enter your registered DepEd email</p>
             </div>
             <form onsubmit="handleAccountLogin(event)" class="space-y-4 text-xs">
                 <div id="login-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
-                    Hindi natagpuan ang account. Mag-sign in muna kung wala pang account.
+                    Account not found. Please Sign In first if you don't have an account.
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Official DepEd Email</label>
                     <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
                 <div class="pt-2 flex gap-2">
-                    <button type="button" onclick="closeModal('modal-login')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Kanselahin</button>
-                    <button type="submit" class="pill-btn w-1/2 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-lg">Mag-Log In</button>
+                    <button type="button" onclick="closeModal('modal-login')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
+                    <button type="submit" class="pill-btn w-1/2 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-lg">Log In</button>
                 </div>
             </form>
         </div>
@@ -352,13 +355,13 @@
                 <i data-lucide="cloud-upload" class="w-8 h-8"></i>
             </div>
             <div class="space-y-2">
-                <h3 class="font-black text-xl text-slate-900">Kailangan ng Internet Connection</h3>
+                <h3 class="font-black text-xl text-slate-900">Internet Connection Required</h3>
                 <p class="text-xs text-slate-500 font-medium leading-relaxed">
-                    Naka-save ang draft offline. Para ma-submit ito para sa checking/approval, kumonekta sa internet.
+                    Your draft is saved locally. To submit it for checking/approval online, please connect to the internet.
                 </p>
             </div>
             <button onclick="confirmSubmissionSync()" class="pill-btn w-full py-3.5 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg">
-                <i data-lucide="send" class="w-4 h-4"></i> I-sync at I-submit Ngayon
+                <i data-lucide="send" class="w-4 h-4"></i> Sync and Submit Now
             </button>
         </div>
     </div>
@@ -407,7 +410,7 @@
             } else {
                 badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 rounded-full text-[11px] font-bold border border-amber-200";
                 dot.className = "w-2 h-2 rounded-full bg-amber-500";
-                text.innerText = "Offline Mode (Local)";
+                text.innerText = "Offline Mode (Local Draft)";
             }
         }
 
@@ -481,7 +484,7 @@
             document.getElementById('auth-buttons-container').classList.add('hidden');
 
             closeModal('modal-signin');
-            alert("Tagumpay na nakagawa ng account!");
+            alert("Account successfully created and signed in!");
             renderHomeDashboard();
         }
 
@@ -520,12 +523,12 @@
             document.getElementById('auth-buttons-container').classList.add('hidden');
 
             closeModal('modal-login');
-            alert("Matagumpay kang nag-log in!");
+            alert("Successfully logged in!");
             renderHomeDashboard();
         }
 
         function handleUserLogout() {
-            if (confirm("Gusto mo bang mag-log out?")) {
+            if (confirm("Are you sure you want to log out?")) {
                 localStorage.removeItem('project_extra_session');
                 currentUser = null;
                 document.getElementById('user-badge').classList.add('hidden');
@@ -535,7 +538,6 @@
             }
         }
 
-        // RENDER HOME DASHBOARD DEPENDING ON ROLE (Teacher vs Master Teacher vs Principal)
         function renderHomeDashboard() {
             const dashboard = document.getElementById('dynamic-home-dashboard');
             const monitorSection = document.getElementById('notification-monitor-section');
@@ -543,8 +545,8 @@
             if (!currentUser) {
                 dashboard.innerHTML = `
                     <div class="text-center py-10 clay-card p-8">
-                        <h3 class="text-xl font-bold text-slate-800">Mangyaring mag-Sign In o Mag-Log In</h3>
-                        <p class="text-xs text-slate-500 mt-2">Para ma-access ang mga portal service, kailangan mong magrehistro o pumasok sa iyong account.</p>
+                        <h3 class="text-xl font-bold text-slate-800">Please Sign In or Log In</h3>
+                        <p class="text-xs text-slate-500 mt-2">You need to authenticate to access workspace portal features and report routing.</p>
                     </div>
                 `;
                 monitorSection.classList.add('hidden');
@@ -554,7 +556,6 @@
             renderNotificationMonitor();
 
             if (currentUser.type === 'SCHOOL_HEAD') {
-                // PRINCIPAL ACCOUNT VIEW: Listahan ng nakapagpatingin at nagsumite (Grouped by DLP & SF2)
                 let dlpSubmissions = submittedReports.filter(r => r.type === 'dlp' && r.status.includes('Final'));
                 let sf2Submissions = submittedReports.filter(r => r.type === 'school-forms' && r.status.includes('Final'));
 
@@ -562,11 +563,10 @@
                     <div class="space-y-6">
                         <div class="clay-card p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100">
                             <h3 class="text-xl font-black text-slate-900">Principal Executive Review Dashboard</h3>
-                            <p class="text-xs text-slate-600 mt-1">Narito ang mga pinal na ulat na nasuri na ng Master Teacher at handa na para sa iyong pinal na pagpapatibay.</p>
+                            <p class="text-xs text-slate-600 mt-1">Review finalized reports submitted by teachers and checked by Master Teachers for final approval.</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Group 1: DLP Submissions -->
                             <div class="clay-card p-6 space-y-4">
                                 <h4 class="font-black text-indigo-700 text-sm flex items-center gap-2 border-b pb-2">
                                     <i data-lucide="book-open" class="w-4 h-4"></i> List of Teachers Submitted DLP (${dlpSubmissions.length})
@@ -578,13 +578,12 @@
                                                 <p class="font-extrabold text-slate-900">${r.author}</p>
                                                 <p class="text-[10px] text-slate-500">${r.title} •${r.timestamp}</p>
                                             </div>
-                                            <button onclick="approveFinalReport('${r.id}')" class="pill-btn px-3 py-1 bg-emerald-600 text-white font-bold text-[10px]">Aprubahan (Final)</button>
+                                            <button onclick="approveFinalReport('${r.id}')" class="pill-btn px-3 py-1 bg-emerald-600 text-white font-bold text-[10px]">Approve (Final)</button>
                                         </div>
-                                    `).join('') : '<p class="text-xs text-slate-400 italic">Wala pang nakasumite na DLP.</p>'}
+                                    `).join('') : '<p class="text-xs text-slate-400 italic">No DLP submissions yet.</p>'}
                                 </div>
                             </div>
 
-                            <!-- Group 2: SF2 Submissions -->
                             <div class="clay-card p-6 space-y-4">
                                 <h4 class="font-black text-indigo-700 text-sm flex items-center gap-2 border-b pb-2">
                                     <i data-lucide="folder-kanban" class="w-4 h-4"></i> List of Teachers Submitted SF2 (${sf2Submissions.length})
@@ -596,47 +595,45 @@
                                                 <p class="font-extrabold text-slate-900">${r.author}</p>
                                                 <p class="text-[10px] text-slate-500">${r.title} •${r.timestamp}</p>
                                             </div>
-                                            <button onclick="approveFinalReport('${r.id}')" class="pill-btn px-3 py-1 bg-emerald-600 text-white font-bold text-[10px]">Aprubahan (Final)</button>
+                                            <button onclick="approveFinalReport('${r.id}')" class="pill-btn px-3 py-1 bg-emerald-600 text-white font-bold text-[10px]">Approve (Final)</button>
                                         </div>
-                                    `).join('') : '<p class="text-xs text-slate-400 italic">Wala pang nakasumite na SF2.</p>'}
+                                    `).join('') : '<p class="text-xs text-slate-400 italic">No SF2 submissions yet.</p>'}
                                 </div>
                             </div>
                         </div>
                     </div>
                 `;
             } else if (currentUser.type === 'MASTER_TEACHER') {
-                // MASTER TEACHER VIEW: Makikita ang mga isinumite ng teachers para i-check at ipasa kay Principal
                 let pendingChecks = submittedReports.filter(r => r.status.includes('Pending MT Review'));
                 dashboard.innerHTML = `
                     <div class="space-y-6">
                         <div class="clay-card p-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100">
                             <h3 class="text-xl font-black text-slate-900">Master Teacher Review Portal</h3>
-                            <p class="text-xs text-slate-600 mt-1">Suriin ang mga ulat ng mga guro bago i-forward sa Principal.</p>
+                            <p class="text-xs text-slate-600 mt-1">Review teacher reports and forward them directly to the Principal.</p>
                         </div>
                         <div class="clay-card p-6 space-y-4">
-                            <h4 class="font-black text-amber-800 text-sm border-b pb-2">Mga Ulat na Naghihintay ng Pagsusuri (${pendingChecks.length})</h4>
+                            <h4 class="font-black text-amber-800 text-sm border-b pb-2">Reports Awaiting Checking (${pendingChecks.length})</h4>
                             <div class="space-y-3 text-xs">
                                 ${pendingChecks.length > 0 ? pendingChecks.map(r => `
                                     <div class="p-4 bg-slate-50 rounded-2xl border flex justify-between items-center">
                                         <div>
                                             <p class="font-extrabold text-slate-900">${r.title}</p>
-                                            <p class="text-[11px] text-slate-500">Guro: ${r.author} • Oras: ${r.timestamp}</p>
+                                            <p class="text-[11px] text-slate-500">Teacher: ${r.author} • Time: ${r.timestamp}</p>
                                         </div>
-                                        <button onclick="forwardToPrincipal('${r.id}')" class="pill-btn px-4 py-2 bg-indigo-600 text-white font-extrabold text-xs">Ipasa kay Principal (Final Rev)</button>
+                                        <button onclick="forwardToPrincipal('${r.id}')" class="pill-btn px-4 py-2 bg-indigo-600 text-white font-extrabold text-xs">Forward to Principal</button>
                                     </div>
-                                `).join('') : '<p class="text-xs text-slate-400 italic">Wala pang pending na ulat para sa checking.</p>'}
+                                `).join('') : '<p class="text-xs text-slate-400 italic">No pending reports for checking.</p>'}
                             </div>
                         </div>
                     </div>
                 `;
             } else {
-                // TEACHER VIEW: Standard Portal Services & Document Creation
                 dashboard.innerHTML = `
                     <div class="text-center py-2 space-y-1">
                         <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase">
                             DOCUMENT CREATION & PORTAL SERVICES
                         </h2>
-                        <p class="text-xs text-slate-500 font-medium">Pumili ng active workspace card para gumawa o mag-edit ng draft offline</p>
+                        <p class="text-xs text-slate-500 font-medium">Select any workspace card below to draft, edit, and auto-sync documents</p>
                     </div>
 
                     <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-4">
@@ -668,7 +665,7 @@
                             <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden"><div class="bg-pink-500 h-full w-4/5 rounded-full"></div></div>
                         </div>
 
-                        <!-- 10 Disabled Buttons -->
+                        <!-- 10 Disabled Available Soon Buttons -->
                         <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="calculator" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">GRADING SHEET</h3><p class="text-[11px] text-slate-200">Auto-Transmutation</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
                         <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="file-question" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">TEST QUESTIONS</h3><p class="text-[11px] text-slate-200">TOS Generator</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
                         <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ITEM ANALYSIS</h3><p class="text-[11px] text-slate-200">Difficulty Index</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
@@ -718,24 +715,24 @@
                 <div class="p-4 bg-white rounded-2xl border border-slate-200 flex justify-between items-center shadow-sm">
                     <div>
                         <h4 class="font-extrabold text-slate-900 text-sm">${d.title || ('Draft #' + (index + 1))}</h4>
-                        <p class="text-[11px] text-slate-500">Huling na-update: ${d.updatedAt || 'Kamakailan'}</p>
+                        <p class="text-[11px] text-slate-500">Last updated: ${d.updatedAt || 'Recently'}</p>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="editDraft('${key}', '${d.id}')" class="pill-btn px-4 py-1.5 bg-slate-900 text-white font-bold text-xs">I-edit</button>
-                        <button onclick="deleteDraft('${key}', '${d.id}')" class="pill-btn px-3 py-1.5 bg-red-100 text-red-700 font-bold text-xs">Burahin</button>
+                        <button onclick="editDraft('${key}', '${d.id}')" class="pill-btn px-4 py-1.5 bg-slate-900 text-white font-bold text-xs">Edit</button>
+                        <button onclick="deleteDraft('${key}', '${d.id}')" class="pill-btn px-3 py-1.5 bg-red-100 text-red-700 font-bold text-xs">Delete</button>
                     </div>
                 </div>
             `).join('');
 
             if (drafts.length === 0) {
-                draftsHtml = `<p class="text-xs text-slate-500 italic text-center py-4">Wala pang nakaimbak na saved draft offline.</p>`;
+                draftsHtml = `<p class="text-xs text-slate-500 italic text-center py-4">No saved offline drafts found for this section.</p>`;
             }
 
             body.innerHTML = `
                 <div class="flex justify-between items-center border-b border-slate-100 pb-4">
                     <div>
-                        <h3 class="font-extrabold text-lg text-slate-900 uppercase">${key.replace('-', ' ')} - Listahan ng Saved Drafts</h3>
-                        <p class="text-xs text-slate-500 font-medium">Lahat ng ginawa mong draft ay nakasave offline.</p>
+                        <h3 class="font-extrabold text-lg text-slate-900 uppercase">${key.replace('-', ' ')} - Saved Drafts List</h3>
+                        <p class="text-xs text-slate-500 font-medium">All encoded drafts are safely stored locally on your device.</p>
                     </div>
                 </div>
                 <div class="space-y-3 pt-2">${draftsHtml}</div>
@@ -749,7 +746,7 @@
             const newDraft = {
                 id: newId,
                 title: (activeFeatureKey.toUpperCase() + ' - Draft ' + (drafts.length + 1)),
-                content: 'I-type ang mga detalye ng report dito nang offline...',
+                content: 'Type your report details here offline...',
                 updatedAt: new Date().toLocaleString()
             };
             drafts.push(newDraft);
@@ -767,11 +764,11 @@
             body.innerHTML = `
                 <div class="flex justify-between items-center border-b border-slate-100 pb-4">
                     <div class="flex items-center gap-3">
-                        <button onclick="renderDraftsList('${key}')" class="pill-btn px-3 py-1 bg-slate-200 text-slate-700 font-bold text-xs">← Bumalik sa Listahan</button>
-                        <h3 class="font-black text-base text-slate-900">Naka-edit: <input type="text" id="draft-title-input" value="${draft.title}" class="border rounded px-2 py-1 text-xs font-bold bg-slate-50"></h3>
+                        <button onclick="renderDraftsList('${key}')" class="pill-btn px-3 py-1 bg-slate-200 text-slate-700 font-bold text-xs">← Back to List</button>
+                        <h3 class="font-black text-base text-slate-900">Editing: <input type="text" id="draft-title-input" value="${draft.title}" class="border rounded px-2 py-1 text-xs font-bold bg-slate-50"></h3>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">I-save ang Draft Offline</button>
+                        <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">Save Offline Draft</button>
                         <button onclick="triggerSubmitWorkflow('${key}')" class="pill-btn px-5 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-extrabold text-xs">Submit for Checking</button>
                     </div>
                 </div>
@@ -797,12 +794,12 @@
                 drafts[index].content = contentInput;
                 drafts[index].updatedAt = new Date().toLocaleString();
                 saveStoredDrafts(key, drafts);
-                alert("Tagumpay na na-save ang pagbabago sa offline draft!");
+                alert("Offline draft changes successfully saved!");
             }
         }
 
         function deleteDraft(key, draftId) {
-            if (confirm("Sigurado ka bang gusto mong burahin ang draft na ito?")) {
+            if (confirm("Are you sure you want to delete this draft?")) {
                 let drafts = getStoredDrafts(key);
                 drafts = drafts.filter(d => d.id !== draftId);
                 saveStoredDrafts(key, drafts);
@@ -833,29 +830,27 @@
 
             localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
             renderHomeDashboard();
-            alert("Naisumite na ang report sa Master Teacher para sa checking!");
+            alert("Report successfully submitted to Master Teacher for checking!");
             returnToHomeHub();
         }
 
-        // Master Teacher action: Forward to Principal
         function forwardToPrincipal(reportId) {
             let report = submittedReports.find(r => r.id === reportId);
             if (report) {
                 report.status = 'Final Revised & Submitted to Principal';
                 localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
                 renderHomeDashboard();
-                alert("Na-forward na ang ulat sa Principal para sa pinal na pagpapatibay!");
+                alert("Report forwarded to Principal for final approval!");
             }
         }
 
-        // Principal action: Final Approval
         function approveFinalReport(reportId) {
             let report = submittedReports.find(r => r.id === reportId);
             if (report) {
                 report.status = 'Approved (Final)';
                 localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
                 renderHomeDashboard();
-                alert("Aprubado na ang pinal na ulat!");
+                alert("Final report successfully approved!");
             }
         }
 
@@ -882,7 +877,7 @@
                 item.innerHTML = `
                     <div class="space-y-0.5">
                         <p class="font-extrabold text-slate-900">${rep.title}</p>
-                        <p class="text-[10px] text-slate-500 font-medium">Guro: ${rep.author} • Oras: ${rep.timestamp}</p>
+                        <p class="text-[10px] text-slate-500 font-medium">Teacher: ${rep.author} • Time: ${rep.timestamp}</p>
                     </div>
                     <span class="pill-btn px-4 py-1.5 bg-amber-100 text-amber-900 font-extrabold text-[10px]">
                         ${rep.status}
