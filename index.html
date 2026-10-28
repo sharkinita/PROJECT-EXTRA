@@ -134,7 +134,9 @@
         }
 
         @media print {
-            .no-print, header, footer, button, .notifications-bar { display: none !important; }
+            .no-print, header, footer, button, .notifications-bar, #auth-buttons-container, #connection-status-badge { display: none !important; }
+            body { background: white !important; p: 0 !important; }
+            .clay-card { box-shadow: none !important; border: none !important; }
         }
     </style>
 </head>
@@ -174,7 +176,7 @@
                         Sign In (Register)
                     </button>
                     <button onclick="openModal('modal-login')" class="pill-btn px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs shadow-lg flex items-center gap-2">
-                        <i data-lucide="log-in" class="w-4 h-4"></i> Log In (Microsoft)
+                        <i data-lucide="log-in" class="w-4 h-4"></i> Log In
                     </button>
                 </div>
             </div>
@@ -191,7 +193,7 @@
                     <div class="lg:col-span-7 space-y-4">
                         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold border border-white shadow-inner">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Official e-Xpedited Approval Web Portal (1TB OneDrive Linked)
+                            Official e-Xpedited Approval Web Portal
                         </div>
                         <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
                             Welcome to <br>
@@ -210,18 +212,16 @@
                         <div class="glass-gradient-panel h-64 sm:h-80 w-full p-6 flex flex-col justify-between relative overflow-hidden">
                             <div class="flex justify-between items-start relative z-10">
                                 <span class="text-xs font-extrabold tracking-widest text-slate-800 uppercase bg-white/60 backdrop-blur-md px-3 py-1 rounded-full border border-white">
-                                    OneDrive Active Folder
+                                    Print & Export Options
                                 </span>
                                 <div class="clay-knob flex items-center justify-center">
-                                    <i data-lucide="cloud" class="w-4 h-4 text-oneDriveBlue"></i>
+                                    <i data-lucide="printer" class="w-4 h-4 text-indigo-600"></i>
                                 </div>
                             </div>
                             <div class="relative z-10 space-y-2">
-                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Automated Cloud Target</p>
-                                <h3 class="text-2xl font-black text-slate-900 leading-snug">OneDrive Storage Vault</h3>
-                                <p id="onedrive-active-folder-path" class="text-[11px] font-mono text-indigo-900 leading-normal bg-white/50 p-2 rounded-xl border border-white/60 truncate">
-                                    Target: OneDrive/ProjectEXTRA_Vault/
-                                </p>
+                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Dual Export System</p>
+                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Save to Device or OneDrive</h3>
+                                <p class="text-[11px] text-slate-700 leading-normal">Choose to save directly to your local computer drive or format for your 1TB DepEd OneDrive vault before printing.</p>
                             </div>
                         </div>
                     </div>
@@ -245,13 +245,13 @@
 
         <!-- WORKSPACE VIEW CONTAINER -->
         <section id="workspace-view-container" class="space-y-6 hidden">
-            <div class="clay-card p-5 flex justify-between items-center">
+            <div class="clay-card p-5 flex justify-between items-center no-print">
                 <button onclick="returnToHomeHub()" class="pill-btn px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-2">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> ← Return to Home Hub
                 </button>
                 <div class="flex items-center gap-3">
                     <button onclick="createNewOfflineDraft()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5">
-                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Create New Draft (Offline Saved)
+                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Create New Draft
                     </button>
                     <span id="active-feature-label" class="text-xs font-black text-indigo-600 uppercase tracking-wider bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
                         Workspace View
@@ -261,6 +261,32 @@
 
             <div id="workspace-body-content" class="clay-card p-8 space-y-6"></div>
         </section>
+
+        <!-- PRINT MODAL DIALOG (Save to Device & Print vs Save to OneDrive & Print) -->
+        <div id="modal-print-options" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden no-print">
+            <div class="clay-card max-w-md w-full p-8 text-center space-y-6 border border-white">
+                <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-3xl flex items-center justify-center mx-auto shadow-inner">
+                    <i data-lucide="printer" class="w-8 h-8"></i>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="font-black text-xl text-slate-900">Choose Save & Print Option</h3>
+                    <p class="text-xs text-slate-500 font-medium leading-relaxed">
+                        Select how you would like to backup and export your document before opening the print layout dialog.
+                    </p>
+                </div>
+                <div class="space-y-3 pt-2">
+                    <button onclick="executeSaveAndPrint('DEVICE')" class="pill-btn w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md">
+                        <i data-lucide="hard-drive" class="w-4 h-4"></i> Save to Device & Print
+                    </button>
+                    <button onclick="executeSaveAndPrint('ONEDRIVE')" class="pill-btn w-full py-3.5 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg">
+                        <i data-lucide="cloud-upload" class="w-4 h-4"></i> Save to OneDrive & Print
+                    </button>
+                    <button onclick="closeModal('modal-print-options')" class="pill-btn w-full py-2.5 bg-slate-200 text-slate-700 font-bold text-xs">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <!-- REVIEW MODAL -->
         <div id="modal-review" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
@@ -292,9 +318,14 @@
                     </div>
                 </div>
 
-                <div class="flex justify-end gap-3 pt-4 border-t">
-                    <button onclick="closeModal('modal-review')" class="pill-btn px-4 py-2 bg-slate-200 text-slate-700 font-bold text-xs">Close</button>
-                    <div id="review-action-buttons" class="flex gap-2"></div>
+                <div class="flex justify-between items-center pt-4 border-t">
+                    <button onclick="openPrintModalForReport()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs flex items-center gap-1.5">
+                        <i data-lucide="printer" class="w-3.5 h-3.5"></i> Print Options
+                    </button>
+                    <div class="flex gap-2">
+                        <button onclick="closeModal('modal-review')" class="pill-btn px-4 py-2 bg-slate-200 text-slate-700 font-bold text-xs">Close</button>
+                        <div id="review-action-buttons" class="flex gap-2"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -305,16 +336,13 @@
     <div id="modal-signin" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="clay-card max-w-md w-full overflow-hidden p-8 space-y-6 border border-white">
             <div class="text-center space-y-2">
-                <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-sky-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
-                    <i data-lucide="cloud" class="w-8 h-8"></i>
+                <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
+                    <i data-lucide="user-plus" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-xl text-slate-900">Sign In (Microsoft Account)</h3>
-                <p class="text-xs text-slate-500 font-medium">Register using your official Microsoft / DepEd email</p>
+                <h3 class="font-black text-xl text-slate-900">Sign In (Register Account)</h3>
+                <p class="text-xs text-slate-500 font-medium">Register using your official DepEd / Microsoft email</p>
             </div>
             <form onsubmit="handleAccountRegistration(event)" class="space-y-4 text-xs">
-                <div id="signin-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
-                    Invalid email. Please use a valid Microsoft / DepEd account.
-                </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Account Role</label>
                     <select id="signin-account-type" onchange="toggleSigninRoleFields()" class="w-full p-3 border rounded-2xl font-semibold bg-slate-50/80 outline-none">
@@ -322,17 +350,6 @@
                         <option value="MASTER_TEACHER">MASTER TEACHER ACCOUNT</option>
                         <option value="SCHOOL_HEAD">SCHOOL HEAD ACCOUNT (PRINCIPAL)</option>
                     </select>
-                </div>
-                <div id="signin-field-level-option">
-                    <label class="block font-bold text-slate-700 mb-1">School Level Division</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <label class="p-3 border rounded-2xl flex items-center gap-2 cursor-pointer bg-slate-50/80 font-medium">
-                            <input type="radio" name="signin-school-level" value="Elementary" checked class="accent-emerald-600"> Elementary
-                        </label>
-                        <label class="p-3 border rounded-2xl flex items-center gap-2 cursor-pointer bg-slate-50/80 font-medium">
-                            <input type="radio" name="signin-school-level" value="Junior Highschool" class="accent-emerald-600"> Junior High
-                        </label>
-                    </div>
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Microsoft / DepEd Email</label>
@@ -342,20 +359,13 @@
                     <label class="block font-bold text-slate-700 mb-1">Full Name</label>
                     <input type="text" id="signin-full-name" required placeholder="e.g., Sharlynne Mae P. Veracruz-Francisco" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
-                <div id="signin-field-adviser-option">
-                    <label class="block font-bold text-slate-700 mb-1">Teaching Designation</label>
-                    <select id="signin-adviser-status" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
-                        <option value="Adviser">Class Adviser</option>
-                        <option value="Subject Teacher">Subject Teacher</option>
-                    </select>
-                </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Position / Rank</label>
                     <select id="signin-position-dropdown" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none"></select>
                 </div>
                 <div class="pt-2 flex gap-2">
                     <button type="button" onclick="closeModal('modal-signin')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
-                    <button type="submit" class="pill-btn w-1/2 py-3 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs shadow-lg">Link & Save Account</button>
+                    <button type="submit" class="pill-btn w-1/2 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg">Create Account</button>
                 </div>
             </form>
         </div>
@@ -368,25 +378,17 @@
                 <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
                     <i data-lucide="log-in" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-xl text-slate-900">Log In (Microsoft Account)</h3>
-                <p class="text-xs text-slate-500 font-medium">Direct login via Microsoft 365 OneDrive Portal</p>
+                <h3 class="font-black text-xl text-slate-900">Log In to Account</h3>
+                <p class="text-xs text-slate-500 font-medium">Enter your registered email</p>
             </div>
             <form onsubmit="handleAccountLogin(event)" class="space-y-4 text-xs">
-                <div id="login-error-banner" class="hidden p-3 bg-red-50 text-red-700 border border-red-200 rounded-2xl font-bold text-center">
-                    Account not found. Please Sign In first to register your account.
-                </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Microsoft / DepEd Email</label>
                     <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
-                <div class="pt-2 flex flex-col gap-2">
-                    <button type="button" onclick="redirectToMicrosoftLoginPage()" class="pill-btn w-full py-3 bg-oneDriveBlue hover:bg-blue-600 text-white font-extrabold text-xs shadow-lg flex items-center justify-center gap-2">
-                        <i data-lucide="external-link" class="w-4 h-4"></i> Redirect to Official Microsoft Login Page
-                    </button>
-                    <div class="flex gap-2 pt-2">
-                        <button type="button" onclick="closeModal('modal-login')" class="pill-btn w-1/2 py-2.5 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
-                        <button type="submit" class="pill-btn w-1/2 py-2.5 bg-slate-900 text-white font-extrabold text-xs shadow">Quick Direct Log In</button>
-                    </div>
+                <div class="pt-2 flex gap-2">
+                    <button type="button" onclick="closeModal('modal-login')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
+                    <button type="submit" class="pill-btn w-1/2 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-lg">Log In</button>
                 </div>
             </form>
         </div>
@@ -399,7 +401,7 @@
         let activeDraftId = null;
         let currentReviewReportId = null;
         let submittedReports = [];
-        const SESSION_TIMEOUT_MS = 2 * 24 * 60 * 60 * 1000; // 2 Days (48 Hours)
+        const SESSION_TIMEOUT_MS = 2 * 24 * 60 * 60 * 1000;
 
         const positionOptions = {
             TEACHER: ['Teacher I', 'Teacher II', 'Teacher III', 'Teacher IV', 'Teacher V', 'Teacher VI', 'Teacher VII'],
@@ -423,22 +425,12 @@
             if (navigator.onLine) {
                 badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-[11px] font-bold border border-emerald-200";
                 dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
-                text.innerText = "Online Mode (OneDrive Cloud Sync)";
+                text.innerText = "Online Mode";
             } else {
                 badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 rounded-full text-[11px] font-bold border border-amber-200";
                 dot.className = "w-2 h-2 rounded-full bg-amber-500";
-                text.innerText = "Offline Mode (Local Cache Active)";
+                text.innerText = "Offline Mode";
             }
-        }
-
-        // Central School OneDrive Registry Simulation Engine
-        function getCentralOneDriveRegistry() {
-            const data = localStorage.getItem('project_extra_central_onedrive_registry');
-            return data ? JSON.parse(data) : [];
-        }
-
-        function saveCentralOneDriveRegistry(users) {
-            localStorage.setItem('project_extra_central_onedrive_registry', JSON.stringify(users));
         }
 
         function checkActiveSession() {
@@ -457,7 +449,6 @@
                         document.getElementById('user-badge-role').innerText = currentUser.position;
                         document.getElementById('user-badge').classList.remove('hidden');
                         document.getElementById('auth-buttons-container').classList.add('hidden');
-                        document.getElementById('onedrive-active-folder-path').innerText = `Target: OneDrive/ProjectEXTRA_Vault/${currentUser.email.split('@')[0]}/`;
                     } else {
                         localStorage.removeItem('project_extra_session');
                     }
@@ -476,32 +467,20 @@
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-        function redirectToMicrosoftLoginPage() {
-            const emailInput = document.getElementById('login-email-input').value.trim();
-            const targetUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=common&response_type=code&redirect_uri=${encodeURIComponent(window.location.href)}&login_hint=${encodeURIComponent(emailInput)}`;
-            alert("Redirecting to Official Microsoft 365 / OneDrive Sign-In Page...");
-            window.open(targetUrl, '_blank');
-        }
-
         function handleAccountRegistration(e) {
             e.preventDefault();
             const emailInput = document.getElementById('signin-email-input').value.trim().toLowerCase();
             const type = document.getElementById('signin-account-type').value;
             const name = document.getElementById('signin-full-name').value.trim();
             const pos = document.getElementById('signin-position-dropdown').value;
-            const isAdviser = type !== 'SCHOOL_HEAD' && document.getElementById('signin-adviser-status').value === 'Adviser';
 
-            currentUser = { email: emailInput, name, type, position: pos, isAdviser };
+            currentUser = { email: emailInput, name, type, position: pos };
             
-            // Save to Central School OneDrive Registry so other devices remember this account and role!
-            let registry = getCentralOneDriveRegistry();
-            const idx = registry.findIndex(u => u.email === emailInput);
-            if (idx >= 0) {
-                registry[idx] = currentUser;
-            } else {
-                registry.push(currentUser);
+            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered') || '[]');
+            if (!registeredUsers.some(u => u.email === emailInput)) {
+                registeredUsers.push(currentUser);
+                localStorage.setItem('project_extra_registered', JSON.stringify(registeredUsers));
             }
-            saveCentralOneDriveRegistry(registry);
 
             localStorage.setItem('project_extra_session', JSON.stringify({
                 user: currentUser,
@@ -512,34 +491,27 @@
             document.getElementById('user-badge-role').innerText = pos;
             document.getElementById('user-badge').classList.remove('hidden');
             document.getElementById('auth-buttons-container').classList.add('hidden');
-            document.getElementById('onedrive-active-folder-path').innerText = `Target: OneDrive/ProjectEXTRA_Vault/${currentUser.email.split('@')[0]}/`;
 
             closeModal('modal-signin');
-            alert("Account synced and saved in Central School 1TB OneDrive Account!");
+            alert("Account registered and signed in!");
             renderHomeDashboard();
         }
 
         function handleAccountLogin(e) {
             e.preventDefault();
             const emailInput = document.getElementById('login-email-input').value.trim().toLowerCase();
-            const errorBanner = document.getElementById('login-error-banner');
-            
-            let registry = getCentralOneDriveRegistry();
-            let foundUser = registry.find(u => u.email === emailInput);
+            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered') || '[]');
+            let foundUser = registeredUsers.find(u => u.email === emailInput);
 
-            // Fallback for recognized roles if not found in local registry
             if (!foundUser) {
                 let defaultType = 'TEACHER';
                 let defaultPos = 'Teacher II';
                 if (emailInput.includes('principal')) { defaultType = 'SCHOOL_HEAD'; defaultPos = 'Principal I'; }
                 else if (emailInput.includes('master')) { defaultType = 'MASTER_TEACHER'; defaultPos = 'Master Teacher I'; }
-                foundUser = { email: emailInput, name: emailInput.split('@')[0].toUpperCase(), type: defaultType, position: defaultPos, isAdviser: true };
-                registry.push(foundUser);
-                saveCentralOneDriveRegistry(registry);
+                foundUser = { email: emailInput, name: emailInput.split('@')[0].toUpperCase(), type: defaultType, position: defaultPos };
             }
 
             currentUser = foundUser;
-
             localStorage.setItem('project_extra_session', JSON.stringify({
                 user: currentUser,
                 timestamp: new Date().getTime()
@@ -549,10 +521,9 @@
             document.getElementById('user-badge-role').innerText = currentUser.position;
             document.getElementById('user-badge').classList.remove('hidden');
             document.getElementById('auth-buttons-container').classList.add('hidden');
-            document.getElementById('onedrive-active-folder-path').innerText = `Target: OneDrive/ProjectEXTRA_Vault/${currentUser.email.split('@')[0]}/`;
 
             closeModal('modal-login');
-            alert(`Logged in as ${currentUser.name} (${currentUser.position}). Profile synced!`);
+            alert(`Logged in as ${currentUser.name}!`);
             renderHomeDashboard();
         }
 
@@ -562,13 +533,11 @@
                 currentUser = null;
                 document.getElementById('user-badge').classList.add('hidden');
                 document.getElementById('auth-buttons-container').classList.remove('hidden');
-                document.getElementById('onedrive-active-folder-path').innerText = `Target: OneDrive/ProjectEXTRA_Vault/`;
                 renderHomeDashboard();
                 returnToHomeHub();
             }
         }
 
-        // RENDER HOME DASHBOARD
         function renderHomeDashboard() {
             const dashboard = document.getElementById('dynamic-home-dashboard');
             const monitorSection = document.getElementById('notification-monitor-section');
@@ -590,7 +559,7 @@
                     <div class="space-y-6">
                         <div class="clay-card p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100">
                             <h3 class="text-xl font-black text-slate-900">Principal Executive Review Dashboard</h3>
-                            <p class="text-xs text-slate-600 mt-1">Review finalized reports synced via Microsoft OneDrive for final approval.</p>
+                            <p class="text-xs text-slate-600 mt-1">Review finalized reports for final approval.</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -603,7 +572,7 @@
                                         <div class="p-3 bg-slate-50 rounded-xl border flex justify-between items-center">
                                             <div>
                                                 <p class="font-extrabold text-slate-900">${r.author}</p>
-                                                <p class="text-[10px] text-slate-500">${r.title} •${r.timestamp}</p>
+                                                <p class="text-[10px] text-slate-500">${r.title} • ${r.timestamp}</p>
                                             </div>
                                             <div class="flex gap-2">
                                                 <button onclick="openReviewModal('${r.id}')" class="pill-btn px-3 py-1 bg-slate-800 text-white font-bold text-[10px]">View & Feedback</button>
@@ -623,7 +592,7 @@
                                         <div class="p-3 bg-slate-50 rounded-xl border flex justify-between items-center">
                                             <div>
                                                 <p class="font-extrabold text-slate-900">${r.author}</p>
-                                                <p class="text-[10px] text-slate-500">${r.title} •${r.timestamp}</p>
+                                                <p class="text-[10px] text-slate-500">${r.title} • ${r.timestamp}</p>
                                             </div>
                                             <div class="flex gap-2">
                                                 <button onclick="openReviewModal('${r.id}')" class="pill-btn px-3 py-1 bg-slate-800 text-white font-bold text-[10px]">View & Feedback</button>
@@ -642,7 +611,7 @@
                     <div class="space-y-6">
                         <div class="clay-card p-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100">
                             <h3 class="text-xl font-black text-slate-900">Master Teacher Review Portal</h3>
-                            <p class="text-xs text-slate-600 mt-1">Review teacher reports synced via OneDrive and forward them to the Principal.</p>
+                            <p class="text-xs text-slate-600 mt-1">Review teacher reports and forward them to the Principal.</p>
                         </div>
                         <div class="clay-card p-6 space-y-4">
                             <h4 class="font-black text-amber-800 text-sm border-b pb-2">Reports Awaiting Checking (${pendingChecks.length})</h4>
@@ -675,7 +644,7 @@
                     <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase">
                         DOCUMENT CREATION & PORTAL SERVICES
                     </h2>
-                    <p class="text-xs text-slate-500 font-medium">Select any workspace card below to draft, edit, and sync to your 1TB OneDrive</p>
+                    <p class="text-xs text-slate-500 font-medium">Select any workspace card below to draft, edit, and export</p>
                 </div>
 
                 <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-4">
@@ -719,6 +688,64 @@
                     <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="lightbulb" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">INNOVATION / PROJECT</h3><p class="text-[11px] text-slate-200">Project Proposals</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
                 </section>
             `;
+        }
+
+        // DUAL PRINT & SAVE LOGIC ENGINE
+        function triggerPrintOptionModal() {
+            openModal('modal-print-options');
+        }
+
+        function openPrintModalForReport() {
+            closeModal('modal-review');
+            openModal('modal-print-options');
+        }
+
+        function executeSaveAndPrint(destination) {
+            closeModal('modal-print-options');
+
+            let reportTitle = "Document_Report";
+            let reportContent = "Valugan Integrated School Official Report";
+            let authorName = currentUser ? currentUser.name : "Teacher";
+
+            const titleInput = document.getElementById('draft-title-input');
+            const contentInput = document.getElementById('draft-content-editable');
+
+            if (titleInput && contentInput) {
+                reportTitle = titleInput.value;
+                reportContent = contentInput.innerText;
+            } else if (currentReviewReportId) {
+                const rep = submittedReports.find(r => r.id === currentReviewReportId);
+                if (rep) {
+                    reportTitle = rep.title;
+                    reportContent = rep.content;
+                    authorName = rep.author;
+                }
+            }
+
+            const formattedText = `DEPARTMENT OF EDUCATION • REGION II • DIVISION OF BATANES\nVALUGAN INTEGRATED SCHOOL\nPROJECT EXTRA PORTAL REPORT\n\nTitle: ${reportTitle}\nAuthor: ${authorName}\nDate: ${new Date().toLocaleString()}\n\n-----------------------------------------------------\nCONTENT:\n${reportContent}\n-----------------------------------------------------`;
+
+            if (destination === 'DEVICE') {
+                downloadFileLocally(`${reportTitle.replace(/\s+/g, '_')}_LocalCopy.txt`, formattedText);
+                alert("File successfully saved to your local device downloads folder! Opening print preview window now...");
+            } else if (destination === 'ONEDRIVE') {
+                const oneDriveHeader = `=== TARGET DESTINATION: DepEd 1TB OneDrive Folder ===\nSave Location Suggestion: OneDrive - DepEd / Project EXTRA / Reports /\n\n` + formattedText;
+                downloadFileLocally(`${reportTitle.replace(/\s+/g, '_')}_OneDriveReady.txt`, oneDriveHeader);
+                alert("Report file exported and prepared for OneDrive! Drag and drop this file to your OneDrive folder after printing.");
+            }
+
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        }
+
+        function downloadFileLocally(filename, text) {
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         }
 
         // VIEW & FEEDBACK MODAL
@@ -780,7 +807,7 @@
                 input.value = '';
                 renderFeedbackHistory(report);
                 renderHomeDashboard();
-                alert("Comment added and synced to Central OneDrive!");
+                alert("Comment added!");
             }
         }
 
@@ -866,14 +893,17 @@
 
             const body = document.getElementById('workspace-body-content');
             body.innerHTML = `
-                <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-4 no-print">
                     <div class="flex items-center gap-3">
-                        <button onclick="renderDraftsList('${key}')" class="pill-btn px-3 py-1 bg-slate-200 text-slate-700 font-bold text-xs">← Back to Drafts List</button>
-                        <h3 class="font-black text-base text-slate-900">Editing Draft: <input type="text" id="draft-title-input" value="${draft.title}" class="border rounded px-2 py-1 text-xs font-bold bg-slate-50"></h3>
+                        <button onclick="renderDraftsList('${key}')" class="pill-btn px-3 py-1 bg-slate-200 text-slate-700 font-bold text-xs">← Back to List</button>
+                        <h3 class="font-black text-base text-slate-900">Editing: <input type="text" id="draft-title-input" value="${draft.title}" class="border rounded px-2 py-1 text-xs font-bold bg-slate-50"></h3>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">Save Draft Offline</button>
-                        <button onclick="confirmSubmissionSync('${key}')" class="pill-btn px-5 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-extrabold text-xs">Sync & Submit for Checking</button>
+                        <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">Save Offline Draft</button>
+                        <button onclick="triggerPrintOptionModal()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5">
+                            <i data-lucide="printer" class="w-3.5 h-3.5"></i> Save & Print...
+                        </button>
+                        <button onclick="confirmSubmissionSync('${key}')" class="pill-btn px-5 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-extrabold text-xs">Submit for Checking</button>
                     </div>
                 </div>
                 <div class="p-6 rounded-3xl bg-slate-50/70 space-y-4 border border-slate-200/80">
@@ -898,7 +928,7 @@
                 drafts[index].content = contentInput;
                 drafts[index].updatedAt = new Date().toLocaleString();
                 saveStoredDrafts(key, drafts);
-                alert("Offline draft successfully saved locally on this device!");
+                alert("Offline draft successfully saved locally!");
             }
         }
 
@@ -929,7 +959,7 @@
 
             localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
             renderHomeDashboard();
-            alert(`Report successfully synced and uploaded to target folder: OneDrive/ProjectEXTRA_Vault/${currentUser ? currentUser.email.split('@')[0] : 'shared'}/`);
+            alert("Report submitted to Master Teacher!");
             returnToHomeHub();
         }
 
@@ -939,7 +969,7 @@
                 report.status = 'Final Revised & Submitted to Principal';
                 localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
                 renderHomeDashboard();
-                alert("Report successfully forwarded to Principal via OneDrive Central Vault!");
+                alert("Report forwarded to Principal!");
             }
         }
 
@@ -949,7 +979,7 @@
                 report.status = 'Approved (Final)';
                 localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
                 renderHomeDashboard();
-                alert("Final report successfully approved and archived in Central School OneDrive Vault!");
+                alert("Final report approved!");
             }
         }
 
@@ -988,12 +1018,7 @@
 
         function toggleSigninRoleFields() {
             const type = document.getElementById('signin-account-type').value;
-            const levelOpt = document.getElementById('signin-field-level-option');
-            const adviserOpt = document.getElementById('signin-field-adviser-option');
             const posDropdown = document.getElementById('signin-position-dropdown');
-
-            levelOpt.style.display = type === 'TEACHER' ? 'block' : 'none';
-            adviserOpt.style.display = type === 'SCHOOL_HEAD' ? 'none' : 'block';
 
             posDropdown.innerHTML = '';
             positionOptions[type].forEach(pos => {
