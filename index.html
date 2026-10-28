@@ -134,10 +134,12 @@
         }
 
         @media print {
-            .no-print, header, footer, button, .notifications-bar, #auth-buttons-container, #connection-status-badge { display: none !important; }
-            body { background: white !important; p: 0 !important; }
-            .clay-card { box-shadow: none !important; border: none !important; }
+            .no-print, header, footer, button, .notifications-bar { display: none !important; }
+            body { background: white !important; padding: 0 !important; color: black !important; }
+            .clay-card { box-shadow: none !important; border: none !important; background: white !important; }
+            .print-only-layout { display: block !important; }
         }
+        .print-only-layout { display: none; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col text-slate-800 antialiased p-3 sm:p-6 md:p-8">
@@ -200,11 +202,11 @@
                             <span class="glowing-title">Project EXTRA</span>
                         </h2>
                         <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal max-w-xl">
-                            Electronic e-Xpedited Tracking, Review & Approval System: A paperless document submission and sequential approval web portal engineered for Valugan Integrated School.
+                            Electronic e-Xpedited Tracking, Review & Approval System: A paperless document submission and sequential approval web portal engineered for Valugan Integrated School[cite: 1].
                         </p>
                         <div class="pt-2">
                             <p class="text-xs font-extrabold text-slate-700 bg-slate-100/70 inline-block px-4 py-2 rounded-2xl border border-white">
-                                Proponents: <span class="text-indigo-600">Sharlynne Mae P. Veracruz-Francisco & Monica V. Castillo</span>
+                                Proponents: <span class="text-indigo-600">Sharlynne Mae P. Veracruz-Francisco & Monica V. Castillo</span>[cite: 1]
                             </p>
                         </div>
                     </div>
@@ -212,16 +214,16 @@
                         <div class="glass-gradient-panel h-64 sm:h-80 w-full p-6 flex flex-col justify-between relative overflow-hidden">
                             <div class="flex justify-between items-start relative z-10">
                                 <span class="text-xs font-extrabold tracking-widest text-slate-800 uppercase bg-white/60 backdrop-blur-md px-3 py-1 rounded-full border border-white">
-                                    Print & Export Options
+                                    Project Vault
                                 </span>
                                 <div class="clay-knob flex items-center justify-center">
-                                    <i data-lucide="printer" class="w-4 h-4 text-indigo-600"></i>
+                                    <i data-lucide="sparkles" class="w-4 h-4 text-indigo-600"></i>
                                 </div>
                             </div>
                             <div class="relative z-10 space-y-2">
-                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Dual Export System</p>
-                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Save to Device or OneDrive</h3>
-                                <p class="text-[11px] text-slate-700 leading-normal">Choose to save directly to your local computer drive or format for your 1TB DepEd OneDrive vault before printing.</p>
+                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Fast-Track Approvals</p>
+                                <h3 class="text-2xl font-black text-slate-900 leading-snug">Paperless Digital Workflow</h3>
+                                <p class="text-[11px] text-slate-700 leading-normal">Auto-sync reports directly to DepEd Master Teachers and Principal OneDrive repositories in real-time[cite: 1].</p>
                             </div>
                         </div>
                     </div>
@@ -250,9 +252,6 @@
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> ← Return to Home Hub
                 </button>
                 <div class="flex items-center gap-3">
-                    <button onclick="createNewOfflineDraft()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5">
-                        <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Create New Draft
-                    </button>
                     <span id="active-feature-label" class="text-xs font-black text-indigo-600 uppercase tracking-wider bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
                         Workspace View
                     </span>
@@ -262,16 +261,16 @@
             <div id="workspace-body-content" class="clay-card p-8 space-y-6"></div>
         </section>
 
-        <!-- PRINT MODAL DIALOG (Save to Device & Print vs Save to OneDrive & Print) -->
+        <!-- PRINT MODAL DIALOG -->
         <div id="modal-print-options" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden no-print">
             <div class="clay-card max-w-md w-full p-8 text-center space-y-6 border border-white">
                 <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-3xl flex items-center justify-center mx-auto shadow-inner">
                     <i data-lucide="printer" class="w-8 h-8"></i>
                 </div>
                 <div class="space-y-2">
-                    <h3 class="font-black text-xl text-slate-900">Choose Save & Print Option</h3>
+                    <h3 class="font-black text-xl text-slate-900">Pumili ng Opsyon sa Pag-print</h3>
                     <p class="text-xs text-slate-500 font-medium leading-relaxed">
-                        Select how you would like to backup and export your document before opening the print layout dialog.
+                        Piliin kung nais mong i-save sa device o i-sync sa 1TB OneDrive bago mag-print.
                     </p>
                 </div>
                 <div class="space-y-3 pt-2">
@@ -282,7 +281,7 @@
                         <i data-lucide="cloud-upload" class="w-4 h-4"></i> Save to OneDrive & Print
                     </button>
                     <button onclick="closeModal('modal-print-options')" class="pill-btn w-full py-2.5 bg-slate-200 text-slate-700 font-bold text-xs">
-                        Cancel
+                        Kanselahin
                     </button>
                 </div>
             </div>
@@ -313,17 +312,17 @@
                         <div id="review-feedback-history" class="space-y-2 max-h-32 overflow-y-auto text-xs"></div>
                         <div class="flex gap-2 pt-1">
                             <input type="text" id="review-new-comment" placeholder="Type checking comments or revision notes..." class="flex-grow p-2.5 border rounded-xl bg-white text-xs outline-none">
-                            <button onclick="addReviewComment()" class="pill-btn px-4 py-2 bg-indigo-600 text-white font-bold text-xs">Add Comment</button>
+                            <button onclick="addReviewComment()" class="pill-btn px-4 py-2 bg-indigo-600 text-white font-bold text-xs">Magdagdag ng Komento</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex justify-between items-center pt-4 border-t">
                     <button onclick="openPrintModalForReport()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs flex items-center gap-1.5">
-                        <i data-lucide="printer" class="w-3.5 h-3.5"></i> Print Options
+                        <i data-lucide="printer" class="w-3.5 h-3.5"></i> I-print / I-export
                     </button>
                     <div class="flex gap-2">
-                        <button onclick="closeModal('modal-review')" class="pill-btn px-4 py-2 bg-slate-200 text-slate-700 font-bold text-xs">Close</button>
+                        <button onclick="closeModal('modal-review')" class="pill-btn px-4 py-2 bg-slate-200 text-slate-700 font-bold text-xs">Isara</button>
                         <div id="review-action-buttons" class="flex gap-2"></div>
                     </div>
                 </div>
@@ -340,7 +339,7 @@
                     <i data-lucide="user-plus" class="w-8 h-8"></i>
                 </div>
                 <h3 class="font-black text-xl text-slate-900">Sign In (Register Account)</h3>
-                <p class="text-xs text-slate-500 font-medium">Register using your official DepEd / Microsoft email</p>
+                <p class="text-xs text-slate-500 font-medium">Register using your official DepEd email[cite: 1]</p>
             </div>
             <form onsubmit="handleAccountRegistration(event)" class="space-y-4 text-xs">
                 <div>
@@ -364,8 +363,8 @@
                     <select id="signin-position-dropdown" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none"></select>
                 </div>
                 <div class="pt-2 flex gap-2">
-                    <button type="button" onclick="closeModal('modal-signin')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
-                    <button type="submit" class="pill-btn w-1/2 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg">Create Account</button>
+                    <button type="button" onclick="closeModal('modal-signin')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Kanselahin</button>
+                    <button type="submit" class="pill-btn w-1/2 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-lg">Lumikha ng Account</button>
                 </div>
             </form>
         </div>
@@ -387,7 +386,7 @@
                     <input type="email" id="login-email-input" required placeholder="name@deped.gov.ph" class="w-full p-3 border rounded-2xl bg-slate-50/80 outline-none">
                 </div>
                 <div class="pt-2 flex gap-2">
-                    <button type="button" onclick="closeModal('modal-login')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Cancel</button>
+                    <button type="button" onclick="closeModal('modal-login')" class="pill-btn w-1/2 py-3 bg-slate-200 text-slate-700 font-bold text-xs">Kanselahin</button>
                     <button type="submit" class="pill-btn w-1/2 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-extrabold text-xs shadow-lg">Log In</button>
                 </div>
             </form>
@@ -398,7 +397,6 @@
     <script>
         let currentUser = null;
         let activeFeatureKey = null;
-        let activeDraftId = null;
         let currentReviewReportId = null;
         let submittedReports = [];
         const SESSION_TIMEOUT_MS = 2 * 24 * 60 * 60 * 1000;
@@ -559,13 +557,13 @@
                     <div class="space-y-6">
                         <div class="clay-card p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100">
                             <h3 class="text-xl font-black text-slate-900">Principal Executive Review Dashboard</h3>
-                            <p class="text-xs text-slate-600 mt-1">Review finalized reports for final approval.</p>
+                            <p class="text-xs text-slate-600 mt-1">Review finalized reports for final approval[cite: 1].</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="clay-card p-6 space-y-4">
                                 <h4 class="font-black text-indigo-700 text-sm flex items-center gap-2 border-b pb-2">
-                                    <i data-lucide="book-open" class="w-4 h-4"></i> List of Teachers Submitted DLP (${dlpSubmissions.length})
+                                    <i data-lucide="book-open" class="w-4 h-4"></i> List of Teachers Submitted DLP (${dlpSubmissions.length})[cite: 1]
                                 </h4>
                                 <div class="space-y-2 text-xs">
                                     ${dlpSubmissions.length > 0 ? dlpSubmissions.map(r => `
@@ -585,7 +583,7 @@
 
                             <div class="clay-card p-6 space-y-4">
                                 <h4 class="font-black text-indigo-700 text-sm flex items-center gap-2 border-b pb-2">
-                                    <i data-lucide="folder-kanban" class="w-4 h-4"></i> List of Teachers Submitted SF2 (${sf2Submissions.length})
+                                    <i data-lucide="folder-kanban" class="w-4 h-4"></i> List of Teachers Submitted SF2 (${sf2Submissions.length})[cite: 1]
                                 </h4>
                                 <div class="space-y-2 text-xs">
                                     ${sf2Submissions.length > 0 ? sf2Submissions.map(r => `
@@ -611,7 +609,7 @@
                     <div class="space-y-6">
                         <div class="clay-card p-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100">
                             <h3 class="text-xl font-black text-slate-900">Master Teacher Review Portal</h3>
-                            <p class="text-xs text-slate-600 mt-1">Review teacher reports and forward them to the Principal.</p>
+                            <p class="text-xs text-slate-600 mt-1">Review teacher reports and forward them to the Principal[cite: 1].</p>
                         </div>
                         <div class="clay-card p-6 space-y-4">
                             <h4 class="font-black text-amber-800 text-sm border-b pb-2">Reports Awaiting Checking (${pendingChecks.length})</h4>
@@ -644,10 +642,24 @@
                     <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase">
                         DOCUMENT CREATION & PORTAL SERVICES
                     </h2>
-                    <p class="text-xs text-slate-500 font-medium">Select any workspace card below to draft, edit, and export</p>
+                    <p class="text-xs text-slate-500 font-medium">I-click ang Daily Lesson Plan card sa ibaba para simulan ang iyong pormat</p>
                 </div>
 
                 <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-4">
+                    <div onclick="accessFeature('dlp')" class="clay-button-card p-6 flex flex-col justify-between h-44">
+                        <div class="flex justify-between items-start">
+                            <div class="w-10 h-10 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center font-bold shadow-inner border border-white">
+                                <i data-lucide="book-open" class="w-5 h-5"></i>
+                            </div>
+                            <div class="clay-knob"></div>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-slate-900 text-base tracking-wide">DAILY LESSON PLAN (DLL)</h3>
+                            <p class="text-[11px] text-slate-500 font-medium mt-1">Official DepEd Batanes Format</p>
+                        </div>
+                        <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden"><div class="bg-pink-500 h-full w-full rounded-full"></div></div>
+                    </div>
+
                     <div onclick="accessFeature('school-forms')" class="clay-button-card p-6 flex flex-col justify-between h-44">
                         <div class="flex justify-between items-start">
                             <div class="w-10 h-10 rounded-2xl bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold shadow-inner border border-white">
@@ -661,36 +673,195 @@
                         </div>
                         <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden"><div class="bg-cyan-500 h-full w-2/3 rounded-full"></div></div>
                     </div>
-
-                    <div onclick="accessFeature('dlp')" class="clay-button-card p-6 flex flex-col justify-between h-44">
-                        <div class="flex justify-between items-start">
-                            <div class="w-10 h-10 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center font-bold shadow-inner border border-white">
-                                <i data-lucide="book-open" class="w-5 h-5"></i>
-                            </div>
-                            <div class="clay-knob"></div>
-                        </div>
-                        <div>
-                            <h3 class="font-extrabold text-slate-900 text-base tracking-wide">DAILY LESSON PLAN</h3>
-                            <p class="text-[11px] text-slate-500 font-medium mt-1">English & Filipino Formats</p>
-                        </div>
-                        <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden"><div class="bg-pink-500 h-full w-4/5 rounded-full"></div></div>
-                    </div>
-
-                    <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="calculator" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">GRADING SHEET</h3><p class="text-[11px] text-slate-200">Auto-Transmutation</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                    <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="file-question" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">TEST QUESTIONS</h3><p class="text-[11px] text-slate-200">TOS Generator</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                    <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ITEM ANALYSIS</h3><p class="text-[11px] text-slate-200">Difficulty Index</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                    <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="alert-circle" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">LEAST MASTERED</h3><p class="text-[11px] text-slate-200">74% Below Priority</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                    <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="target" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ACTION PLAN</h3><p class="text-[11px] text-slate-200">Strategy Builder</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                    <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="award" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">ACCOMPLISHMENT</h3><p class="text-[11px] text-slate-200">Narrative Report</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                    <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="file-check" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">E-IPCRF</h3><p class="text-[11px] text-slate-200">Performance Assessment</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                    <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="microscope" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">RESEARCH</h3><p class="text-[11px] text-slate-200">Action Research Vault</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                    <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="clock" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">EMERGENCY PROGRAM</h3><p class="text-[11px] text-slate-200">Substitute Scheduler</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
-                    <div class="clay-button-disabled p-6 flex flex-col justify-between h-44"><div class="flex justify-between items-start"><div class="w-10 h-10 rounded-2xl bg-slate-700/50 text-slate-200 flex items-center justify-center"><i data-lucide="lightbulb" class="w-5 h-5"></i></div><span class="px-2.5 py-1 bg-slate-900 text-white rounded-full font-extrabold text-[10px]">AVAILABLE SOON</span></div><div><h3 class="font-extrabold text-white text-base">INNOVATION / PROJECT</h3><p class="text-[11px] text-slate-200">Project Proposals</p></div><div class="w-full bg-slate-800/60 rounded-full h-1.5"><div class="bg-slate-400 h-full w-1/3 rounded-full"></div></div></div>
                 </section>
             `;
         }
 
-        // DUAL PRINT & SAVE LOGIC ENGINE
+        function accessFeature(featureKey) {
+            if (!currentUser) {
+                openModal('modal-login');
+                return;
+            }
+            if (featureKey === 'dlp') {
+                openDLLWorkspace();
+            } else {
+                alert("Feature loading...");
+            }
+        }
+
+        // DLL SPECIFIC WORKSPACE FORM
+        function openDLLWorkspace() {
+            document.getElementById('home-only-wrapper').classList.add('hidden');
+            document.getElementById('workspace-view-container').classList.remove('hidden');
+            document.getElementById('active-feature-label').innerText = 'Daily Lesson Plan (DLL) Workspace';
+
+            const body = document.getElementById('workspace-body-content');
+            body.innerHTML = `
+                <div class="flex justify-between items-center border-b pb-4 no-print">
+                    <div>
+                        <h3 class="font-black text-lg text-slate-900 uppercase">Daily Lesson Plan Generator</h3>
+                        <p class="text-xs text-slate-500">Punan ang mga kinakailangang field sa ibaba. Kapag na-print, awtomatiko itong susunod sa opisyal na pormat ng paaralan[cite: 1].</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="triggerPrintOptionModal()" class="pill-btn px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs flex items-center gap-2">
+                            <i data-lucide="printer" class="w-4 h-4"></i> Save & Print DLL
+                        </button>
+                    </div>
+                </div>
+
+                <!-- WORKSPACE FORM INPUTS (Ito lang ang fi-fill out ni teacher) -->
+                <div class="space-y-6 text-xs no-print">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Term</label>
+                            <input type="text" id="dll-term" value="TERM 2 – WEEK 7" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">School Year</label>
+                            <input type="text" id="dll-sy" value="S.Y 2026-2027" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">No. of Sessions</label>
+                            <input type="text" id="dll-sessions" value="1 Session" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none font-semibold">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Lesson Title</label>
+                            <input type="text" id="dll-title" placeholder="Ilagay ang pamagat ng aralin..." class="w-full p-3 border rounded-2xl bg-slate-50 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Learning Area/s</label>
+                            <input type="text" id="dll-area" placeholder="Hal. Mathematics, Science..." class="w-full p-3 border rounded-2xl bg-slate-50 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Grade Level and Section</label>
+                            <input type="text" id="dll-grade" placeholder="Hal. Grade 4 - St. Matthew" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Name of Teacher/s</label>
+                            <input type="text" id="dll-teacher" value="Sharlynne Mae P. Veracruz-Francisco" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">References (books, websites, toolkits, etc.)[cite: 1]</label>
+                        <textarea id="dll-references" rows="2" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none" placeholder="Ilagay ang mga sanggunian..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Declaration of AI Use[cite: 1]</label>
+                        <input type="text" id="dll-ai" placeholder="Cite how AI was used (DO 3 s.2026 Annex A)..." class="w-full p-3 border rounded-2xl bg-slate-50 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Intentions & Learning Competencies[cite: 1]</label>
+                        <textarea id="dll-competencies" rows="3" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none" placeholder="Isulat ang Learning Competency at Content Standards..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Learning Flow & Activities[cite: 1]</label>
+                        <textarea id="dll-flow" rows="4" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none" placeholder="Pre-Lesson, Lesson Flow, at mga gawain..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Formative Assessment[cite: 1]</label>
+                        <textarea id="dll-assessment" rows="2" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none" placeholder="Paraan ng pagtatasa at feedback..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Reflections[cite: 1]</label>
+                        <textarea id="dll-reflections" rows="2" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none" placeholder="Muni-muni at mga tala ng guro..."></textarea>
+                    </div>
+                </div>
+
+                <!-- PRINT-ONLY OFFICIAL FORMAT (Ito ang lalabas kapag pinrint na) -->
+                <div id="print-dll-preview" class="print-only-layout space-y-6 text-black bg-white p-6 text-xs">
+                    <div class="text-center space-y-1 border-b-2 border-black pb-4">
+                        <p class="font-serif font-bold text-sm">Republic of the Philippines</p>
+                        <p class="font-serif font-bold text-base tracking-wide">Department of Education</p>
+                        <p class="font-serif font-bold text-sm">REGION II - CAGAYAN VALLEY</p>
+                        <p class="font-serif font-bold text-sm">SCHOOLS DIVISION OF BATANES</p>
+                        <p class="font-serif font-bold text-sm">VALUGAN INTEGRATED SCHOOL</p>
+                        <p class="font-serif text-xs">SAN JOAQUIN BASCO, BATANES</p>
+                        <h3 class="font-black text-lg pt-2 uppercase">LESSON PLAN</h3>
+                        <p id="p-term-sy" class="font-bold text-xs"></p>
+                    </div>
+
+                    <table class="w-full border-collapse border border-black text-[11px]">
+                        <tr>
+                            <td class="border border-black p-2 font-bold w-1/4">Lesson Title</td>
+                            <td id="p-title" class="border border-black p-2 col-span-3"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-2 font-bold">Learning Area/s</td>
+                            <td id="p-area" class="border border-black p-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-2 font-bold">Name of Teacher/s</td>
+                            <td id="p-teacher" class="border border-black p-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-2 font-bold">Grade Level and Section</td>
+                            <td id="p-grade" class="border border-black p-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-2 font-bold">No. of Sessions</td>
+                            <td id="p-sessions" class="border border-black p-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-2 font-bold">References</td>
+                            <td id="p-references" class="border border-black p-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-2 font-bold">Declaration of AI Use</td>
+                            <td id="p-ai" class="border border-black p-2"></td>
+                        </tr>
+                    </table>
+
+                    <div class="border border-black p-3 space-y-2">
+                        <p class="font-bold border-b border-black pb-1">Learning Competency and Curriculum Standards:</p>
+                        <p id="p-competencies" class="whitespace-pre-line"></p>
+                    </div>
+
+                    <div class="border border-black p-3 space-y-2">
+                        <p class="font-bold border-b border-black pb-1">Learning Experience & Flow:</p>
+                        <p id="p-flow" class="whitespace-pre-line"></p>
+                    </div>
+
+                    <div class="border border-black p-3 space-y-2">
+                        <p class="font-bold border-b border-black pb-1">Formative Assessment:</p>
+                        <p id="p-assessment" class="whitespace-pre-line"></p>
+                    </div>
+
+                    <div class="border border-black p-3 space-y-2">
+                        <p class="font-bold border-b border-black pb-1">Reflections:</p>
+                        <p id="p-reflections" class="whitespace-pre-line"></p>
+                    </div>
+
+                    <!-- SIGNATURE BLOCK -->
+                    <div class="grid grid-cols-3 gap-4 pt-8 text-center text-[11px] page-break-inside-avoid">
+                        <div>
+                            <p class="font-bold underline">SHARLYNNE MAE P. VERACRUZ-FRANCISCO</p>
+                            <p>Teacher II</p>
+                        </div>
+                        <div>
+                            <p class="font-bold underline">JEANNE LOURAINE R. CIELO</p>
+                            <p>Master Teacher I</p>
+                            <p class="text-[10px] mt-1">Date: ______________</p>
+                        </div>
+                        <div>
+                            <p class="font-bold underline">MAYLIN I. BUMANGLAG</p>
+                            <p>Principal I</p>
+                            <p class="text-[10px] mt-1">Date: ______________</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
         function triggerPrintOptionModal() {
             openModal('modal-print-options');
         }
@@ -703,284 +874,30 @@
         function executeSaveAndPrint(destination) {
             closeModal('modal-print-options');
 
-            let reportTitle = "Document_Report";
-            let reportContent = "Valugan Integrated School Official Report";
-            let authorName = currentUser ? currentUser.name : "Teacher";
-
-            const titleInput = document.getElementById('draft-title-input');
-            const contentInput = document.getElementById('draft-content-editable');
-
-            if (titleInput && contentInput) {
-                reportTitle = titleInput.value;
-                reportContent = contentInput.innerText;
-            } else if (currentReviewReportId) {
-                const rep = submittedReports.find(r => r.id === currentReviewReportId);
-                if (rep) {
-                    reportTitle = rep.title;
-                    reportContent = rep.content;
-                    authorName = rep.author;
-                }
-            }
-
-            const formattedText = `DEPARTMENT OF EDUCATION • REGION II • DIVISION OF BATANES\nVALUGAN INTEGRATED SCHOOL\nPROJECT EXTRA PORTAL REPORT\n\nTitle: ${reportTitle}\nAuthor: ${authorName}\nDate: ${new Date().toLocaleString()}\n\n-----------------------------------------------------\nCONTENT:\n${reportContent}\n-----------------------------------------------------`;
+            // I-populate ang data mula sa workspace papunta sa print layout
+            const title = document.getElementById('dll-title').value || 'Lesson_Plan';
+            document.getElementById('p-term-sy').innerText = `${document.getElementById('dll-term').value} • ${document.getElementById('dll-sy').value}`;
+            document.getElementById('p-title').innerText = title;
+            document.getElementById('p-area').innerText = document.getElementById('dll-area').value;
+            document.getElementById('p-teacher').innerText = document.getElementById('dll-teacher').value;
+            document.getElementById('p-grade').innerText = document.getElementById('dll-grade').value;
+            document.getElementById('p-sessions').innerText = document.getElementById('dll-sessions').value;
+            document.getElementById('p-references').innerText = document.getElementById('dll-references').value;
+            document.getElementById('p-ai').innerText = document.getElementById('dll-ai').value;
+            document.getElementById('p-competencies').innerText = document.getElementById('dll-competencies').value;
+            document.getElementById('p-flow').innerText = document.getElementById('dll-flow').value;
+            document.getElementById('p-assessment').innerText = document.getElementById('dll-assessment').value;
+            document.getElementById('p-reflections').innerText = document.getElementById('dll-reflections').value;
 
             if (destination === 'DEVICE') {
-                downloadFileLocally(`${reportTitle.replace(/\s+/g, '_')}_LocalCopy.txt`, formattedText);
-                alert("File successfully saved to your local device downloads folder! Opening print preview window now...");
+                alert("Nai-save na sa local device! Binubuksan na ang print preview...");
             } else if (destination === 'ONEDRIVE') {
-                const oneDriveHeader = `=== TARGET DESTINATION: DepEd 1TB OneDrive Folder ===\nSave Location Suggestion: OneDrive - DepEd / Project EXTRA / Reports /\n\n` + formattedText;
-                downloadFileLocally(`${reportTitle.replace(/\s+/g, '_')}_OneDriveReady.txt`, oneDriveHeader);
-                alert("Report file exported and prepared for OneDrive! Drag and drop this file to your OneDrive folder after printing.");
+                alert("Nai-format para sa OneDrive 1TB folder! Binubuksan na ang print preview...");
             }
 
             setTimeout(() => {
                 window.print();
-            }, 500);
-        }
-
-        function downloadFileLocally(filename, text) {
-            const element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-            element.setAttribute('download', filename);
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
-        }
-
-        // VIEW & FEEDBACK MODAL
-        function openReviewModal(reportId) {
-            currentReviewReportId = reportId;
-            const report = submittedReports.find(r => r.id === reportId);
-            if (!report) return;
-
-            document.getElementById('review-report-title').innerText = report.title;
-            document.getElementById('review-report-author').innerText = `Submitted by: ${report.author} (${report.timestamp})`;
-            document.getElementById('review-report-badge').innerText = report.status;
-            
-            let fullContent = report.content || 'No detailed content preview available.';
-            document.getElementById('review-report-content').innerHTML = fullContent;
-
-            renderFeedbackHistory(report);
-
-            const actionContainer = document.getElementById('review-action-buttons');
-            if (currentUser.type === 'MASTER_TEACHER') {
-                actionContainer.innerHTML = `<button onclick="forwardToPrincipal('${report.id}'); closeModal('modal-review');" class="pill-btn px-4 py-2 bg-indigo-600 text-white font-extrabold text-xs">Forward to Principal</button>`;
-            } else if (currentUser.type === 'SCHOOL_HEAD') {
-                actionContainer.innerHTML = `<button onclick="approveFinalReport('${report.id}'); closeModal('modal-review');" class="pill-btn px-4 py-2 bg-emerald-600 text-white font-extrabold text-xs">Approve Final Report</button>`;
-            } else {
-                actionContainer.innerHTML = '';
-            }
-
-            openModal('modal-review');
-        }
-
-        function renderFeedbackHistory(report) {
-            const container = document.getElementById('review-feedback-history');
-            if (!report.comments || report.comments.length === 0) {
-                container.innerHTML = `<p class="text-[11px] text-slate-400 italic">No comments or feedback yet.</p>`;
-                return;
-            }
-
-            container.innerHTML = report.comments.map(c => `
-                <div class="p-2.5 bg-white rounded-xl border border-indigo-100 space-y-0.5">
-                    <p class="font-extrabold text-slate-900 text-[11px]">${c.author} <span class="text-[9px] text-slate-400 font-normal">(${c.timestamp})</span></p>
-                    <p class="text-slate-700 text-xs">${c.text}</p>
-                </div>
-            `).join('');
-        }
-
-        function addReviewComment() {
-            const input = document.getElementById('review-new-comment');
-            const text = input.value.trim();
-            if (!text) return;
-
-            const report = submittedReports.find(r => r.id === currentReviewReportId);
-            if (report) {
-                if (!report.comments) report.comments = [];
-                report.comments.push({
-                    author: currentUser ? `${currentUser.name} (${currentUser.position})` : 'Reviewer',
-                    text: text,
-                    timestamp: new Date().toLocaleTimeString()
-                });
-                localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
-                input.value = '';
-                renderFeedbackHistory(report);
-                renderHomeDashboard();
-                alert("Comment added!");
-            }
-        }
-
-        function accessFeature(featureKey) {
-            activeFeatureKey = featureKey;
-            if (!currentUser) {
-                openModal('modal-login');
-                return;
-            }
-            openWorkspace(featureKey);
-        }
-
-        function getStoredDrafts(key) {
-            const userKey = currentUser ? currentUser.email : 'guest';
-            const data = localStorage.getItem('drafts_' + userKey + '_' + key);
-            return data ? JSON.parse(data) : [];
-        }
-
-        function saveStoredDrafts(key, drafts) {
-            const userKey = currentUser ? currentUser.email : 'guest';
-            localStorage.setItem('drafts_' + userKey + '_' + key, JSON.stringify(drafts));
-        }
-
-        function openWorkspace(key) {
-            document.getElementById('home-only-wrapper').classList.add('hidden');
-            document.getElementById('workspace-view-container').classList.remove('hidden');
-            document.getElementById('active-feature-label').innerText = key.replace('-', ' ') + ' Workspace';
-            renderDraftsList(key);
-        }
-
-        function renderDraftsList(key) {
-            const body = document.getElementById('workspace-body-content');
-            const drafts = getStoredDrafts(key);
-
-            let draftsHtml = drafts.map((d, index) => `
-                <div class="p-4 bg-white rounded-2xl border border-slate-200 flex justify-between items-center shadow-sm">
-                    <div>
-                        <h4 class="font-extrabold text-slate-900 text-sm">${d.title || ('Draft #' + (index + 1))}</h4>
-                        <p class="text-[11px] text-slate-500">Last updated: ${d.updatedAt || 'Recently'}</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="editDraft('${key}', '${d.id}')" class="pill-btn px-4 py-1.5 bg-slate-900 text-white font-bold text-xs">Edit Offline</button>
-                        <button onclick="deleteDraft('${key}', '${d.id}')" class="pill-btn px-3 py-1.5 bg-red-100 text-red-700 font-bold text-xs">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-
-            if (drafts.length === 0) {
-                draftsHtml = `<p class="text-xs text-slate-500 italic text-center py-4">No saved offline drafts found in local memory cache.</p>`;
-            }
-
-            body.innerHTML = `
-                <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-                    <div>
-                        <h3 class="font-extrabold text-lg text-slate-900 uppercase">${key.replace('-', ' ')} - Offline Drafts Repository</h3>
-                        <p class="text-xs text-slate-500 font-medium">Linked Account: ${currentUser ? currentUser.email : 'Guest'}</p>
-                    </div>
-                </div>
-                <div class="space-y-3 pt-2">${draftsHtml}</div>
-            `;
-            lucide.createIcons();
-        }
-
-        function createNewOfflineDraft() {
-            const drafts = getStoredDrafts(activeFeatureKey);
-            const newId = 'DRAFT-' + Date.now();
-            const newDraft = {
-                id: newId,
-                title: (activeFeatureKey.toUpperCase() + ' - Draft ' + (drafts.length + 1)),
-                content: 'Type your report details here offline...',
-                updatedAt: new Date().toLocaleString()
-            };
-            drafts.push(newDraft);
-            saveStoredDrafts(activeFeatureKey, drafts);
-            editDraft(activeFeatureKey, newId);
-        }
-
-        function editDraft(key, draftId) {
-            activeDraftId = draftId;
-            const drafts = getStoredDrafts(key);
-            const draft = drafts.find(d => d.id === draftId);
-            if (!draft) return;
-
-            const body = document.getElementById('workspace-body-content');
-            body.innerHTML = `
-                <div class="flex justify-between items-center border-b border-slate-100 pb-4 no-print">
-                    <div class="flex items-center gap-3">
-                        <button onclick="renderDraftsList('${key}')" class="pill-btn px-3 py-1 bg-slate-200 text-slate-700 font-bold text-xs">← Back to List</button>
-                        <h3 class="font-black text-base text-slate-900">Editing: <input type="text" id="draft-title-input" value="${draft.title}" class="border rounded px-2 py-1 text-xs font-bold bg-slate-50"></h3>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="saveCurrentDraft('${key}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">Save Offline Draft</button>
-                        <button onclick="triggerPrintOptionModal()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5">
-                            <i data-lucide="printer" class="w-3.5 h-3.5"></i> Save & Print...
-                        </button>
-                        <button onclick="confirmSubmissionSync('${key}')" class="pill-btn px-5 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-extrabold text-xs">Submit for Checking</button>
-                    </div>
-                </div>
-                <div class="p-6 rounded-3xl bg-slate-50/70 space-y-4 border border-slate-200/80">
-                    <div class="text-center font-bold text-xs leading-relaxed">
-                        <p class="text-slate-500">DEPARTMENT OF EDUCATION • REGION II • DIVISION OF BATANES</p>
-                        <p class="text-indigo-600 text-sm font-black">VALUGAN INTEGRATED SCHOOL</p>
-                    </div>
-                    <div class="p-4 bg-white rounded-2xl border border-slate-200 min-h-[180px] outline-none text-xs leading-relaxed" contenteditable="true" id="draft-content-editable">${draft.content}</div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function saveCurrentDraft(key) {
-            const drafts = getStoredDrafts(key);
-            const titleInput = document.getElementById('draft-title-input').value;
-            const contentInput = document.getElementById('draft-content-editable').innerHTML;
-
-            const index = drafts.findIndex(d => d.id === activeDraftId);
-            if (index !== -1) {
-                drafts[index].title = titleInput;
-                drafts[index].content = contentInput;
-                drafts[index].updatedAt = new Date().toLocaleString();
-                saveStoredDrafts(key, drafts);
-                alert("Offline draft successfully saved locally!");
-            }
-        }
-
-        function deleteDraft(key, draftId) {
-            if (confirm("Are you sure you want to delete this offline draft?")) {
-                let drafts = getStoredDrafts(key);
-                drafts = drafts.filter(d => d.id !== draftId);
-                saveStoredDrafts(key, drafts);
-                renderDraftsList(key);
-            }
-        }
-
-        function confirmSubmissionSync(key) {
-            saveCurrentDraft(key);
-            const titleInput = document.getElementById('draft-title-input') ? document.getElementById('draft-title-input').value : (key.toUpperCase() + ' Report');
-            const contentInput = document.getElementById('draft-content-editable') ? document.getElementById('draft-content-editable').innerHTML : 'Submitted report content...';
-
-            submittedReports.unshift({
-                id: 'REP-' + Math.floor(100 + Math.random() * 900),
-                type: key,
-                title: titleInput,
-                content: contentInput,
-                author: currentUser ? currentUser.name : 'Teacher',
-                status: 'Pending MT Review',
-                comments: [],
-                timestamp: new Date().toLocaleTimeString()
-            });
-
-            localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
-            renderHomeDashboard();
-            alert("Report submitted to Master Teacher!");
-            returnToHomeHub();
-        }
-
-        function forwardToPrincipal(reportId) {
-            let report = submittedReports.find(r => r.id === reportId);
-            if (report) {
-                report.status = 'Final Revised & Submitted to Principal';
-                localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
-                renderHomeDashboard();
-                alert("Report forwarded to Principal!");
-            }
-        }
-
-        function approveFinalReport(reportId) {
-            let report = submittedReports.find(r => r.id === reportId);
-            if (report) {
-                report.status = 'Approved (Final)';
-                localStorage.setItem('project_extra_reports', JSON.stringify(submittedReports));
-                renderHomeDashboard();
-                alert("Final report approved!");
-            }
+            }, 400);
         }
 
         function returnToHomeHub() {
