@@ -134,6 +134,7 @@
         }
 
         @media print {
+            @page { size: landscape; margin: 10mm; }
             .no-print, header, footer, button, .notifications-bar { display: none !important; }
             body { background: white !important; padding: 0 !important; color: black !important; }
             .clay-card { box-shadow: none !important; border: none !important; background: white !important; }
@@ -189,7 +190,6 @@
     <main class="max-w-7xl mx-auto w-full flex-grow">
 
         <div id="home-only-wrapper" class="space-y-8">
-            <!-- HERO WELCOME SECTION -->
             <section class="clay-card p-6 sm:p-8 relative overflow-hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                     <div class="lg:col-span-7 space-y-4">
@@ -241,7 +241,6 @@
                 <div id="submissions-status-list" class="space-y-3"></div>
             </section>
 
-            <!-- DYNAMIC HOME DASHBOARD -->
             <div id="dynamic-home-dashboard" class="space-y-6"></div>
         </div>
 
@@ -249,7 +248,7 @@
         <section id="workspace-view-container" class="space-y-6 hidden">
             <div class="clay-card p-5 flex justify-between items-center no-print">
                 <button onclick="returnToHomeHub()" class="pill-btn px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-2">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> ← Return to Home Hub
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> ← Bumalik sa Home Hub
                 </button>
                 <div class="flex items-center gap-3">
                     <span id="active-feature-label" class="text-xs font-black text-indigo-600 uppercase tracking-wider bg-indigo-50 px-4 py-2 rounded-full border border-indigo-100">
@@ -270,7 +269,7 @@
                 <div class="space-y-2">
                     <h3 class="font-black text-xl text-slate-900">Pumili ng Opsyon sa Pag-print</h3>
                     <p class="text-xs text-slate-500 font-medium leading-relaxed">
-                        Piliin kung nais mong i-save sa device o i-sync sa 1TB OneDrive bago mag-print.
+                        Piliin kung nais mong i-save sa device o i-sync sa 1TB OneDrive bago mag-print sa Landscape format.
                     </p>
                 </div>
                 <div class="space-y-3 pt-2">
@@ -283,48 +282,6 @@
                     <button onclick="closeModal('modal-print-options')" class="pill-btn w-full py-2.5 bg-slate-200 text-slate-700 font-bold text-xs">
                         Kanselahin
                     </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- REVIEW MODAL -->
-        <div id="modal-review" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-            <div class="clay-card max-w-2xl w-full p-8 space-y-6 border border-white max-h-[90vh] overflow-y-auto">
-                <div class="flex justify-between items-center border-b pb-3">
-                    <div>
-                        <span id="review-report-badge" class="px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-[10px] rounded-full">Reviewing Report</span>
-                        <h3 id="review-report-title" class="font-black text-lg text-slate-900 mt-1">Report Title</h3>
-                        <p id="review-report-author" class="text-xs text-slate-500 font-medium">Submitted by Teacher</p>
-                    </div>
-                    <button onclick="closeModal('modal-review')" class="pill-btn p-2 bg-slate-200 text-slate-700"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-
-                <div class="space-y-4">
-                    <div>
-                        <label class="block font-bold text-xs text-slate-700 mb-1">Content / Document Body:</label>
-                        <div id="review-report-content" class="p-4 bg-slate-50 border rounded-2xl text-xs text-slate-800 min-h-[120px] max-h-[200px] overflow-y-auto"></div>
-                    </div>
-
-                    <div class="p-4 bg-indigo-50/60 border border-indigo-100 rounded-2xl space-y-3">
-                        <h4 class="font-black text-indigo-900 text-xs flex items-center gap-1.5">
-                            <i data-lucide="message-square" class="w-4 h-4"></i> Comments & Feedback Trail
-                        </h4>
-                        <div id="review-feedback-history" class="space-y-2 max-h-32 overflow-y-auto text-xs"></div>
-                        <div class="flex gap-2 pt-1">
-                            <input type="text" id="review-new-comment" placeholder="Type checking comments or revision notes..." class="flex-grow p-2.5 border rounded-xl bg-white text-xs outline-none">
-                            <button onclick="addReviewComment()" class="pill-btn px-4 py-2 bg-indigo-600 text-white font-bold text-xs">Magdagdag ng Komento</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center pt-4 border-t">
-                    <button onclick="openPrintModalForReport()" class="pill-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs flex items-center gap-1.5">
-                        <i data-lucide="printer" class="w-3.5 h-3.5"></i> I-print / I-export
-                    </button>
-                    <div class="flex gap-2">
-                        <button onclick="closeModal('modal-review')" class="pill-btn px-4 py-2 bg-slate-200 text-slate-700 font-bold text-xs">Isara</button>
-                        <div id="review-action-buttons" class="flex gap-2"></div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -396,8 +353,6 @@
     <!-- SCRIPT ENGINE -->
     <script>
         let currentUser = null;
-        let activeFeatureKey = null;
-        let currentReviewReportId = null;
         let submittedReports = [];
         const SESSION_TIMEOUT_MS = 2 * 24 * 60 * 60 * 1000;
 
@@ -437,12 +392,8 @@
                 try {
                     const sessionData = JSON.parse(savedSession);
                     const now = new Date().getTime();
-                    
                     if (now - sessionData.timestamp < SESSION_TIMEOUT_MS) {
                         currentUser = sessionData.user;
-                        sessionData.timestamp = now;
-                        localStorage.setItem('project_extra_session', JSON.stringify(sessionData));
-
                         document.getElementById('user-badge-name').innerText = currentUser.name;
                         document.getElementById('user-badge-role').innerText = currentUser.position;
                         document.getElementById('user-badge').classList.remove('hidden');
@@ -454,11 +405,8 @@
                     localStorage.removeItem('project_extra_session');
                 }
             }
-
             const savedReports = localStorage.getItem('project_extra_reports');
-            if (savedReports) {
-                submittedReports = JSON.parse(savedReports);
-            }
+            if (savedReports) { submittedReports = JSON.parse(savedReports); }
             renderHomeDashboard();
         }
 
@@ -473,17 +421,7 @@
             const pos = document.getElementById('signin-position-dropdown').value;
 
             currentUser = { email: emailInput, name, type, position: pos };
-            
-            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered') || '[]');
-            if (!registeredUsers.some(u => u.email === emailInput)) {
-                registeredUsers.push(currentUser);
-                localStorage.setItem('project_extra_registered', JSON.stringify(registeredUsers));
-            }
-
-            localStorage.setItem('project_extra_session', JSON.stringify({
-                user: currentUser,
-                timestamp: new Date().getTime()
-            }));
+            localStorage.setItem('project_extra_session', JSON.stringify({ user: currentUser, timestamp: new Date().getTime() }));
 
             document.getElementById('user-badge-name').innerText = name;
             document.getElementById('user-badge-role').innerText = pos;
@@ -498,22 +436,13 @@
         function handleAccountLogin(e) {
             e.preventDefault();
             const emailInput = document.getElementById('login-email-input').value.trim().toLowerCase();
-            let registeredUsers = JSON.parse(localStorage.getItem('project_extra_registered') || '[]');
-            let foundUser = registeredUsers.find(u => u.email === emailInput);
+            let defaultType = 'TEACHER';
+            let defaultPos = 'Teacher II';
+            if (emailInput.includes('principal')) { defaultType = 'SCHOOL_HEAD'; defaultPos = 'Principal I'; }
+            else if (emailInput.includes('master')) { defaultType = 'MASTER_TEACHER'; defaultPos = 'Master Teacher I'; }
 
-            if (!foundUser) {
-                let defaultType = 'TEACHER';
-                let defaultPos = 'Teacher II';
-                if (emailInput.includes('principal')) { defaultType = 'SCHOOL_HEAD'; defaultPos = 'Principal I'; }
-                else if (emailInput.includes('master')) { defaultType = 'MASTER_TEACHER'; defaultPos = 'Master Teacher I'; }
-                foundUser = { email: emailInput, name: emailInput.split('@')[0].toUpperCase(), type: defaultType, position: defaultPos };
-            }
-
-            currentUser = foundUser;
-            localStorage.setItem('project_extra_session', JSON.stringify({
-                user: currentUser,
-                timestamp: new Date().getTime()
-            }));
+            currentUser = { email: emailInput, name: emailInput.split('@')[0].toUpperCase(), type: defaultType, position: defaultPos };
+            localStorage.setItem('project_extra_session', JSON.stringify({ user: currentUser, timestamp: new Date().getTime() }));
 
             document.getElementById('user-badge-name').innerText = currentUser.name;
             document.getElementById('user-badge-role').innerText = currentUser.position;
@@ -538,101 +467,12 @@
 
         function renderHomeDashboard() {
             const dashboard = document.getElementById('dynamic-home-dashboard');
-            const monitorSection = document.getElementById('notification-monitor-section');
-
             if (!currentUser) {
                 dashboard.innerHTML = getServicesGridHtml();
-                monitorSection.classList.add('hidden');
                 lucide.createIcons();
                 return;
             }
-
-            renderNotificationMonitor();
-
-            if (currentUser.type === 'SCHOOL_HEAD') {
-                let dlpSubmissions = submittedReports.filter(r => r.type === 'dlp' && r.status.includes('Final'));
-                let sf2Submissions = submittedReports.filter(r => r.type === 'school-forms' && r.status.includes('Final'));
-
-                dashboard.innerHTML = `
-                    <div class="space-y-6">
-                        <div class="clay-card p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100">
-                            <h3 class="text-xl font-black text-slate-900">Principal Executive Review Dashboard</h3>
-                            <p class="text-xs text-slate-600 mt-1">Review finalized reports for final approval[cite: 1].</p>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="clay-card p-6 space-y-4">
-                                <h4 class="font-black text-indigo-700 text-sm flex items-center gap-2 border-b pb-2">
-                                    <i data-lucide="book-open" class="w-4 h-4"></i> List of Teachers Submitted DLP (${dlpSubmissions.length})[cite: 1]
-                                </h4>
-                                <div class="space-y-2 text-xs">
-                                    ${dlpSubmissions.length > 0 ? dlpSubmissions.map(r => `
-                                        <div class="p-3 bg-slate-50 rounded-xl border flex justify-between items-center">
-                                            <div>
-                                                <p class="font-extrabold text-slate-900">${r.author}</p>
-                                                <p class="text-[10px] text-slate-500">${r.title} • ${r.timestamp}</p>
-                                            </div>
-                                            <div class="flex gap-2">
-                                                <button onclick="openReviewModal('${r.id}')" class="pill-btn px-3 py-1 bg-slate-800 text-white font-bold text-[10px]">View & Feedback</button>
-                                                <button onclick="approveFinalReport('${r.id}')" class="pill-btn px-3 py-1 bg-emerald-600 text-white font-bold text-[10px]">Approve</button>
-                                            </div>
-                                        </div>
-                                    `).join('') : '<p class="text-xs text-slate-400 italic">No DLP submissions yet.</p>'}
-                                </div>
-                            </div>
-
-                            <div class="clay-card p-6 space-y-4">
-                                <h4 class="font-black text-indigo-700 text-sm flex items-center gap-2 border-b pb-2">
-                                    <i data-lucide="folder-kanban" class="w-4 h-4"></i> List of Teachers Submitted SF2 (${sf2Submissions.length})[cite: 1]
-                                </h4>
-                                <div class="space-y-2 text-xs">
-                                    ${sf2Submissions.length > 0 ? sf2Submissions.map(r => `
-                                        <div class="p-3 bg-slate-50 rounded-xl border flex justify-between items-center">
-                                            <div>
-                                                <p class="font-extrabold text-slate-900">${r.author}</p>
-                                                <p class="text-[10px] text-slate-500">${r.title} • ${r.timestamp}</p>
-                                            </div>
-                                            <div class="flex gap-2">
-                                                <button onclick="openReviewModal('${r.id}')" class="pill-btn px-3 py-1 bg-slate-800 text-white font-bold text-[10px]">View & Feedback</button>
-                                                <button onclick="approveFinalReport('${r.id}')" class="pill-btn px-3 py-1 bg-emerald-600 text-white font-bold text-[10px]">Approve</button>
-                                            </div>
-                                        </div>
-                                    `).join('') : '<p class="text-xs text-slate-400 italic">No SF2 submissions yet.</p>'}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else if (currentUser.type === 'MASTER_TEACHER') {
-                let pendingChecks = submittedReports.filter(r => r.status.includes('Pending MT Review'));
-                dashboard.innerHTML = `
-                    <div class="space-y-6">
-                        <div class="clay-card p-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100">
-                            <h3 class="text-xl font-black text-slate-900">Master Teacher Review Portal</h3>
-                            <p class="text-xs text-slate-600 mt-1">Review teacher reports and forward them to the Principal[cite: 1].</p>
-                        </div>
-                        <div class="clay-card p-6 space-y-4">
-                            <h4 class="font-black text-amber-800 text-sm border-b pb-2">Reports Awaiting Checking (${pendingChecks.length})</h4>
-                            <div class="space-y-3 text-xs">
-                                ${pendingChecks.length > 0 ? pendingChecks.map(r => `
-                                    <div class="p-4 bg-slate-50 rounded-2xl border flex justify-between items-center">
-                                        <div>
-                                            <p class="font-extrabold text-slate-900">${r.title}</p>
-                                            <p class="text-[11px] text-slate-500">Teacher: ${r.author} • Time: ${r.timestamp}</p>
-                                        </div>
-                                        <div class="flex gap-2">
-                                            <button onclick="openReviewModal('${r.id}')" class="pill-btn px-4 py-2 bg-slate-800 text-white font-bold text-xs">View & Comments</button>
-                                            <button onclick="forwardToPrincipal('${r.id}')" class="pill-btn px-4 py-2 bg-indigo-600 text-white font-extrabold text-xs">Forward to Principal</button>
-                                        </div>
-                                    </div>
-                                `).join('') : '<p class="text-xs text-slate-400 italic">No pending reports for checking.</p>'}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                dashboard.innerHTML = getServicesGridHtml();
-            }
+            dashboard.innerHTML = getServicesGridHtml();
             lucide.createIcons();
         }
 
@@ -655,23 +495,9 @@
                         </div>
                         <div>
                             <h3 class="font-extrabold text-slate-900 text-base tracking-wide">DAILY LESSON PLAN (DLL)</h3>
-                            <p class="text-[11px] text-slate-500 font-medium mt-1">Official DepEd Batanes Format</p>
+                            <p class="text-[11px] text-slate-500 font-medium mt-1">Official DepEd Batanes Landscape Format</p>
                         </div>
                         <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden"><div class="bg-pink-500 h-full w-full rounded-full"></div></div>
-                    </div>
-
-                    <div onclick="accessFeature('school-forms')" class="clay-button-card p-6 flex flex-col justify-between h-44">
-                        <div class="flex justify-between items-start">
-                            <div class="w-10 h-10 rounded-2xl bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold shadow-inner border border-white">
-                                <i data-lucide="folder-kanban" class="w-5 h-5"></i>
-                            </div>
-                            <div class="clay-knob"></div>
-                        </div>
-                        <div>
-                            <h3 class="font-extrabold text-slate-900 text-base tracking-wide">SCHOOL FORMS</h3>
-                            <p class="text-[11px] text-slate-500 font-medium mt-1">SF 1 - SF 10 Master Repository</p>
-                        </div>
-                        <div class="w-full bg-slate-100/80 rounded-full h-1.5 overflow-hidden"><div class="bg-cyan-500 h-full w-2/3 rounded-full"></div></div>
                     </div>
                 </section>
             `;
@@ -684,12 +510,10 @@
             }
             if (featureKey === 'dlp') {
                 openDLLWorkspace();
-            } else {
-                alert("Feature loading...");
             }
         }
 
-        // DLL SPECIFIC WORKSPACE FORM
+        // EXACT ORIGINAL DLL FORMAT WORKSPACE & PRINT LAYOUT
         function openDLLWorkspace() {
             document.getElementById('home-only-wrapper').classList.add('hidden');
             document.getElementById('workspace-view-container').classList.remove('hidden');
@@ -699,185 +523,232 @@
             body.innerHTML = `
                 <div class="flex justify-between items-center border-b pb-4 no-print">
                     <div>
-                        <h3 class="font-black text-lg text-slate-900 uppercase">Daily Lesson Plan Generator</h3>
-                        <p class="text-xs text-slate-500">Punan ang mga kinakailangang field sa ibaba. Kapag na-print, awtomatiko itong susunod sa opisyal na pormat ng paaralan[cite: 1].</p>
+                        <h3 class="font-black text-lg text-slate-900 uppercase">Daily Lesson Plan Generator (Landscape Format)</h3>
+                        <p class="text-xs text-slate-500">Punan ang mga detalye sa ibaba. Ang print layout ay eksaktong susunod sa opisyal na DepEd Batanes DLL template[cite: 1].</p>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="triggerPrintOptionModal()" class="pill-btn px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs flex items-center gap-2">
+                        <button onclick="openModal('modal-print-options')" class="pill-btn px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs flex items-center gap-2">
                             <i data-lucide="printer" class="w-4 h-4"></i> Save & Print DLL
                         </button>
                     </div>
                 </div>
 
-                <!-- WORKSPACE FORM INPUTS (Ito lang ang fi-fill out ni teacher) -->
-                <div class="space-y-6 text-xs no-print">
+                <!-- INPUT FORM FOR TEACHER -->
+                <div class="space-y-4 text-xs no-print bg-slate-50 p-6 rounded-3xl border">
+                    <h4 class="font-bold text-slate-800 uppercase border-b pb-2">Fill Out DLL Header Details:</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
-                            <label class="block font-bold text-slate-700 mb-1">Term</label>
-                            <input type="text" id="dll-term" value="TERM 2 – WEEK 7" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none font-semibold">
+                            <label class="block font-bold text-slate-700 mb-1">Term & Week</label>
+                            <input type="text" id="dll-term" value="TERM 2 – WEEK 7" class="w-full p-2.5 border rounded-xl bg-white outline-none font-semibold">
                         </div>
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">School Year</label>
-                            <input type="text" id="dll-sy" value="S.Y 2026-2027" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none font-semibold">
+                            <input type="text" id="dll-sy" value="S.Y 2026-2027" class="w-full p-2.5 border rounded-xl bg-white outline-none font-semibold">
                         </div>
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">No. of Sessions</label>
-                            <input type="text" id="dll-sessions" value="1 Session" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none font-semibold">
+                            <input type="text" id="dll-sessions" value="1 Session" class="w-full p-2.5 border rounded-xl bg-white outline-none font-semibold">
                         </div>
                     </div>
-
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">Lesson Title</label>
-                            <input type="text" id="dll-title" placeholder="Ilagay ang pamagat ng aralin..." class="w-full p-3 border rounded-2xl bg-slate-50 outline-none">
+                            <input type="text" id="dll-title" placeholder="Ilagay ang pamagat..." class="w-full p-2.5 border rounded-xl bg-white outline-none">
                         </div>
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">Learning Area/s</label>
-                            <input type="text" id="dll-area" placeholder="Hal. Mathematics, Science..." class="w-full p-3 border rounded-2xl bg-slate-50 outline-none">
+                            <input type="text" id="dll-area" placeholder="Hal. Mathematics" class="w-full p-2.5 border rounded-xl bg-white outline-none">
                         </div>
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">Grade Level and Section</label>
-                            <input type="text" id="dll-grade" placeholder="Hal. Grade 4 - St. Matthew" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none">
+                            <input type="text" id="dll-grade" placeholder="Hal. Grade 4" class="w-full p-2.5 border rounded-xl bg-white outline-none">
                         </div>
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">Name of Teacher/s</label>
-                            <input type="text" id="dll-teacher" value="Sharlynne Mae P. Veracruz-Francisco" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none">
+                            <input type="text" id="dll-teacher" value="Sharlynne Mae P. Veracruz-Francisco" class="w-full p-2.5 border rounded-xl bg-white outline-none">
                         </div>
                     </div>
-
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">References (books, websites, toolkits, etc.)[cite: 1]</label>
-                        <textarea id="dll-references" rows="2" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none" placeholder="Ilagay ang mga sanggunian..."></textarea>
+                        <textarea id="dll-references" rows="2" class="w-full p-2.5 border rounded-xl bg-white outline-none"></textarea>
                     </div>
-
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Declaration of AI Use[cite: 1]</label>
-                        <input type="text" id="dll-ai" placeholder="Cite how AI was used (DO 3 s.2026 Annex A)..." class="w-full p-3 border rounded-2xl bg-slate-50 outline-none">
+                        <input type="text" id="dll-ai" value="Cite how AI was used in the formulation of the lesson plan. See DO 3 s.2026 Annex A." class="w-full p-2.5 border rounded-xl bg-white outline-none">
                     </div>
-
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">Intentions & Learning Competencies[cite: 1]</label>
-                        <textarea id="dll-competencies" rows="3" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none" placeholder="Isulat ang Learning Competency at Content Standards..."></textarea>
+                        <label class="block font-bold text-slate-700 mb-1">A. Learning Competency & B. Content Standard[cite: 1]</label>
+                        <textarea id="dll-competencies" rows="3" class="w-full p-2.5 border rounded-xl bg-white outline-none" placeholder="Isulat ang Learning Competencies at Content Standards..."></textarea>
                     </div>
-
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">Learning Flow & Activities[cite: 1]</label>
-                        <textarea id="dll-flow" rows="4" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none" placeholder="Pre-Lesson, Lesson Flow, at mga gawain..."></textarea>
+                        <label class="block font-bold text-slate-700 mb-1">Learning Flow & Activities (Pre-Lesson & Flow)[cite: 1]</label>
+                        <textarea id="dll-flow" rows="4" class="w-full p-2.5 border rounded-xl bg-white outline-none" placeholder="Ilagay ang Pre-Lesson at Flow activities..."></textarea>
                     </div>
-
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Formative Assessment[cite: 1]</label>
-                        <textarea id="dll-assessment" rows="2" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none" placeholder="Paraan ng pagtatasa at feedback..."></textarea>
+                        <textarea id="dll-assessment" rows="2" class="w-full p-2.5 border rounded-xl bg-white outline-none" placeholder="Ilagay ang formative assessment..."></textarea>
                     </div>
-
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">Reflections[cite: 1]</label>
-                        <textarea id="dll-reflections" rows="2" class="w-full p-3 border rounded-2xl bg-slate-50 outline-none" placeholder="Muni-muni at mga tala ng guro..."></textarea>
+                        <label class="block font-bold text-slate-700 mb-1">Reflections & Extended Learning[cite: 1]</label>
+                        <textarea id="dll-reflections" rows="2" class="w-full p-2.5 border rounded-xl bg-white outline-none" placeholder="Ilagay ang reflections..."></textarea>
                     </div>
                 </div>
 
-                <!-- PRINT-ONLY OFFICIAL FORMAT (Ito ang lalabas kapag pinrint na) -->
-                <div id="print-dll-preview" class="print-only-layout space-y-6 text-black bg-white p-6 text-xs">
-                    <div class="text-center space-y-1 border-b-2 border-black pb-4">
-                        <p class="font-serif font-bold text-sm">Republic of the Philippines</p>
-                        <p class="font-serif font-bold text-base tracking-wide">Department of Education</p>
-                        <p class="font-serif font-bold text-sm">REGION II - CAGAYAN VALLEY</p>
-                        <p class="font-serif font-bold text-sm">SCHOOLS DIVISION OF BATANES</p>
-                        <p class="font-serif font-bold text-sm">VALUGAN INTEGRATED SCHOOL</p>
-                        <p class="font-serif text-xs">SAN JOAQUIN BASCO, BATANES</p>
-                        <h3 class="font-black text-lg pt-2 uppercase">LESSON PLAN</h3>
-                        <p id="p-term-sy" class="font-bold text-xs"></p>
+                <!-- PRINT-ONLY EXACT OFFICIAL LANDSCAPE FORMAT -->
+                <div id="print-dll-preview" class="print-only-layout space-y-4 text-black bg-white p-2 text-[10px] font-sans">
+                    <!-- HEADER LOGOS & INFO -->
+                    <div class="flex justify-between items-center border-b-2 border-black pb-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-10 h-10 border border-black rounded-full flex items-center justify-center font-bold text-[8px]">DepEd</div>
+                            <div class="w-10 h-10 border border-black rounded-full flex items-center justify-center font-bold text-[8px]">VIS</div>
+                        </div>
+                        <div class="text-center space-y-0.5">
+                            <p class="font-serif font-bold text-[11px]">Republic of the Philippines</p>
+                            <p class="font-serif font-bold text-xs">Department of Education</p>
+                            <p class="font-serif font-bold text-[10px]">REGION II - CAGAYAN VALLEY</p>
+                            <p class="font-serif font-bold text-[10px]">SCHOOLS DIVISION OF BATANES</p>
+                            <p class="font-serif font-bold text-[10px]">VALUGAN INTEGRATED SCHOOL</p>
+                            <p class="font-serif text-[9px]">SAN JOAQUIN BASCO, BATANES</p>
+                        </div>
+                        <div class="text-right text-[9px] leading-tight">
+                            <p><b>Address:</b> National Road, San Joaquin Basco, Batanes</p>
+                            <p><b>Contact No.:</b> 09666332102</p>
+                            <p><b>Email Address:</b> valuganelementaryschool@deped.gov.ph</p>
+                        </div>
                     </div>
 
-                    <table class="w-full border-collapse border border-black text-[11px]">
+                    <div class="text-center font-black text-xs py-1">
+                        LESSON PLAN &nbsp;|&nbsp; <span id="p-term">TERM 2 – WEEK 7</span> &nbsp;|&nbsp; <span id="p-sy">S.Y 2026-2027</span>[cite: 1]
+                    </div>
+
+                    <!-- MAIN INFO TABLE -->
+                    <table class="w-full border-collapse border border-black text-[10px]">
                         <tr>
-                            <td class="border border-black p-2 font-bold w-1/4">Lesson Title</td>
-                            <td id="p-title" class="border border-black p-2 col-span-3"></td>
+                            <td class="border border-black p-1.5 font-bold w-1/5">Lesson Title</td>
+                            <td id="p-title" class="border border-black p-1.5 w-4/5" colspan="3"></td>
                         </tr>
                         <tr>
-                            <td class="border border-black p-2 font-bold">Learning Area/s</td>
-                            <td id="p-area" class="border border-black p-2"></td>
+                            <td class="border border-black p-1.5 font-bold">Learning Area/s</td>
+                            <td id="p-area" class="border border-black p-1.5"></td>
+                            <td class="border border-black p-1.5 font-bold">Name of Teacher/s</td>
+                            <td id="p-teacher" class="border border-black p-1.5"></td>
                         </tr>
                         <tr>
-                            <td class="border border-black p-2 font-bold">Name of Teacher/s</td>
-                            <td id="p-teacher" class="border border-black p-2"></td>
+                            <td class="border border-black p-1.5 font-bold">Grade Level and Section</td>
+                            <td id="p-grade" class="border border-black p-1.5"></td>
+                            <td class="border border-black p-1.5 font-bold">No. of Sessions</td>
+                            <td id="p-sessions" class="border border-black p-1.5"></td>
                         </tr>
                         <tr>
-                            <td class="border border-black p-2 font-bold">Grade Level and Section</td>
-                            <td id="p-grade" class="border border-black p-2"></td>
+                            <td class="border border-black p-1.5 font-bold">References (books, websites, toolkits, etc.)[cite: 1]</td>
+                            <td id="p-references" class="border border-black p-1.5" colspan="3"></td>
                         </tr>
                         <tr>
-                            <td class="border border-black p-2 font-bold">No. of Sessions</td>
-                            <td id="p-sessions" class="border border-black p-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 font-bold">References</td>
-                            <td id="p-references" class="border border-black p-2"></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 font-bold">Declaration of AI Use</td>
-                            <td id="p-ai" class="border border-black p-2"></td>
+                            <td class="border border-black p-1.5 font-bold">Declaration of AI Use[cite: 1]</td>
+                            <td id="p-ai" class="border border-black p-1.5" colspan="3">Cite how AI was used in the formulation of the lesson plan. See DO 3 s.2026 Annex A.</td>
                         </tr>
                     </table>
 
-                    <div class="border border-black p-3 space-y-2">
-                        <p class="font-bold border-b border-black pb-1">Learning Competency and Curriculum Standards:</p>
-                        <p id="p-competencies" class="whitespace-pre-line"></p>
-                    </div>
+                    <!-- INTENTIONS & COMPETENCIES TABLE -->
+                    <table class="w-full border-collapse border border-black text-[10px]">
+                        <tr>
+                            <td class="border border-black p-1.5 font-bold w-1/4 align-top">
+                                Intentions[cite: 1]<br>
+                                <span class="font-normal text-[9px]">Meaningful learning experiences anchored on what learners master.</span>
+                            </td>
+                            <td class="border border-black p-1.5 w-3/4 align-top">
+                                <p class="font-bold">Learning Competency and Curriculum Standards[cite: 1]:</p>
+                                <p id="p-competencies" class="whitespace-pre-line mt-1"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-1.5 font-bold align-top">
+                                Learning Experience & Flow[cite: 1]<br>
+                                <span class="font-normal text-[9px]">Pre-Lesson, Flow, and Learning Resources.</span>
+                            </td>
+                            <td class="border border-black p-1.5 align-top">
+                                <p id="p-flow" class="whitespace-pre-line"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-1.5 font-bold align-top">
+                                Assessment[cite: 1]<br>
+                                <span class="font-normal text-[9px]">Formative Assessment strategies.</span>
+                            </td>
+                            <td class="border border-black p-1.5 align-top">
+                                <p id="p-assessment" class="whitespace-pre-line"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-1.5 font-bold align-top">
+                                Ways Forward[cite: 1]<br>
+                                <span class="font-normal text-[9px]">Extended learning & Reflections.</span>
+                            </td>
+                            <td class="border border-black p-1.5 align-top">
+                                <p id="p-reflections" class="whitespace-pre-line"></p>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <div class="border border-black p-3 space-y-2">
-                        <p class="font-bold border-b border-black pb-1">Learning Experience & Flow:</p>
-                        <p id="p-flow" class="whitespace-pre-line"></p>
-                    </div>
-
-                    <div class="border border-black p-3 space-y-2">
-                        <p class="font-bold border-b border-black pb-1">Formative Assessment:</p>
-                        <p id="p-assessment" class="whitespace-pre-line"></p>
-                    </div>
-
-                    <div class="border border-black p-3 space-y-2">
-                        <p class="font-bold border-b border-black pb-1">Reflections:</p>
-                        <p id="p-reflections" class="whitespace-pre-line"></p>
-                    </div>
+                    <!-- RUBRIC TABLE -->
+                    <table class="w-full border-collapse border border-black text-[9px]">
+                        <tr class="bg-slate-100 font-bold">
+                            <td class="border border-black p-1 w-2/5">RUBRIC FOR LESSON PLANNING SELF-CHECK AND/OR PEER COACHING[cite: 1]</td>
+                            <td class="border border-black p-1 text-center w-1/12">Yes</td>
+                            <td class="border border-black p-1 text-center w-1/12">Not Yet</td>
+                            <td class="border border-black p-1 w-4/12">Why?/ What will make it better?[cite: 1]</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-1">Intentions are clearly stated, with appropriate learning competencies articulated.[cite: 1]</td>
+                            <td class="border border-black p-1 text-center">✓</td>
+                            <td class="border border-black p-1"></td>
+                            <td class="border border-black p-1">Aligned with curriculum standards.</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-1">Learning experience is well-designed, with intentionally embedded Learning Design Principles.[cite: 1]</td>
+                            <td class="border border-black p-1 text-center">✓</td>
+                            <td class="border border-black p-1"></td>
+                            <td class="border border-black p-1">Interactive and inclusive.</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-black p-1">Assessment strategies generate evidence if learning is successful.[cite: 1]</td>
+                            <td class="border border-black p-1 text-center">✓</td>
+                            <td class="border border-black p-1"></td>
+                            <td class="border border-black p-1">Formative check included.</td>
+                        </tr>
+                    </table>
 
                     <!-- SIGNATURE BLOCK -->
-                    <div class="grid grid-cols-3 gap-4 pt-8 text-center text-[11px] page-break-inside-avoid">
-                        <div>
-                            <p class="font-bold underline">SHARLYNNE MAE P. VERACRUZ-FRANCISCO</p>
-                            <p>Teacher II</p>
-                        </div>
-                        <div>
-                            <p class="font-bold underline">JEANNE LOURAINE R. CIELO</p>
-                            <p>Master Teacher I</p>
-                            <p class="text-[10px] mt-1">Date: ______________</p>
-                        </div>
-                        <div>
-                            <p class="font-bold underline">MAYLIN I. BUMANGLAG</p>
-                            <p>Principal I</p>
-                            <p class="text-[10px] mt-1">Date: ______________</p>
-                        </div>
-                    </div>
+                    <table class="w-full border-collapse border border-black text-[9px] mt-2">
+                        <tr>
+                            <td class="border border-black p-2 text-center w-1/3">
+                                <p class="font-bold underline">SHARLYNNE MAE P. VERACRUZ-FRANCISCO</p>
+                                <p>Teacher II[cite: 1]</p>
+                            </td>
+                            <td class="border border-black p-2 text-center w-1/3">
+                                <p class="font-bold underline">JEANNE LOURAINE R. CIELO</p>
+                                <p>Master Teacher I[cite: 1]</p>
+                                <p class="text-[8px] mt-1">Date: ______________</p>
+                            </td>
+                            <td class="border border-black p-2 text-center w-1/3">
+                                <p class="font-bold underline">MAYLIN I. BUMANGLAG</p>
+                                <p>Principal I[cite: 1]</p>
+                                <p class="text-[8px] mt-1">Date: ______________</p>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             `;
             lucide.createIcons();
         }
 
-        function triggerPrintOptionModal() {
-            openModal('modal-print-options');
-        }
-
-        function openPrintModalForReport() {
-            closeModal('modal-review');
-            openModal('modal-print-options');
-        }
-
         function executeSaveAndPrint(destination) {
             closeModal('modal-print-options');
 
-            // I-populate ang data mula sa workspace papunta sa print layout
-            const title = document.getElementById('dll-title').value || 'Lesson_Plan';
-            document.getElementById('p-term-sy').innerText = `${document.getElementById('dll-term').value} • ${document.getElementById('dll-sy').value}`;
-            document.getElementById('p-title').innerText = title;
+            // I-populate ang data mula sa workspace papunta sa eksaktong print layout
+            document.getElementById('p-term').innerText = document.getElementById('dll-term').value;
+            document.getElementById('p-sy').innerText = document.getElementById('dll-sy').value;
+            document.getElementById('p-title').innerText = document.getElementById('dll-title').value;
             document.getElementById('p-area').innerText = document.getElementById('dll-area').value;
             document.getElementById('p-teacher').innerText = document.getElementById('dll-teacher').value;
             document.getElementById('p-grade').innerText = document.getElementById('dll-grade').value;
@@ -890,9 +761,9 @@
             document.getElementById('p-reflections').innerText = document.getElementById('dll-reflections').value;
 
             if (destination === 'DEVICE') {
-                alert("Nai-save na sa local device! Binubuksan na ang print preview...");
+                alert("Nai-save na sa local device! Binubuksan na ang Landscape print preview...");
             } else if (destination === 'ONEDRIVE') {
-                alert("Nai-format para sa OneDrive 1TB folder! Binubuksan na ang print preview...");
+                alert("Inihanda para sa 1TB OneDrive folder! Binubuksan na ang Landscape print preview...");
             }
 
             setTimeout(() => {
@@ -905,38 +776,9 @@
             document.getElementById('home-only-wrapper').classList.remove('hidden');
         }
 
-        function renderNotificationMonitor() {
-            const monitorSection = document.getElementById('notification-monitor-section');
-            const listContainer = document.getElementById('submissions-status-list');
-
-            if (submittedReports.length === 0) {
-                monitorSection.classList.add('hidden');
-                return;
-            }
-
-            monitorSection.classList.remove('hidden');
-            listContainer.innerHTML = '';
-
-            submittedReports.forEach(rep => {
-                const item = document.createElement('div');
-                item.className = "p-4 bg-white/90 rounded-2xl border border-amber-200/80 flex justify-between items-center text-xs shadow-sm";
-                item.innerHTML = `
-                    <div class="space-y-0.5">
-                        <p class="font-extrabold text-slate-900">${rep.title}</p>
-                        <p class="text-[10px] text-slate-500 font-medium">Teacher: ${rep.author} • Time: ${rep.timestamp}</p>
-                    </div>
-                    <span class="pill-btn px-4 py-1.5 bg-amber-100 text-amber-900 font-extrabold text-[10px]">
-                        ${rep.status}
-                    </span>
-                `;
-                listContainer.appendChild(item);
-            });
-        }
-
         function toggleSigninRoleFields() {
             const type = document.getElementById('signin-account-type').value;
             const posDropdown = document.getElementById('signin-position-dropdown');
-
             posDropdown.innerHTML = '';
             positionOptions[type].forEach(pos => {
                 const opt = document.createElement('option');
