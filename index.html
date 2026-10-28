@@ -144,6 +144,10 @@
     </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.7/pizzip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.62.0/docxtemplater.js"></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F172A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Project EXTRA">
 </head>
 <body class="min-h-screen flex flex-col text-slate-800 antialiased p-3 sm:p-6 md:p-8">
 
@@ -790,5 +794,16 @@
             });
         }
     </script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/service-worker.js")
+        .then(() => console.log("Project EXTRA offline shell registered"))
+        .catch((error) => {
+          console.error("Service worker registration failed:", error);
+        });
+    });
+  }
+</script>
 </body>
 </html>
