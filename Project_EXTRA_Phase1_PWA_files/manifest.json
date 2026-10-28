@@ -1,0 +1,12 @@
+{
+  "id": "/",
+  "name": "Project EXTRA - Valugan Integrated School",
+  "short_name": "Project EXTRA",
+  "description": "Offline-capable DLL creation and review portal for Valugan Integrated School.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#EAF0F6",
+  "theme_color": "#0F172A",
+  "orientation": "any"
+}
