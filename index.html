@@ -24,6 +24,143 @@
                 }
             }
         }
+        // SHOW SAVED DLL DRAFTS
+async function showDLLDraftList() {
+    try {
+        const db = await openDLLDraftDB();
+
+        const drafts = await new Promise((resolve, reject) => {
+            const tx = db.transaction(DLL_DRAFT_STORE, "readonly");
+            const request = tx.objectStore(DLL_DRAFT_STORE).getAll();
+
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+
+        db.close();
+
+        const container = document.getElementById("workspace-body-content");
+        if (!container) {
+            alert("Hindi makita ang workspace container.");
+            return;
+        }
+
+        drafts.sort((a, b) =>
+            new Date(b.updatedAt) - new Date(a.updatedAt)
+        );
+
+        container.innerHTML = `
+            <div class="p-6 space-y-5">
+                <div class="flex flex-wrap justify-between items-center gap-3">
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-800">
+                            Saved DLL Drafts
+                        </h2>
+                        <p class="text-sm text-slate-500">
+                            Mga draft na naka-save sa device na ito.
+                        </p>
+                    </div>
+
+                    <button onclick="openNewDLLDraft()"
+                        class="pill-btn px-4 py-3 bg-indigo-600 text-white font-bold text-sm">
+                        + Create New DLL
+                    </button>
+                </div>
+
+                <div class="grid gap-4">
+                    ${
+                        drafts.length
+                        ? drafts.map(draft => `
+                            <div class="clay-card p-5 flex flex-wrap justify-between items-center gap-4">
+                                <div>
+                                    <h3 class="font-extrabold text-slate-800">
+                                        ${escapeDraftText(draft.title)}
+                                    </h3>
+                                    <p class="text-xs text-slate-500 mt-1">
+                                        Last saved:
+                                        ${new Date(draft.updatedAt).toLocaleString()}
+                                    </p>
+                                    <span class="text-xs font-bold text-emerald-700">
+                                        Saved Draft
+                                    </span>
+                                </div>
+
+                                <button
+                                    onclick="editDLLDraft('${draft.id}')"
+                                    class="pill-btn px-4 py-2 bg-slate-800 text-white text-xs font-bold">
+                                    Open Draft
+                                </button>
+                            </div>
+                        `).join("")
+                        : `
+                            <div class="p-8 text-center text-slate-500">
+                                Wala ka pang saved drafts.
+                                I-click ang <b>Create New DLL</b> para magsimula.
+                            </div>
+                        `
+                    }
+                </div>
+            </div>
+        `;
+
+        const label = document.getElementById("active-feature-label");
+        if (label) label.innerText = "Saved DLL Drafts";
+
+    } catch (error) {
+        console.error(error);
+        alert("Hindi mabuksan ang saved drafts.");
+    }
+}
+
+// SAFELY DISPLAY DRAFT TITLES
+function escapeDraftText(value) {
+    return String(value || "Untitled DLL").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+// CREATE A NEW DLL
+function openNewDLLDraft() {
+    window.currentDLLDraftId = null;
+    openDLLWorkspace();
+}
+// OPEN AN EXISTING DLL DRAFT
+async function editDLLDraft(draftId) {
+    try {
+        const db = await openDLLDraftDB();
+
+        const draft = await new Promise((resolve, reject) => {
+            const tx = db.transaction(DLL_DRAFT_STORE, "readonly");
+            const request = tx.objectStore(DLL_DRAFT_STORE).get(draftId);
+
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+
+        db.close();
+
+        if (!draft) {
+            alert("Hindi makita ang draft na ito.");
+            return;
+        }
+
+        window.currentDLLDraftId = draft.id;
+        openDLLWorkspace();
+
+        Object.entries(draft.data || {}).forEach(([field, value]) => {
+            const input = document.getElementById("dll-" + field);
+            if (input) input.value = value ?? "";
+        });
+
+    } catch (error) {
+        console.error(error);
+        alert("Hindi mabuksan ang draft.");
+    }
+}
     </script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -844,18 +981,21 @@ function collectDLLDraft() {
 
     return data;
 }
-
 async function saveDLLDraft() {
+    let db;
+
     try {
         const data = collectDLLDraft();
-        const db = await openDLLDraftDB();
+        db = await openDLLDraftDB();
+
+        const draftId = window.currentDLLDraftId ||
+            (crypto.randomUUID
+                ? crypto.randomUUID()
+                : "draft-" + Date.now());
 
         const draft = {
-            id: "draft-" + (data.title || "untitled").trim()
-                .toLowerCase().replace(/[^a-z0-9]+/g, "-")
-                + "-" + (data.grade || "grade").trim()
-                    .toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-            title: data.title || "Untitled DLL",
+            id: draftId,
+            title: (data.title || "").trim() || "Untitled DLL",
             updatedAt: new Date().toISOString(),
             status: "draft",
             data
@@ -864,14 +1004,24 @@ async function saveDLLDraft() {
         await new Promise((resolve, reject) => {
             const tx = db.transaction(DLL_DRAFT_STORE, "readwrite");
             tx.objectStore(DLL_DRAFT_STORE).put(draft);
+
             tx.oncomplete = resolve;
             tx.onerror = () => reject(tx.error);
             tx.onabort = () => reject(tx.error);
         });
 
+        // Panatilihin ang ID para ma-update ang parehong draft.
+        window.currentDLLDraftId = draftId;
+
         db.close();
-        alert("Na-save ang draft sa device na ito. Hindi pa ito naisusumite para sa checking.");
+        db = null;
+
+        // Bumalik sa listahan pagkatapos ma-save.
+        await showDLLDraftList();
+
     } catch (error) {
+        if (db) db.close();
+
         console.error("Hindi na-save ang DLL draft:", error);
         alert("Hindi na-save ang draft. Pakisubukan muli.");
     }
