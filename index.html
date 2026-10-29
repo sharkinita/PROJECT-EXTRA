@@ -533,9 +533,17 @@
                         <p class="text-xs text-slate-500">Punan ang mga detalye sa ibaba. Ang print layout ay eksaktong susunod sa opisyal na DepEd Batanes DLL template[cite: 1].</p>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="openModal('modal-print-options')" class="pill-btn px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs flex items-center gap-2">
-                            <i data-lucide="printer" class="w-4 h-4"></i> Save & Print DLL
-                        </button>
+                        <div class="flex flex-wrap gap-2">
+    <button onclick="saveDLLDraft()"
+        class="pill-btn px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center gap-2">
+        <i data-lucide="save" class="w-4 h-4"></i> Save Draft
+    </button>
+
+    <button onclick="openModal('modal-print-options')"
+        class="pill-btn px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs flex items-center gap-2">
+        <i data-lucide="printer" class="w-4 h-4"></i> Print Options
+    </button>
+</div>
                     </div>
                 </div>
 
